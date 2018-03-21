@@ -97,4 +97,9 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public  function abc()
+    {
+        echo 1;
+    }
 }
