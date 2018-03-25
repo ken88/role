@@ -100,6 +100,6 @@ class SiteController extends Controller
 
     public  function abc()
     {
-        echo 111111;
+        echo 2;
     }
 }
