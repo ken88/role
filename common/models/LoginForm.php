@@ -9,24 +9,13 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
-    public $password;
-    public $rememberMe = true;
-
-    private $_user;
 
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
+            [['username','password'], 'required'],
             ['password', 'validatePassword'],
         ];
     }
@@ -53,26 +42,18 @@ class LoginForm extends Model
      *
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function login($post)
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+        $user = User::findByUser($post['username']);
+        if (!empty($user)) {
+            if ($user['password'] == $post['password']) {
+                $session = Yii::$app->session;
+                $session->set('userinfo',$user);
+                return true;
+            }
         }
-        
-        return false;
+        return $this->addErrors(['error'=>'用户名或密码错误！']);
     }
 
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
-    protected function getUser()
-    {
-        if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
-        }
 
-        return $this->_user;
-    }
 }
