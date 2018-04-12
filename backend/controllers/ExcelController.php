@@ -11,13 +11,46 @@ namespace backend\controllers;
 use common\models\User;
 use yii\helpers\ArrayHelper;
 use Yii;
+use moonland\phpexcel\Excel;
 class ExcelController extends BaseController
 {
+
+    public $enableCsrfValidation = false;
+    public function actionIndex()
+    {
+        return $this->renderPartial('index');
+    }
 
     //倒入
     public function actionPourExcel()
     {
 
+        if (empty($_FILES)) {
+            echo '文件不能为空！';exit;
+        }
+
+        // 检测文件是否合法
+        $excelRes = $this->is_check_file_data($_FILES);
+        if ($excelRes == 'no') {
+           echo '导入格式不正确！';exit;
+        }
+
+        $check = true;
+
+        foreach ($excelRes as $k => $v) {
+            if ($k >  0) {
+                $user = new User();
+                $user->username = (string)$v['A'];
+                $user->password = (string)$v['B'];
+                $user->auth_key = (string)$v['C'];
+                $user->password_hash = (string)$v['D'];
+                if (!$user->save()) $check = false;
+            }
+
+        }
+
+        echo $check ? '录入成功！' : $user->errors;
+        exit();
     }
 
     //倒出
@@ -98,6 +131,33 @@ class ExcelController extends BaseController
             $objWriter->save('php://output');
         }
         Yii::$app->end();
+
+    }
+
+    /**
+     * 检测exce文件 是否符合规则
+     * @param array $excelName 所要验证的内容
+     * @param array $file  上传的文件
+     * @return bool
+     */
+    public function is_check_file_data($file)
+    {
+        $fileName = $_FILES["file"]["name"];
+        $type     = strstr($fileName, '.');  // 文件后缀
+
+        if ($type != ".xls" && $type != ".xlsx") {
+            return 'no';
+        }
+
+        $filePath = $file['file']['tmp_name']; // 要读取的文件的路径
+
+        //导出excel内容
+        $excel = Excel::import($filePath, [
+            'setFirstRecordAsKeys' => false,
+        ]);
+
+        //更改下标从0开始
+        return array_values($excel);
 
     }
 }
