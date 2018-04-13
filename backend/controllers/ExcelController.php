@@ -9,7 +9,6 @@
 namespace backend\controllers;
 
 use common\models\User;
-use yii\helpers\ArrayHelper;
 use Yii;
 use moonland\phpexcel\Excel;
 class ExcelController extends BaseController
