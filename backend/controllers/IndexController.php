@@ -10,21 +10,33 @@ namespace backend\controllers;
 
 use common\models\User;
 use Yii;
-use yii\rest\Controller;
 
 
 
-class IndexController extends Controller
+
+class IndexController extends BaseController
 {
     public function actionIndex()
+    {
+        $this->intInfo('a');
+//        echo phpinfo();
+//        return $this->render('index');
+    }
+
+    public function intInfo($a)
+    {
+        dd($a);
+    }
+
+    public function actionJson()
     {
 //        $data['data'] = User::find()->where(['id'=>100])->asArray()->one();
         $res = User::find()->asArray()->all();
 
         $data = [
             'data' => $this->checkRes($res),
-    ];
-    $this->returnJson($data);
+        ];
+        $this->returnJson($data);
 
 //        $redis = Yii::$app->redis;
 //        $redis->set('abc','bbb');
