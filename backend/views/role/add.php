@@ -11,7 +11,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-
+                <div class="panel-heading">
+                    <a href="#" onclick="javascript:history.go(-1)" class="btn btn-info btn-sm">返回</a>
+                </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
