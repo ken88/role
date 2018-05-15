@@ -10,9 +10,8 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
+
     public $enableCsrfValidation = false;
-
-
     /**
      * Login action.
      *
@@ -21,7 +20,6 @@ class SiteController extends Controller
     public function actionLogin()
     {
         $model = new LoginForm();
-
         $userinfo = Yii::$app->session->get('userinfo');
         if (!empty($userinfo)) {
             $this->redirect('/index/index');
@@ -32,12 +30,11 @@ class SiteController extends Controller
                 $this->redirect('/index/index');
             }
         }
-        return $this->render('login', [
+        return $this->renderPartial('login', [
             'model' => $model,
         ]);
 
     }
-
     /**
      * Logout action.
      *
@@ -46,6 +43,7 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->session->removeAll();
+        $this->redirect('/site/login');
     }
 
 }

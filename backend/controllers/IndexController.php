@@ -11,18 +11,16 @@ namespace backend\controllers;
 use common\models\User;
 use Yii;
 
-
-
-
 class IndexController extends BaseController
 {
     public function actionIndex()
     {
-        $this->intInfo('a');
-//        echo phpinfo();
-//        return $this->render('index');
+        return $this->renderPartial('index');
     }
-
+    public function actionIndexs()
+    {
+        return $this->renderPartial('indexs');
+    }
     public function intInfo($a)
     {
         dd($a);
