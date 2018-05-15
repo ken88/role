@@ -20,9 +20,17 @@
                             <form role="form">
                                 <div class="form-group">
                                     <label>角色名</label>
-                                    <input class="form-control">
+                                    <input class="form-control" ck="required" name="roleName" placeholder="角色名" >
                                 </div>
-                                <button type="submit" class="btn btn-default">确定</button>
+                                <div class="form-group">
+                                    <label>email</label>
+                                    <input class="form-control" ck="required" name="email" placeholder="邮件" >
+                                </div>
+                                <div class="form-group">
+                                    <label>phone</label>
+                                    <input class="form-control" ck="required" name="phone" placeholder="手机" >
+                                </div>
+                                <button type="button" id="submit"  class="btn btn-default">确定</button>
                             </form>
                         </div>
 
@@ -35,4 +43,18 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>

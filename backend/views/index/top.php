@@ -55,7 +55,7 @@
         <a class="navbar-brand" href="/index/index">CRM管理系统</a>
     </div>
     <ul class="nav navbar-top-links navbar-right">
-       <li style="color: red; font-size: 16px; margin-right: 15px;">欢迎您：<?php echo $_SESSION['userinfo']['username'];?></li>
+       <li style="color: red; font-size: 16px; margin-right: 15px;">欢迎您：<?php if (!empty($_SESSION['userinfo']))echo $_SESSION['userinfo']['username'];?></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
