@@ -2,24 +2,26 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/5/15
- * Time: 13:04
+ * Date: 2018/5/16
+ * Time: 17:23
  */
 
 namespace backend\controllers;
 
-use common\models\Role;
+use common\models\User;
 use Yii;
 
-
-class RoleController extends BaseController
+class UserController extends BaseController
 {
     /**
-     * 角色列表
+     * 用户列表
      */
     public function actionIndex()
     {
-        $data['info'] = Role::find()->orderBy('id desc')->asArray()->all();
+        $info = User::find()->where(['departmentId' => $this->getSession()['departmentId']])->asArray()->all();
+        $data = [
+            'info' => $info,
+        ];
         return $this->renderPartial('index',$data);
     }
 

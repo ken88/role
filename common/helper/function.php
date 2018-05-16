@@ -19,4 +19,14 @@ function dd($data)
     echo "<pre>";
     print_r($data);
     echo "</pre>";
+    exit;
+}
+
+function returnJsonInfo($message,$statusCode = 200) {
+    $data = [
+        'message' => $message,
+        'statusCode' => $statusCode
+    ];
+    echo json_encode($data);
+    die();
 }

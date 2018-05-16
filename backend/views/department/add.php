@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
-               新增角色
+               新增部门
             </h1>
         </div>
     </div>
@@ -17,10 +17,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form action="/role/add">
+                            <form action="/department/add">
                                 <div class="form-group">
-                                    <label>角色名</label>
-                                    <input class="form-control" ck="required" name="roleName" placeholder="角色名" >
+                                    <label>部门名</label>
+                                    <input class="form-control" ck="required" name="departmentName" placeholder="部门名" >
                                 </div>
 
                                 <button type="button" id="submit"  class="btn btn-default">确定</button>

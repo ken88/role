@@ -44,7 +44,8 @@ class LoginForm extends Model
      */
     public function login($post)
     {
-        $user = User::findByUser($post['username']);
+        $user = User::find()->where(['username' => $post['username']])->asArray()->one();
+
         if (!empty($user)) {
             if ($user['password'] == $post['password']) {
                 $session = Yii::$app->session;

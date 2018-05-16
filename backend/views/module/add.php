@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
-               新增角色
+               新增菜单
             </h1>
         </div>
     </div>
@@ -17,12 +17,21 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form action="/role/add">
+                            <form action="/module/add-save">
+                                <input type="hidden" value="<?php echo $pid;?>" name="pid" />
                                 <div class="form-group">
-                                    <label>角色名</label>
-                                    <input class="form-control" ck="required" name="roleName" placeholder="角色名" >
+                                    <label>菜单名</label>
+                                    <input class="form-control" ck="required" name="moduleName" placeholder="菜单名" >
                                 </div>
-
+                                <div class="form-group">
+                                    <label>路径</label>
+                                    <input class="form-control" ck="required" name="url" placeholder="路径" >
+                                </div>
+                                <div class="form-group">
+                                    <label>是否按钮</label>
+                                    <input type="radio" name="isBut"  value="0" checked="">是
+                                    <input type="radio" name="isBut"  value="1" checked="">否
+                                </div>
                                 <button type="button" id="submit"  class="btn btn-default">确定</button>
                             </form>
                         </div>

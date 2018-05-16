@@ -24,4 +24,13 @@ class BaseController extends Controller
         }
     }
 
+    /**
+     * 获取用户session信息
+     */
+    public function getSession()
+    {
+        $session = \Yii::$app->session;
+        return $session->get('userinfo');
+    }
+
 }

@@ -11,14 +11,15 @@
                         <a href="#" onclick="right_('/role/index')">角色管理</a>
                     </li>
                     <li>
-                        <a href="#" onclick="right_('/index/index3')">账号管理</a>
+                        <a href="#" onclick="right_('/user/index')">账号管理</a>
                     </li>
                     <li>
-                        <a href="#" onclick="right_('/index/index3')">部门管理</a>
+                        <a href="#" onclick="right_('/department/index')">部门管理</a>
                     </li>
                     <li>
-                        <a href="#" onclick="right_('/index/index3')">菜单管理</a>
+                        <a href="#" onclick="right_('/module/index')">菜单管理</a>
                     </li>
+                    <?php /*?>
                     <li>
                         <a href="#">二级分类<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
@@ -39,6 +40,7 @@
             <li>
                 <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
             </li>
+            <?php */?>
         </ul>
     </div>
 </nav>

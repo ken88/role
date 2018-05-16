@@ -1,25 +1,23 @@
 $(function(){
 	$("#submit").click(function(){
-		//获取表单内容
-		var post = $('form').serialize();
 		if (checkform()) {
-			alert(1)
+            var post = $('form').serialize();
+            var url = $('form').attr('action');
+            $.post(url , post , function(data){
+                eval('myjson=' + data + ';');
+                if (myjson.statusCode == 200) {
+                    $('.modal-body').text(myjson.message);
+                    $('#myModal').modal({backdrop:false,show:true});
+                    $('.btn').click(function() {
+                        history.go(-1);
+                    });
+                } else if (myjson.statusCode == 300) {
+                    $('.modal-body').text(myjson.message);
+                    $('#myModal').modal({backdrop:false,show:true});
+                }
+            });
 		}
-		// $.post(url,post,function(data){
-		// 	eval('myjson=' + data + ';');
-        //
-		// 	if(myjson.statusCode==200){
-		// 		$('.modal-body').text(myjson.message);
-		// 		$('#myModal').modal({backdrop:false,show:true});
-		// 		$('#modalcl').click(function(){
-		// 			$('#myModal').modal('hide');
-		// 			parent.jQuery.fancybox.close(parent.rightcontent.location.reload());
-		// 		});
-		// 	}else if(myjson.statusCode==300){
-		// 		$('.modal-body').text(myjson.message);
-		// 		$('#myModal').modal({backdrop:false,show:true});
-		// 	}
-		// });
+
 	});
 	function checkform(){
 			var inputtext = '';
@@ -30,9 +28,9 @@ $(function(){
 			$(':input').each(function(){
                 $(this).parent().find("#error").remove();
 				ck = $(this).attr('ck');
+                inputtext = $(this).val();
+                inputname = $(this).attr('name');
 				if (ck == 'required'){
-                    inputtext = $(this).val();
-                    inputname = $(this).attr('name');
                     name = $(this).attr('placeholder');
                     if(inputtext == ''){
                         $(this).parent().append(" <span style='color: red;' id='error'>"+name+"不能为空</span>");
