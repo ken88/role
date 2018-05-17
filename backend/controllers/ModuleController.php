@@ -9,6 +9,7 @@
 namespace backend\controllers;
 
 use common\models\Module;
+use backend\models\ModuleLogic;
 use Yii;
 
 class ModuleController extends BaseController
@@ -18,8 +19,7 @@ class ModuleController extends BaseController
      */
     public function actionIndex()
     {
-        $sql = "SELECT *,concat( bpath,'-',id ) as bpaths FROM module ORDER BY bpaths";
-        $data['info'] = Module::findBySql($sql)->asArray()->all();
+        $data['info'] =ModuleLogic::getModuleInfo();
         return $this->renderPartial('index',$data);
     }
 

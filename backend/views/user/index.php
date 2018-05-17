@@ -26,6 +26,7 @@
                                 <th>员工姓名</th>
                                 <th>所属部门</th>
                                 <th>录入时间</th>
+                                <th>所属角色</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                 <td><?=$v['realName'];?></td>
                                 <td><?=$v['departmentName'];?></td>
                                 <td><?=$v['createDate'];?></td>
+                                <td><?=$v['roleName'];?></td>
                                 <td>
                                     <a href="#">编辑</a> |
                                     <a href="#">删除</a>

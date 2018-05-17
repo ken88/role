@@ -8,6 +8,8 @@
 
 namespace backend\controllers;
 
+use common\models\Module;
+use common\models\Role;
 use common\models\User;
 use Yii;
 
@@ -15,16 +17,30 @@ class IndexController extends BaseController
 {
     public function actionIndex()
     {
-        return $this->renderPartial('index');
+        $session =  $this->getSession();
+        $redis = Yii::$app->redis;
+        //获取角色权限
+        $acl = Role::find()->select('acl')->where(['id'=>$session['roleId']])->asArray()->one();
+
+        //获取菜单信息
+        $sql = "SELECT *,concat( bpath,'-',id ) as bpaths FROM module where isBut = 1 ORDER BY bpaths";
+        $module =  Module::findBySql($sql)->asArray()->all();
+        $redis->set('roleid'.$session['roleId'],$acl['acl']);
+        $acl = explode(',',$acl['acl']);
+
+        $data = [
+            'acl' => $acl,
+            'module' => $module
+        ];
+        return $this->renderPartial('index',$data);
     }
+
+
     public function actionIndexs()
     {
         return $this->renderPartial('indexs');
     }
-    public function intInfo($a)
-    {
-        dd($a);
-    }
+
 
     public function actionJson()
     {

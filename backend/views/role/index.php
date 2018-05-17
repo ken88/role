@@ -33,7 +33,7 @@
                                 <td>
                                     <a href="#">编辑</a> |
                                     <a href="#">删除</a> |
-                                    <a href="#">角色授权</a>
+                                    <a href="/acl/index?roleId=<?=$v['id'];?>">角色授权</a>
                                 </td>
                             </tr>
                             <?php }}?>

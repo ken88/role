@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
-               新增角色
+               新增账号
             </h1>
         </div>
     </div>
@@ -17,13 +17,36 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form action="/role/add">
+                            <form action="/user/add">
                                 <div class="form-group">
-                                    <label>角色名</label>
-                                    <input class="form-control" ck="required" name="roleName" placeholder="角色名" >
+                                    <label>账号</label>
+                                    <input class="form-control" ck="required" name="username" placeholder="账号" >
                                 </div>
-
-                                <button type="button" id="submit"  class="btn btn-default">确定</button>
+                                <div class="form-group">
+                                    <label>员工姓名</label>
+                                    <input class="form-control" ck="required" name="realName" placeholder="员工姓名" >
+                                </div>
+                                <?php if (!empty($department)) {?>
+                                <div class="form-group">
+                                    <label>部门</label>
+                                    <select class="form-control" name="department" id="departmen">
+                                        <?php foreach ($department as $v) { ?>
+                                        <option value="<?=$v['id']; ?>,<?=$v['departmentName'];?>"><?=$v['departmentName'];?></option>
+                                        <?php }?>
+                                    </select>
+                                </div>
+                                <?php }?>
+                                <?php if (!empty($role)) {?>
+                                    <div class="form-group">
+                                        <label>角色</label>
+                                        <select class="form-control" name="role" id="role">
+                                            <?php foreach ($role as $v) { ?>
+                                                <option value="<?=$v['id']; ?>,<?=$v['roleName'];?>"><?=$v['roleName'];?></option>
+                                            <?php }?>
+                                        </select>
+                                    </div>
+                                <?php }?>
+                                <button type="button" id="submit"  class="btn btn-danger btn-lg">确定</button>
                             </form>
                         </div>
                     </div>

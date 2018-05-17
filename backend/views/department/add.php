@@ -23,7 +23,7 @@
                                     <input class="form-control" ck="required" name="departmentName" placeholder="部门名" >
                                 </div>
 
-                                <button type="button" id="submit"  class="btn btn-default">确定</button>
+                                <button type="button" id="submit"  class="btn btn-danger btn-lg">确定</button>
                             </form>
                         </div>
                     </div>

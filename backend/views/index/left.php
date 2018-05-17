@@ -4,43 +4,29 @@
             <li>
                 <a class="active-menu" href="/index/index"><i class="fa fa-dashboard"></i> 首页</a>
             </li>
+            <?php foreach ($module as $val){if ($val['pid'] == 0 && in_array($val['id'],$acl)){?>
             <li>
-                <a href="#"><i class="fa fa-sitemap"></i> 系统管理<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="#" onclick="right_('/role/index')">角色管理</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="right_('/user/index')">账号管理</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="right_('/department/index')">部门管理</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="right_('/module/index')">菜单管理</a>
-                    </li>
-                    <?php /*?>
-                    <li>
-                        <a href="#">二级分类<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a href="#">页面三</a>
-                            </li>
-                            <li>
-                                <a href="#">页面四</a>
-                            </li>
-                            <li>
-                                <a href="#">页面五</a>
-                            </li>
-                        </ul>
-
-                    </li>
+                <a href="#">
+                    <i class="fa fa-sitemap"></i> <?=$val['moduleName']?><span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level" id="menu">
+                    <?php
+                        foreach ($module as $v){
+                            if ($v['pid'] == $val['id'] && in_array($v['id'],$acl)){
+                    ?>
+                        <li>
+                            <a href="#" onclick="right_('<?=$v['url'];?>')"><?=$v['moduleName'];?></a>
+                        </li>
+                    <?php }}?>
                 </ul>
             </li>
-            <li>
-                <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
-            </li>
-            <?php */?>
+            <?php }}?>
         </ul>
+
     </div>
 </nav>
+<script type="text/javascript">
+    //var acl = '<?php //echo $acl;?>//';
+    //var arr = acl.split(',');
+    //console.log(arr);
+</script>

@@ -10,6 +10,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Department;
+use backend\models\DepartmentLogic;
 
 class DepartmentController extends BaseController
 {
@@ -18,7 +19,7 @@ class DepartmentController extends BaseController
      */
     public function actionIndex()
     {
-        $data['info'] = Department::find()->orderBy('id desc')->asArray()->all();
+        $data['info'] = DepartmentLogic::getDeparmentInfo();
         return $this->renderPartial('index',$data);
     }
 
@@ -29,7 +30,7 @@ class DepartmentController extends BaseController
     {
         if (Yii::$app->request->post()) {
             $info = Yii::$app->request->post();
-            $count = Department::find()->where(['departmentName' => $info['departmentName']])->count();
+            $count = DepartmentLogic::checkDEparmentName($info['departmentName']);
             if ($count > 0) {
                 returnJsonInfo('部门已存在！',300);
             }

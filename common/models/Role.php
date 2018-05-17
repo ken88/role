@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $roleName
  * @property int $uid 用户id
+ * @property int $departmentId 部门id
+ * @property string $acl 角色权限
  */
 class Role extends \yii\db\ActiveRecord
 {
@@ -27,8 +29,9 @@ class Role extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['roleName', 'uid'], 'required'],
-            [['uid'], 'integer'],
+            [['roleName', 'uid', 'departmentId'], 'required'],
+            [['uid', 'departmentId'], 'integer'],
+            [['acl'], 'string'],
             [['roleName'], 'string', 'max' => 50],
         ];
     }
@@ -42,6 +45,8 @@ class Role extends \yii\db\ActiveRecord
             'id' => 'ID',
             'roleName' => 'Role Name',
             'uid' => 'Uid',
+            'departmentId' => 'Department ID',
+            'acl' => 'Acl',
         ];
     }
 }
