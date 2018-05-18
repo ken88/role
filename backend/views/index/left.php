@@ -15,7 +15,7 @@
                             if ($v['pid'] == $val['id'] && in_array($v['id'],$acl)){
                     ?>
                         <li>
-                            <a href="#" onclick="right_('<?=$v['url'];?>')"><?=$v['moduleName'];?></a>
+                            <a href="#" onclick="right_('<?=$v['url'];?>?moduleId=<?=$v['id'];?>')"><?=$v['moduleName'];?></a>
                         </li>
                     <?php }}?>
                 </ul>
@@ -25,8 +25,3 @@
 
     </div>
 </nav>
-<script type="text/javascript">
-    //var acl = '<?php //echo $acl;?>//';
-    //var arr = acl.split(',');
-    //console.log(arr);
-</script>

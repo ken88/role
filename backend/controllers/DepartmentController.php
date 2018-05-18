@@ -20,6 +20,10 @@ class DepartmentController extends BaseController
     public function actionIndex()
     {
         $data['info'] = DepartmentLogic::getDeparmentInfo();
+        $moduleId = Yii::$app->request->get('moduleId',0);
+
+        //获取权限按钮信息
+        $data['aclList'] = $this->getButAcl($moduleId);
         return $this->renderPartial('index',$data);
     }
 
@@ -42,7 +46,38 @@ class DepartmentController extends BaseController
                 returnJsonInfo('录入失败！',300);
             }
         }
-
         return $this->renderPartial('add');
+    }
+
+    /**
+     * 编辑
+     */
+    public function actionEdit()
+    {
+        $departmentId = Yii::$app->request->get('id',Yii::$app->request->post('id'));
+        $deparment = Department::find()->where(['id' => $departmentId])->one();
+        if (Yii::$app->request->post()) {
+            $info = Yii::$app->request->post();
+            $deparment->departmentName = $info['departmentName'];
+            if ($deparment->save()) {
+                returnJsonInfo('编辑成功！');
+            }else {
+                returnJsonInfo('编辑失败！',300);
+            }
+        }
+        $data['info'] = $deparment;
+        return $this->renderPartial('edit',$data);
+    }
+
+    /**
+     * 删除
+     */
+    public function actionDelete()
+    {
+        $departmentId = Yii::$app->request->get('id',0);
+        if(Department::findOne($departmentId)->delete()) {
+            returnJsonInfo('删除成功！');
+        }
+        returnJsonInfo('删除失败！',300);
     }
 }

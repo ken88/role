@@ -53,9 +53,9 @@ class AclController extends BaseController
         $role = Role::find()->where(['id' => $info['roleId']])->one();
         $acl = implode(',',$info['che']);
         $role->acl = $acl;
-        $redis = Yii::$app->redis;
-        $redis->set('roleid'.$info['roleId'],$acl);
         if ($role->save()) {
+            $redis = Yii::$app->redis;
+            $redis->set('roleid'.$info['roleId'],$acl);
             returnJsonInfo('授权成功！');
         }else {
             dd($role->getFirstErrors());

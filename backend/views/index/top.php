@@ -35,7 +35,7 @@
                 if (win && !window.opera)
                 {
                     if (win.contentDocument && win.contentDocument.body.offsetHeight)
-                        win.height = win.contentDocument.body.offsetHeight+80+"px";
+                        win.height = win.contentDocument.body.offsetHeight;
                     else if(win.Document && win.Document.body.scrollHeight)
                         win.height = win.Document.body.scrollHeight;
                 }

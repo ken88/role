@@ -23,8 +23,13 @@ class UserController extends BaseController
     {
         $session = $this->getSession();
         $info = $info = UserLogic::getUserInfo($session);
+
+        $moduleId = Yii::$app->request->get('moduleId',0);
+        //获取权限按钮信息
+        $aclList = $this->getButAcl($moduleId);
         $data = [
             'info' => $info,
+            'aclList' => $aclList
         ];
         return $this->renderPartial('index',$data);
     }
@@ -75,5 +80,73 @@ class UserController extends BaseController
         ];
 
         return $this->renderPartial('add',$data);
+    }
+
+    /**
+     * 编辑
+     */
+    public function actionEdit()
+    {
+        $session = $this->getSession();
+        $userId = Yii::$app->request->get('id',Yii::$app->request->post('id'));
+        $user = User::find()->where(['id' => $userId])->one();
+        if (Yii::$app->request->post()) {
+            $info = Yii::$app->request->post();
+            $count = User::find()->where(['username' => $info['username']])->count();
+
+            if ($count > 0) {
+                returnJsonInfo('账号已存在！',300);
+            }
+            //如果当前用户级别是超级管理员 获取部门信息  否则默认为自己部门
+            if ($session['level'] >= 9){
+                $arrDepar = explode(',',$info['department']);
+                $info['departmentId'] = $arrDepar[0];
+                $info['departmentName'] = $arrDepar[1];
+            }else {
+                $info['departmentId'] = $session['departmentId'];
+                $info['departmentName'] = $session['departmentName'];
+            }
+            $arrRole = explode(',',$info['role']);
+            $user->username = $info['username'];
+            $user->departmentId = $info['departmentId'];
+            $user->departmentName = $info['departmentName'];
+            $user->realName = $info['realName'];
+            $user->roleId = $arrRole[0];
+            $user->roleName = $arrRole[1];
+
+            if ($user->save()) {
+                returnJsonInfo('操作成功！');
+            }else {
+                returnJsonInfo('操作失败！',300);
+            }
+        }
+
+        //部门信息
+        $department = null;
+        //角色信息
+        $role =  RoleLogic::getRoleInfo();
+
+        if($session['level'] >= 9) {
+            $department = DepartmentLogic::getDeparmentInfo();
+        }
+
+        $data = [
+            'department' => $department,
+            'role' => $role,
+            'info' => $user
+        ];
+        return $this->renderPartial('edit',$data);
+    }
+
+    /**
+     * 删除
+     */
+    public function actionDelete()
+    {
+        $userId = Yii::$app->request->get('id',0);
+        if(User::findOne($userId)->delete()) {
+            returnJsonInfo('删除成功！');
+        }
+        returnJsonInfo('删除失败！',300);
     }
 }

@@ -1,4 +1,5 @@
 $(function(){
+	//表单提交
 	$("#submit").click(function(){
 		if (checkform()) {
             var post = $('form').serialize();
@@ -17,8 +18,26 @@ $(function(){
                 }
             });
 		}
-
 	});
+	$('.del').click(function () {
+		if (confirm('您确定要删除本条信息吗？')) {
+            var url = $(this).attr('url');
+            $.get(url , null , function (myjson) {
+                if (myjson.statusCode == 200) {
+                    $('.modal-body').text(myjson.message);
+                    $('#myModal').modal({backdrop:false,show:true});
+                    $('.btn').click(function() {
+                       window.href = window.location.reload();
+                    });
+                } else if (myjson.statusCode == 300) {
+                    $('.modal-body').text(myjson.message);
+                    $('#myModal').modal({backdrop:false,show:true});
+                }
+            },'json');
+		}
+    })
+
+	//表单提交验证
 	function checkform(){
 			var inputtext = '';
 			var name = '';
@@ -60,9 +79,7 @@ $(function(){
 			return falg;
 
 		}
-
-
-
+	//图片表单操作
 	$("#submit_upload").click(function(){
 		checkform();
 		submitCheckForm();

@@ -15,7 +15,12 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <a href="/user/add" class="btn btn-info btn-sm">新增</a>
+                    <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){?>
+                        <?php  if ($v['moduleName'] == '新增') {?>
+                        <a href="<?=$v['url']?>" class="btn btn-info btn-sm">新增</a>
+                        <?php }?>
+                    <?php }} ?>
+                </div>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -39,8 +44,14 @@
                                 <td><?=$v['createDate'];?></td>
                                 <td><?=$v['roleName'];?></td>
                                 <td>
-                                    <a href="#">编辑</a> |
-                                    <a href="#">删除</a>
+                                    <?php
+                                    foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
+                                        <?php  if ($val['moduleName'] == '编辑') {?>
+                                            <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
+                                        <?php } elseif ($val['moduleName'] == '删除') {?>
+                                            <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
+                                        <?php }?>
+                                    <?php }} ?>
                                 </td>
                             </tr>
                             <?php }}?>

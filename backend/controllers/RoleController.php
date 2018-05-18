@@ -34,12 +34,15 @@ class RoleController extends BaseController
             if ($count > 0) {
                 returnJsonInfo('角色已存在！',300);
             }
+            $session = $this->getSession();
             $role = new Role();
-            $role->uid = $this->getSession()['id'];
+            $role->uid = $session['id'];
+            $role->departmentId = $session['departmentId'];
             $role->roleName = $info['roleName'];
             if ($role->save()) {
                 returnJsonInfo('录入成功！');
             } else {
+                dd($role->getFirstErrors());
                 returnJsonInfo('录入失败！',300);
             }
         }
