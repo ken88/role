@@ -22,11 +22,25 @@ class IndexController extends BaseController
         $session =  $this->getSession();
         $redis = Yii::$app->redis;
 
-        //获取角色权限
-        $acl = $redis->get('roleid'.$session['roleId']);
+        //获取缓存是否存在角色授权的信息
+        if (!$redis->get('roleid'.$session['roleId'])) {
+            $role = Role::find()->where(['id' => $session['roleId']])->one();
+            $acl = $role['acl'];
+            $redis = Yii::$app->redis;
+            $redis->set('roleid'.$session['roleId'],$acl);
+        }else {
+            //获取角色权限
+            $acl = $redis->get('roleid'.$session['roleId']);
+        }
 
-        //获取菜单
-        $moduleList = json_decode($redis->get('moduleList'),true);
+        //获取缓存菜单是否存在
+        if (!$redis->get('moduleList')) {
+            $moduleList = ModuleLogic::getModuleInfo();
+            $redis->set('moduleList', json_encode($moduleList, true));
+        }else {
+            //获取菜单
+            $moduleList = json_decode($redis->get('moduleList'),true);
+        }
 
         $acl = explode(',',$acl);
         $data = [
