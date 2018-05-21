@@ -22,15 +22,12 @@ class UserController extends BaseController
     public function actionIndex()
     {
         $session = $this->getSession();
-        $info = $info = UserLogic::getUserInfo($session);
-
+        $data = $info = UserLogic::getUserInfo($session);
         $moduleId = Yii::$app->request->get('moduleId',0);
         //获取权限按钮信息
         $aclList = $this->getButAcl($moduleId);
-        $data = [
-            'info' => $info,
-            'aclList' => $aclList
-        ];
+        $data['aclList'] = $aclList;
+
         return $this->renderPartial('index',$data);
     }
 
@@ -92,11 +89,7 @@ class UserController extends BaseController
         $user = User::find()->where(['id' => $userId])->one();
         if (Yii::$app->request->post()) {
             $info = Yii::$app->request->post();
-            $count = User::find()->where(['username' => $info['username']])->count();
 
-            if ($count > 0) {
-                returnJsonInfo('账号已存在！',300);
-            }
             //如果当前用户级别是超级管理员 获取部门信息  否则默认为自己部门
             if ($session['level'] >= 9){
                 $arrDepar = explode(',',$info['department']);
@@ -107,7 +100,6 @@ class UserController extends BaseController
                 $info['departmentName'] = $session['departmentName'];
             }
             $arrRole = explode(',',$info['role']);
-            $user->username = $info['username'];
             $user->departmentId = $info['departmentId'];
             $user->departmentName = $info['departmentName'];
             $user->realName = $info['realName'];

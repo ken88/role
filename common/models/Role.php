@@ -12,6 +12,7 @@ use Yii;
  * @property int $uid 用户id
  * @property int $departmentId 部门id
  * @property string $acl 角色权限
+ * @property int $level 级别
  */
 class Role extends \yii\db\ActiveRecord
 {
@@ -29,8 +30,8 @@ class Role extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['roleName', 'uid', 'departmentId'], 'required'],
-            [['uid', 'departmentId'], 'integer'],
+            [['roleName', 'uid', 'departmentId', 'level'], 'required'],
+            [['uid', 'departmentId', 'level'], 'integer'],
             [['acl'], 'string'],
             [['roleName'], 'string', 'max' => 50],
         ];
@@ -47,6 +48,7 @@ class Role extends \yii\db\ActiveRecord
             'uid' => 'Uid',
             'departmentId' => 'Department ID',
             'acl' => 'Acl',
+            'level' => 'Level',
         ];
     }
 }

@@ -9,6 +9,8 @@
 namespace backend\models;
 
 use common\models\User;
+use yii\data\Pagination;
+
 class UserLogic
 {
     public static function getUserInfo($session)
@@ -25,10 +27,24 @@ class UserLogic
         if ($level < 9) {
             $userSql = $userSql
                 ->where(['departmentId' => $session['departmentId']])
-                ->andWhere(['<=' , 'level', $level]);
+                ->andWhere(['<=', 'level', $level]);
+        } else if ($level == 9) {
+            $userSql = $userSql->andWhere(['<=', 'level', $level]);
         }
+        // 总数
+        $count = $userSql->count();
 
-        return $userSql->asArray()->all();
+        // 使用总数来创建一个分页对象
+        $pagination = new Pagination(['totalCount' => $count,'pageSize'=> 20]);
+        $info = $userSql->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->asArray()
+            ->all();
+        $data = [
+            'info'=> $info,
+            'pages' => $pagination,
+        ];
+        return $data;
     }
 
     /**

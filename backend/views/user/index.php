@@ -1,4 +1,7 @@
-<?php include '..//views/viewtop.php';?>
+<?php
+use yii\widgets\LinkPager;
+include '../views/viewtop.php';
+?>
 <div id="page-inner">
     <div class="row">
         <div class="col-md-12">
@@ -44,8 +47,7 @@
                                 <td><?=$v['createDate'];?></td>
                                 <td><?=$v['roleName'];?></td>
                                 <td>
-                                    <?php
-                                    foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
+                                    <?php foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
                                         <?php  if ($val['moduleName'] == '编辑') {?>
                                             <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
                                         <?php } elseif ($val['moduleName'] == '删除') {?>
@@ -57,12 +59,32 @@
                             <?php }}?>
                             </tbody>
                         </table>
+                        <div style="float: right">
+                            <?php echo LinkPager::widget([
+                                'pagination' => $pages,
+                                'nextPageLabel' => '下一页',
+                                'prevPageLabel' => '上一页',
+                                'firstPageLabel' => '首页',
+                                'lastPageLabel' => '尾页',
+                            ]);?>
+                        </div>
                     </div>
-
                 </div>
             </div>
             <!--End Advanced Tables -->
         </div>
     </div>
-
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>

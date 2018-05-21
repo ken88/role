@@ -26,7 +26,7 @@
                                         foreach ($info as $v) {
                                             $arr=explode('-', $v['bpath']);
                                             $num = count($arr);
-                                            if (($num <= 2)){
+                                            if ($num <= 2 ){
                                                 $count = 0;
                                             ?>
                                             <tr>
@@ -38,15 +38,17 @@
                                                 </span>
                                                 </td>
                                             </tr>
-                                                <?php }else{ if ($count == 0){ $count++;?>
+                                                <?php }else{ if ($count == 0 ){ $count++;?>
                                             <tr>
                                                 <td>
                                                 <?php }?>
-                                                 <span style='margin-left:<?php echo $num?>em;'>
-                                                    <?=$v['moduleName'];?>
-                                                     <input style="cursor: pointer" type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
-                                                    <span class="lbl"></span>
-                                                </span>
+
+                                                     <span style='margin-left:<?php echo $num?>em;'>
+                                                        <?=$v['moduleName'];?>
+                                                         <input style="cursor: pointer" type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
+                                                        <span class="lbl"></span>
+                                                     </span>
+
                                                     <?php if ($count == 0) {?>
                                                     </td>
                                             </tr>
@@ -80,11 +82,13 @@
 <script type="text/javascript">
 
     var state = "<?php echo $acl;?>";
-    var rows = state.split(',');
-
-    for (i = 0 ;i< rows.length; i++)
-    {
-        document.getElementById(rows[i]).checked = true;
+    if (state !=  '') {
+        var rows = state.split(',');
+        for (i = 0 ;i< rows.length; i++)
+        {
+            document.getElementById(rows[i]).checked = true;
+        }
     }
+
 
 </script>

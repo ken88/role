@@ -19,7 +19,8 @@ class DepartmentController extends BaseController
      */
     public function actionIndex()
     {
-        $data['info'] = DepartmentLogic::getDeparmentInfo();
+
+        $data = DepartmentLogic::getDepartmentAll();
         $moduleId = Yii::$app->request->get('moduleId',0);
 
         //获取权限按钮信息

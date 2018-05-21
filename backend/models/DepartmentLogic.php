@@ -8,9 +8,32 @@
 namespace backend\models;
 
 use common\models\Department;
+use yii\data\Pagination;
 
 class DepartmentLogic
 {
+    /**
+     * 部门首页
+     */
+    public static function getDepartmentAll()
+    {
+        $query  = Department::find();
+        // 总数
+        $count = $query->count();
+
+        // 使用总数来创建一个分页对象
+        $pagination = new Pagination(['totalCount' => $count,'pageSize'=> 20]);
+        // 使用分页对象来填充 limit 子句并取得数据
+        $info = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->asArray()
+            ->all();
+        $data = [
+            'info'=> $info,
+            'pages' => $pagination,
+        ];
+        return $data;
+    }
     /**
      *获取部门所有信息
      */

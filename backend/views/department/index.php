@@ -1,4 +1,7 @@
-<?php include '..//views/viewtop.php';?>
+<?php
+    use yii\widgets\LinkPager;
+    include '../views/viewtop.php';
+?>
 <div id="page-inner">
     <div class="row">
         <div class="col-md-12">
@@ -48,14 +51,24 @@
                             <?php }}?>
                             </tbody>
                         </table>
+                        <div style="float: right">
+                            <?php echo LinkPager::widget([
+                                'pagination' => $pages,
+                                'nextPageLabel' => '下一页',
+                                'prevPageLabel' => '上一页',
+                                'firstPageLabel' => '首页',
+                                'lastPageLabel' => '尾页',
+                            ]);?>
+                        </div>
                     </div>
-
                 </div>
             </div>
+
             <!--End Advanced Tables -->
         </div>
     </div>
 </div>
+
 <!-- 模态框（Modal） -->
 <div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

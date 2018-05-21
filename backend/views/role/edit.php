@@ -18,6 +18,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <form action="/role/edit">
+                                <input type="hidden" name="id" value="<?=$info['id'];?>">
                                 <div class="form-group">
                                     <label>角色名</label>
                                     <input class="form-control" ck="required" value="<?=$info['roleName']?>" name="roleName" placeholder="角色名" >

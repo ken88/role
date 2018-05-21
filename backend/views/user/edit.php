@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
-               新增账号
+               编辑账号
             </h1>
         </div>
     </div>
@@ -21,7 +21,7 @@
                                 <input type="hidden" value="<?php echo $info['id'];?>" name="id" />
                                 <div class="form-group">
                                     <label>账号</label>
-                                    <input class="form-control" ck="required" value="<?=$info['username']?>" name="username" placeholder="账号" >
+                                    <input class="form-control" ck="required" readonly value="<?=$info['username']?>" placeholder="账号" >
                                 </div>
                                 <div class="form-group">
                                     <label>员工姓名</label>
@@ -74,3 +74,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+    var roleVal = '<?php echo $info['roleId'].','.$info['roleName'];?>';
+    $("#role option[value='"+roleVal+"']").attr("selected",true);
+
+    var departmentVal = '<?php echo $info['departmentId'].','.$info['departmentName'];?>';
+    $("#departmen option[value='"+departmentVal+"']").attr("selected",true);
+
+</script>
