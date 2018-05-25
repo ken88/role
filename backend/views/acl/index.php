@@ -31,7 +31,7 @@
                                             ?>
                                             <tr>
                                                 <td>
-                                                 <span style='margin-left:<?php echo $num?>em'>
+                                                 <span style='margin-left:<?php echo $num?>em; <?php if($num == 1 ){echo 'font-weight:bold;';}?>'>
                                                     <?=$v['moduleName'];?>
                                                      <input style="cursor: pointer" type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
                                                     <span class="lbl"></span>
