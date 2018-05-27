@@ -18,18 +18,19 @@
       <div class="panel panel-default">
         <div class="panel-heading"> <a href="#" onclick="javascript:history.go(-1)" class="btn btn-info btn-sm">返回</a> </div>
         <div class="panel-body" >
-          <form action="/resume/add">
+          <form action="/resume/edit">
+              <input type="hidden" name="id" value="<?=$info['id']?>">
             <table width="100%" border="0">
               <tr>
                 <td colspan="6"><div class="biaoqian">基本信息</div></td>
               </tr>
               <tr>
-                <td width="6%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                <td width="10%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
                 <td width="10%" ><input class="form-control" ck="required"  name="userName" value="<?=$info['userName']?>" placeholder="姓名" /></td>
                 <td width="10%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-                <td width="14%"><input type="radio" name="sex"  value="1" checked="" />
+                <td width="14%"><input type="radio" name="sex" id="sex1"  value="1" checked="" />
                   男
-                    <input type="radio" name="sex"  value="2" />
+                    <input type="radio" name="sex" id="sex2"  value="2" />
                   女 </td>
                 <td width="7%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
                 <td width="53%"><input class="form-control"  name="age" value="<?=$info['age']?>" placeholder="年龄"  /></td>
@@ -38,12 +39,12 @@
                 <td><span class="requ">*</span>手&nbsp;机&nbsp;号：</td>
                 <td><?=$info['phone']?></td>
                 <td align="center">是&nbsp;否&nbsp;密&nbsp;号：</td>
-                <td><input type="radio" name="isMiHao"  value="1" />
+                <td><input type="radio" name="isMiHao" id="isMiHao1"  value="1" />
                   是
-                  <input type="radio" name="isMiHao"  value="0" checked="" />
+                  <input type="radio" name="isMiHao" id="isMiHao0"  value="0" />
                   不是 </td>
                 <td>最高学历：</td>
-                <td><select name="xueLi" class="form-control">
+                <td><select name="xueLi" id="xueli" class="form-control">
                     <option value="初中">初中</option>
                     <option value="技校">技校</option>
                     <option value="高中">高中</option>
@@ -61,7 +62,7 @@
                 <td align="center">身份证号码：</td>
                 <td><input name="shenFenZheng" value="<?=$info['shenFenZheng']?>" class="form-control"  placeholder="身份证号码" style="width:200px;" maxlength="18" /></td>
                 <td>期望薪资：</td>
-                <td><select class="form-control" name="qiWangXinZi">
+                <td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
                     <option value="1000~5000">1000~5000</option>
                     <option value="5000~8000">5000~8000</option>
                     <option value="8000~15000">8000~15000</option>
@@ -85,23 +86,7 @@
               </tr>
               <tr>
                 <td>户籍地址：</td>
-                <td><input class="form-control"  name="huJiDiZhi"  value="<?=$info['huJiDiZhi']?>" placeholder="户籍地址" /></td>
-                 <td align="center">期&nbsp;望&nbsp;地&nbsp;址：</td>
-                <td colspan="3">
-				<select class="form-control" style="width:140px; float:left;" name="select1" id="select1">
-                  <option value="">请选择</option>
-                  <?php foreach($prov as $v) { ?>
-                  <option value="<?= $v['Name'];?>" val='<?= $v['Id'];?>'>
-                    <?= $v['Name'];?>
-                    </option>
-                  <?php }?>
-                </select>
-                  <select class="form-control" style="width:140px;float:left; margin-left:10px; margin-right:10px;" name="select2" id="select2">
-                    <option value="">请选择</option>
-                  </select>
-                  <select class="form-control" style="width:140px;float:left;" name="select3" id="select3">
-                    <option value="">请选择</option>
-                  </select></td>
+                <td colspan="5"><input class="form-control"  name="huJiDiZhi"  value="<?=$info['huJiDiZhi']?>" placeholder="户籍地址" style="width:400px;"  /></td>
               </tr>
               <tr>
                 <td>居住地址：</td>
@@ -116,7 +101,7 @@
                 <td align="center">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
                 <td><input class="form-control"  name="minZu" value="<?=$info['minZu']?>" placeholder="民族" /></td>
                 <td>婚姻状况&nbsp;：</td>
-                <td><select class="form-control" name="hunYin">
+                <td><select class="form-control" name="hunYin" id="hunYin">
                     <option value="0">未婚</option>
                     <option value="1">已婚</option>
                     <option value="2">丧偶</option>
@@ -143,7 +128,7 @@
               </tr>
 			   <tr>
                 <td>银&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行：</td>
-                <td><select class="form-control" name="yinHang">
+                <td><select class="form-control" name="yinHang" id="yinHang">
                     <option value="中国银行">中国银行</option>
                     <option value="交通银行">交通银行</option>
                     <option value="中国农业银行">中国农业银行</option>
@@ -257,25 +242,56 @@
 		
 	}
 
+	var sex = '<?= $info['sex'];?>';
+	$("#sex"+sex).attr('checked','checked');
+
+	var isMiHao = '<?=$info['isMiHao']?>';
+    $("#isMiHao"+isMiHao).attr('checked','checked');
+
+    var xueLi = '<?=$info['xueLi']?>';
+    $("#xueli option[value='"+xueLi+"']").attr("selected",true);
+
+    var hunYin = '<?=$info['hunYin']?>';
+    $("#hunYin option[value='"+hunYin+"']").attr("selected",true);
+
+    var yinHang = '<?=$info['yinHang']?>';
+    $("#yinHang option[value='"+yinHang+"']").attr("selected",true);
+
+    var qiWangXinZi = '<?=$info['qiWangXinZi']?>';
+    $("#qiWangXinZi option[value='"+qiWangXinZi+"']").attr("selected",true);
+
+    var rcName1 = '<?=$info['rcId1'].','.$info['rcName1']?>';
+    $("#rcName1 option[value='"+rcName1+"']").attr("selected",true);
+    rcChange(rcName1,true);
+
+
     $('#rcName1').change(function () {
         var id = $(this).val();
-		id = id.split(',');
+        rcChange(id);
+    })
+    
+    function rcChange(id,falg=false) {
+        id = id.split(',');
         if (id[0] > 0) {
             $.post('/resume-category/ajax-category',{'id':id[0]},function (data) {
                 $('#rcName2').html('');
                 var strHtml = "";
                 var count = data.length;
-				var val = null;
+                var val = null;
                 for(var i = 0 ; i < count ; i++) {
-					val = data[i]['id']+','+data[i]['cName'];
+                    val = data[i]['id']+','+data[i]['cName'];
                     strHtml += "<option value='"+val+"'>"+data[i]['cName']+"</option>";
                 }
                 $('#rcName2').html(strHtml);
+                if (falg) {
+                    var rcName2 = '<?=$info['rcId2'].','.$info['rcName2']?>';
+                    $("#rcName2 option[value='"+rcName2+"']").attr("selected",true);
+                }
             },'json')
         } else  {
             var strHtml = "<option value='0'>------请选择------</option>";
             $('#rcName2').html(strHtml);
         }
 
-    })
+    }
 </script>

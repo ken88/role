@@ -10,6 +10,7 @@ namespace backend\models;
 
 use yii\data\Pagination;
 use common\models\Resume;
+use Yii;
 
 class ResumeLogic
 {
@@ -31,6 +32,25 @@ class ResumeLogic
             'pages' => $pagination,
         ];
         return $data;
+
+    }
+
+    /**
+     *批量导入 录入数据
+     */
+    public static function add($res)
+    {
+        $session = \Yii::$app->session['userinfo'];
+        $db = Yii::$app->db;
+        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi) VALUES ';
+        $queryInsert = null;
+        foreach ($res as $val) {
+            $sex = $val['D'] == '男' ? 1 : 0;
+            $queryInsert .= "({$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}', '{$val['B']}', {$val['C']}, {$sex},'{$val['E']}'),";
+        }
+        $sql = $query.rtrim($queryInsert,','). ' ON DUPLICATE KEY UPDATE 
+        `phone` = VALUES(`phone`)';
+        return $db->createCommand($sql)->execute();
 
     }
 

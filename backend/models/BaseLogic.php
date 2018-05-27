@@ -14,7 +14,7 @@ class BaseLogic
     /**
      * 获取用户session信息
      */
-    public function getSession()
+    public static function getSession()
     {
         $session = \Yii::$app->session;
         return $session->get('userinfo');

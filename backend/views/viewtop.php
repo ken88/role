@@ -15,3 +15,4 @@
 <script src="/dist/js/jquery-1.9.1.min.js"></script>
 <script src="/dist/js/fancyboxcustom.js"></script>
 <script src="/dist/js/bootstrap.min.js"></script>
+<script src="/dist/js/form.js" charset="utf-8"></script>
