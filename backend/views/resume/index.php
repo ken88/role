@@ -16,14 +16,29 @@ include '../views/viewtop.php';
         <div class="col-md-12">
             <!-- Advanced Tables -->
             <div class="panel panel-default">
-
+                <form>
                 <div class="panel-heading">
-                    <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){?>
-                        <?php  if ($v['moduleName'] == '新增') {?>
-                            <a href="<?=$v['url']?>" class="btn btn-info btn-sm">新增</a>
-                        <?php }?>
-                    <?php }} ?>
+                   搜索：
                 </div>
+                </form>
+                <div style="border: solid gainsboro 1px;"></div>
+                <form action="/resume/pour-excel" method="post" enctype="multipart/form-data" name="form"  id="J_myUploadForm">
+                    <div class="panel-heading" style="height: 60px;">
+                        <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){?>
+                            <?php  if ($v['moduleName'] == '新增') {?>
+                                <a href="<?=$v['url']?>" class="btn btn-info btn-sm" style="float: left;">新增</a>
+                                <?php } if ($v['moduleName'] == '导入') {?>
+                                <span style="float: left; margin-left: 20px;">
+                                    <span style="float:left;">导入文件：</span>
+                                    <input type="file" name="file" id="file" style="width: 180px;">
+                                </span>
+                                <a href="#" id="subFile" val="<?=$v['url']?>" class="btn btn-info btn-sm">确定</a>
+                                <a href="/模板/简历标准版.xlsx" class="btn btn-info btn-sm">模板下载</a>
+                                <?php }?>
+                        <?php }} ?>
+                    </div>
+                </form>
+
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
