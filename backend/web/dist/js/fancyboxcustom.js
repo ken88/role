@@ -1,4 +1,11 @@
 $(function(){
+
+	//全选
+	 $("#selectAll").click(function(){
+         var isChecked = $(this).prop('checked');
+		$("#checkBoxList :checkbox").prop("checked",isChecked);;
+	});  
+
 	//表单提交
 	$("#submit").click(function(){
 		if (checkform()) {
@@ -19,6 +26,8 @@ $(function(){
             });
 		}
 	});
+
+	//删除
 	$('.del').click(function () {
 		if (confirm('您确定要删除本条信息吗？')) {
             var url = $(this).attr('url');
@@ -35,10 +44,28 @@ $(function(){
                 }
             },'json');
 		}
-    })
+    });
+
+	//其他首页操作
+	$('.qita').click(function () {
+        var url = $(this).attr('url');
+        $.get(url, null, function (myjson) {
+            if (myjson.statusCode == 200) {
+                $('.modal-body').text(myjson.message);
+                $('#myModal').modal({backdrop: false, show: true});
+                $('.btn').click(function () {
+                    window.href = window.location.reload();
+                });
+            } else if (myjson.statusCode == 300) {
+                $('.modal-body').text(myjson.message);
+                $('#myModal').modal({backdrop: false, show: true});
+            }
+        }, 'json');
+    });
 
 	//表单提交验证
-	function checkform(){
+	function checkform()
+	{
 			var inputtext = '';
 			var name = '';
 			var inputhtml = '';
@@ -75,12 +102,11 @@ $(function(){
                         }
                     }
 				}
-
-
 			});
 			return falg;
-
 		}
+
+
 	//导入
 	$("#subFile").click(function(){
 		var options = {
@@ -98,8 +124,7 @@ $(function(){
                     $('#myModal').modal({backdrop:false,show:true});
                 }
 			}
-		};
+		}
 		$('#J_myUploadForm').ajaxSubmit(options);
 	});
-
 });

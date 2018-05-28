@@ -36,7 +36,7 @@
               </tr>
               <tr>
                 <td><span class="requ">*</span>手&nbsp;机&nbsp;号：</td>
-                <td><input class="form-control" ck="required" name="phone" placeholder="手机号" /></td>
+                <td><input class="form-control" ck="required" name="phone" maxlength="11" placeholder="手机号" /></td>
                 <td align="center">是&nbsp;否&nbsp;密&nbsp;号：</td>
                 <td><input type="radio" name="isMiHao"  value="1" />
                   是
@@ -62,11 +62,10 @@
                 <td><input name="shenFenZheng" class="form-control"  placeholder="身份证号码" style="width:200px;" maxlength="18" /></td>
                 <td>期望薪资：</td>
                 <td><select class="form-control" name="qiWangXinZi">
-                    <option value="1000~5000">1000~5000</option>
-                    <option value="5000~8000">5000~8000</option>
-                    <option value="8000~15000">8000~15000</option>
-                    <option value="15000~25000">15000~25000</option>
-                    <option value="25000~50000">25000~50000</option>
+                    <option value="1000~3000">1000~3000</option>
+                    <option value="3000~5000">3000~5000</option>
+                    <option value="5000~7000">5000~7000</option>
+                    <option value="7000以上">7000以上</option>
                 </select></td>
               </tr>
               <tr>
@@ -74,9 +73,7 @@
                 <td><select class="form-control" name="rcName1" id="rcName1">
                     <option value="0">请选择</option>
                     <?php  if (!empty($info)){foreach ($info as $v){?>
-                    <option value="<?=$v['id'];?>,<?=$v['cName'];?>">
-                    <?=$v['cName'];?>
-                    </option>
+                    <option value="<?=$v['id'];?>,<?=$v['cName'];?>"><?=$v['cName'];?></option>
                     <?php }} ?>
                   </select>                </td>
                 <td colspan="4"><select class="form-control" name="rcName2" id="rcName2"  style="margin-left:30px;">

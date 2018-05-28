@@ -63,11 +63,10 @@
                 <td><input name="shenFenZheng" value="<?=$info['shenFenZheng']?>" class="form-control"  placeholder="身份证号码" style="width:200px;" maxlength="18" /></td>
                 <td>期望薪资：</td>
                 <td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
-                    <option value="1000~5000">1000~5000</option>
-                    <option value="5000~8000">5000~8000</option>
-                    <option value="8000~15000">8000~15000</option>
-                    <option value="15000~25000">15000~25000</option>
-                    <option value="25000~50000">25000~50000</option>
+                   <option value="1000~3000">1000~3000</option>
+                    <option value="3000~5000">3000~5000</option>
+                    <option value="5000~7000">5000~7000</option>
+                    <option value="7000以上">7000以上</option>
                 </select></td>
               </tr>
               <tr>
@@ -232,15 +231,18 @@
 <script type="text/javascript">
 
 	var gongzuo = '<?= $info['gongZuoJingLi'];?>';
-	var dataObj=eval("("+gongzuo+")");//转换为json对象 
-	
-	for (x in dataObj)
-	{
-		$('#shijian'+x).val(dataObj[x]['shijian'+x]);
-		$('#qiye'+x).val(dataObj[x]['qiye'+x]);
-		$('#gangwei'+x).val(dataObj[x]['gangwei'+x]);
-		
-	}
+	if (gongzuo != '') {
+        var dataObj=eval("("+gongzuo+")");//转换为json对象
+
+        for (x in dataObj)
+        {
+            $('#shijian'+x).val(dataObj[x]['shijian'+x]);
+            $('#qiye'+x).val(dataObj[x]['qiye'+x]);
+            $('#gangwei'+x).val(dataObj[x]['gangwei'+x]);
+
+        }
+    }
+
 
 	var sex = '<?= $info['sex'];?>';
 	$("#sex"+sex).attr('checked','checked');

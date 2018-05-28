@@ -13,7 +13,7 @@ include '../views/viewtop.php';
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
-                简历列表
+                公海简历列表
             </h1>
         </div>
     </div>
@@ -21,9 +21,7 @@ include '../views/viewtop.php';
 
     <div class="row">
         <div class="col-md-12">
-            <!-- Advanced Tables -->
-            <div class="panel panel-default">
-                <form action="/resume/index" method="get">
+		 <form action="/gong-hai/index" method="get">
 				<input type="hidden" name="moduleId" value="<?=$userInfo['moduleId']?>" />
                 <div class="panel-heading">
                  <table width="100%" border="0" id="seach">
@@ -92,28 +90,31 @@ include '../views/viewtop.php';
                 </div>
                 </form>
                 <div style="border: solid gainsboro 1px;"></div>
-                <form action="/resume/pour-excel" method="post" enctype="multipart/form-data" name="form"  id="J_myUploadForm">
+            <!-- Advanced Tables -->
+			<form action="/gong-hai/fen-pei" method="post" enctype="multipart/form-data" name="form"  >
+			<input type="hidden" id="num" value="<?=$num;?>" />
+            <div class="panel panel-default">
+                <div style="border: solid gainsboro 1px;"></div>
                     <div class="panel-heading" style="height: 60px;">
                         <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){?>
-                            <?php  if ($v['moduleName'] == '新增') {?>
-                                <a href="<?=$v['url']?>" class="btn btn-info btn-sm" style="float: left;">新增</a>
-                                <?php } if ($v['moduleName'] == '导入') {?>
-                                <span style="float: left; margin-left: 20px;">
-                                    <span style="float:left;">导入文件：</span>
-                                    <input type="file" name="file" id="file" style="width: 180px;">
-                                </span>
-                                <a href="#" id="subFile" val="<?=$v['url']?>" class="btn btn-info btn-sm">确定</a>
-                                <a href="/模板/简历标准版.xlsx" class="btn btn-info btn-sm">模板下载</a>
+                            <?php  if ($v['moduleName'] == '分配') {?>
+                                <a id="fenpei" href="#" class="btn btn-info btn-sm" style="float: left;">分配</a>
+								<span style="color:red; font-weight:bold; font-size:14px; margin-left:20px;">您部门当前的贡献值为<?=$num;?>,可分配<?=$num;?>条简历信息</span>
                                 <?php }?>
                         <?php }} ?>
                     </div>
-                </form>
-
+					<div style="margin-left:80px;  margin-top:-30px; width:auto;">部门人员：
+						<?php if(!empty($user)){foreach($user as $v){?>
+							<span style="margin-right:10px;"><input type="radio" name="radios" value="<?=$v['id'];?>" /><?=$v['realName'];?></span>
+						<?php }}?>
+					</div>
+               
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                             <tr>
+								<th><input type="checkbox" id="selectAll" /></th>
                                 <th>姓名</th>
                                 <th>性别</th>
                                 <th>年龄</th>
@@ -126,12 +127,12 @@ include '../views/viewtop.php';
                                 <th>期望地点</th>
                                 <th>目前居住地</th>
                                 <th>创建时间</th>
-                                <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="checkBoxList">
                             <?php if (!empty($info)) {foreach ($info as $v) { ?>
                             <tr class="odd gradeX">
+								<td><input type="checkbox" name="ids[]" value="<?=$v['id'];?>" /></td>
                                 <td><?=$v['userName'];?></td>
                                 <td><?=$v['sex'] == 1 ? '男' : '女';?></td>
                                 <td><?=$v['age'];?></td>
@@ -144,19 +145,6 @@ include '../views/viewtop.php';
                                 <td><?=$v['qiWangDiDian'];?></td>
                                 <td><?=$v['juZhuDiZhi'];?></td>
                                 <td><?=$v['createTime'];?></td>
-                                <td>
-                                    <?php foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
-                                        <?php  if ($val['moduleName'] == '编辑') {?>
-                                            <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
-                                        <?php } elseif ($val['moduleName'] == '删除') {?>
-                                            <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
-                                        <?php } elseif ($val['moduleName'] == '角色授权') {?>
-                                            <a href="<?=$val['url']?>?roleId=<?=$v['id']?>">角色授权</a>
-                                        <?php } elseif ($val['moduleName'] == '投放公海') {?>
-											<a class="qita" href="#" url="<?=$val['url']?>?id=<?=$v['id']?>">投放公海</a>
-										<?php }?>
-                                    <?php }} ?>
-                                </td>
                             </tr>
                             <?php }}?>
                             </tbody>
@@ -173,6 +161,7 @@ include '../views/viewtop.php';
                     </div>
                 </div>
             </div>
+			 </form>
             <!--End Advanced Tables -->
         </div>
     </div>
@@ -190,6 +179,39 @@ include '../views/viewtop.php';
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+$('#fenpei').click(function(){
+	var num = $('#num').val();
+	var count = $("#checkBoxList input:checkbox:checked").length; 
+	var redio = $("input[name='radios']:checked").val();
+	if(count == 0) {
+		alert('请选择简历信息！');
+		return false;
+	} else if(count > num) {
+		alert('分配数量大于贡献值，当前分配数'+count+'贡献值'+num);
+		return false;
+	} else if(redio == null){
+		alert("请选择部门人员！");
+		return false;
+	}
+	
+	var post = $('form').serialize();
+    var url = $('form').attr('action');
+	$.post(url , post , function(data){
+		eval('myjson=' + data + ';');
+		if (myjson.statusCode == 200) {
+			$('.modal-body').text(myjson.message);
+			$('#myModal').modal({backdrop:false,show:true});
+			$('.btn').click(function() {
+				window.href = window.location.reload();
+			});
+		} else if (myjson.statusCode == 300) {
+			$('.modal-body').text(myjson.message);
+			$('#myModal').modal({backdrop:false,show:true});
+		}
+	});
+})
+</script>
 <script type="text/javascript">
 var xueLi = '<?=$userInfo['xueLi'];?>';
 var sex = '<?=$userInfo['sex'];?>';

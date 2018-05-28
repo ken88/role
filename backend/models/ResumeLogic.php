@@ -12,13 +12,25 @@ use yii\data\Pagination;
 use common\models\Resume;
 use Yii;
 
-class ResumeLogic
+class ResumeLogic extends BaseLogic
 {
-    public static function getInfo()
+    public static function getInfo($isGongHai = 0,$keyWord = '')
     {
+        $session = self::getSession();
+        $level = $session['level'];
         $clum = 'id,userName,sex,age,xueLi,phone,isMiHao,rcName1,rcName2,qiWangXinZi,qiWangDiDian,juZhuDiZhi,createTime';
 
-        $query = Resume::find()->select($clum);
+        $query = Resume::find()->select($clum)->where($keyWord)->andWhere(['isGongHai'=>$isGongHai]);
+
+        if ($level < 9) {
+            if ($isGongHai == 0) {
+                $query = $query->andWhere(['departmentId' => $session['departmentId']]);
+            }
+            $query = $query->andWhere(['<=', 'level', $level]);
+        } else if ($level == 9) {
+            $query = $query->andWhere(['<=', 'level', $level]);
+        }
+//        echo $query->createCommand()->getRawSql();exit;
         // 总数
         $count = $query->count();
 
@@ -26,7 +38,7 @@ class ResumeLogic
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 20]);
 
         $info = $query->offset($pagination->offset)
-            ->limit($pagination->limit)->asArray()->all();
+            ->limit($pagination->limit)->orderBy('id desc')->asArray()->all();
         $data = [
             'info' => $info,
             'pages' => $pagination,
@@ -45,11 +57,13 @@ class ResumeLogic
         $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi) VALUES ';
         $queryInsert = null;
         foreach ($res as $val) {
-            $sex = $val['D'] == '男' ? 1 : 0;
-            $queryInsert .= "({$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}', '{$val['B']}', {$val['C']}, {$sex},'{$val['E']}'),";
+            $sex = $val['D'] == '男' ? 1 : 2;
+            $age = $val['C'] == '' ? 0 : $val['C'];
+            $queryInsert .= "({$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$val['B']}', {$age}, {$sex},'{$val['E']}'),";
         }
         $sql = $query.rtrim($queryInsert,','). ' ON DUPLICATE KEY UPDATE 
         `phone` = VALUES(`phone`)';
+
         return $db->createCommand($sql)->execute();
 
     }

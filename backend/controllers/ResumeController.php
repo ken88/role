@@ -13,6 +13,7 @@ use backend\models\ResumeCategoryLogic;
 use backend\models\ResumeLogic;
 use common\models\Resume;
 use Yii;
+use common\models\Departmentnumber;
 
 class ResumeController extends BaseController
 {
@@ -21,11 +22,65 @@ class ResumeController extends BaseController
      */
     public function actionIndex()
     {
-        $data = ResumeLogic::getInfo();
+        $userName = Yii::$app->request->get('userName','');
+        $age = (int)Yii::$app->request->get('age','');
+        $phone = (int)Yii::$app->request->get('phone','');
+        $xueLi = Yii::$app->request->get('xueLi','');
+        $sex = (int)Yii::$app->request->get('sex','');
+        $qiWangXinZi = Yii::$app->request->get('qiWangXinZi','');
+        $isMiHao = Yii::$app->request->get('isMiHao','');
+        $rcId1 = Yii::$app->request->get('rcId1','');
+        $rcId2 = Yii::$app->request->get('rcId2','');
+        $keyWord = '1=1';
+        if (!empty($userName)) {
+            $keyWord .= " and userName like '$userName%'";
+        }
+        if (!empty($age)) {
+            $keyWord .= " and age = $age";
+        }
+        if (!empty($phone)) {
+            $keyWord .= " and phone like '$phone%'";
+        }
+        if (!empty($xueLi)) {
+            $keyWord .= " and xueLi = '{$xueLi}'";
+        }
+        if (!empty($sex)) {
+            $keyWord .= " and sex = $sex";
+        }
+        if (!empty($qiWangXinZi)) {
+            $keyWord .= " and qiWangXinZi = '{$qiWangXinZi}'";
+        }
+        if (!empty($isMiHao)) {
+            $keyWord .= " and isMiHao = $isMiHao";
+        }
+        if (!empty($rcId1)) {
+            $keyWord .= " and rcId1 = $rcId1";
+        }
+        if (!empty($rcId2)) {
+            $keyWord .= " and rcId2 = $rcId2";
+        }
+        $data = ResumeLogic::getInfo(0,$keyWord);
         $moduleId = Yii::$app->request->get('moduleId',0);
         //获取权限按钮信息
         $aclList = $this->getButAcl($moduleId);
+
+        //获取岗位分类
+        $data['gangwei'] = ResumeCategoryLogic::getAll(0);
+
         $data['aclList'] = $aclList;
+        $data['userInfo'] = [
+            'moduleId' => $moduleId,
+            'userName' => $userName,
+            'age' => $age,
+            'phone' => $phone,
+            'xueLi' => $xueLi,
+            'sex' => $sex,
+            'qiWangXinZi' => $qiWangXinZi,
+            'isMiHao' => $isMiHao,
+            'rcId1' => $rcId1,
+            'rcId2' => $rcId2,
+        ];
+
         return $this->renderPartial('index',$data);
     }
 
@@ -122,7 +177,7 @@ class ResumeController extends BaseController
         $cate = ResumeCategoryLogic::getAll(0);
         //获取省
         $prov = ProvincesLogic::getProvinces();
-//        dd($resume);
+
         $data = [
             'info' => $resume,
             'prov' => $prov,
@@ -153,7 +208,6 @@ class ResumeController extends BaseController
         }
         // 检测文件是否合法
         $items_data = is_check_file_data($_FILES);
-
         if ($items_data == 'no') {
             returnJsonInfo('导入格式不正确！', 300);
         }
@@ -191,11 +245,47 @@ class ResumeController extends BaseController
         if (empty($itemArr)) {
             returnJsonInfo('没有导入的数据！', 300);
         }
-
         if (ResumeLogic::add($itemArr)) {
             returnJsonInfo('导入成功！');
         }else {
             returnJsonInfo('导入失败！');
+        }
+    }
+
+    /**
+     * 投放公海
+     */
+    public function actionOutInfo()
+    {
+        $id = Yii::$app->request->get('id',0);
+        $resume = Resume::find()->where(['id' => $id])->one();
+        $resume->isGongHai = 1;
+        $session = $this->getSession();
+        $tr = Yii::$app->db->beginTransaction();
+        try {
+            if ($resume->save()) {
+                $depart = Departmentnumber::find()->where(['departmentId' => $session['departmentId']])->one();
+                if (!empty($depart)) {
+                    $depart->number += 1;
+                }else {
+                    $depart = new Departmentnumber();
+                    $depart->departmentId = $session['departmentId'];
+                    $depart->number = 1;
+                }
+                if ($depart->save()) {
+                    $tr->commit();
+                    returnJsonInfo('投放成功！');
+                }else {
+                    $tr->rollBack();
+                    returnJsonInfo('投放失败！',300);
+                }
+            }else {
+                $tr->rollBack();
+                returnJsonInfo('投放失败！',300);
+            }
+        }catch (\Exception $e) {
+            $tr->rollBack();
+            returnJsonInfo('投放失败！',300);
         }
 
     }

@@ -41,6 +41,7 @@ use Yii;
  * @property string $gongZuoJingLi 工作经历
  * @property int $level 级别
  * @property string $createTime 创建时间
+ * @property int $isGongHai 是否公海简历 1是0不是
  */
 class Resume extends \yii\db\ActiveRecord
 {
@@ -59,7 +60,7 @@ class Resume extends \yii\db\ActiveRecord
     {
         return [
             [['userName', 'uid', 'departmentId', 'level'], 'required'],
-            [['sex', 'isMiHao', 'age', 'rcId1', 'rcId2', 'hunYin', 'uid', 'departmentId', 'level'], 'integer'],
+            [['sex', 'isMiHao', 'age', 'rcId1', 'rcId2', 'hunYin', 'uid', 'departmentId', 'level', 'isGongHai'], 'integer'],
             [['createTime'], 'safe'],
             [['userName', 'qiWangDiDian', 'weiXin', 'lianXiRen', 'yinHangNum'], 'string', 'max' => 30],
             [['phone', 'qq', 'lianXiRenPhone'], 'string', 'max' => 11],
@@ -112,6 +113,7 @@ class Resume extends \yii\db\ActiveRecord
             'gongZuoJingLi' => 'Gong Zuo Jing Li',
             'level' => 'Level',
             'createTime' => 'Create Time',
+            'isGongHai' => 'Is Gong Hai',
         ];
     }
 }
