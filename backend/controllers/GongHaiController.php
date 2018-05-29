@@ -51,7 +51,7 @@ class GongHaiController extends BaseController
         if (!empty($qiWangXinZi)) {
             $keyWord .= " and qiWangXinZi = '{$qiWangXinZi}'";
         }
-        if (!empty($isMiHao)) {
+        if ($isMiHao != '') {
             $keyWord .= " and isMiHao = $isMiHao";
         }
         if (!empty($rcId1)) {

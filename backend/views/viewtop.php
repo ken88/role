@@ -16,3 +16,4 @@
 <script src="/dist/js/fancyboxcustom.js"></script>
 <script src="/dist/js/bootstrap.min.js"></script>
 <script src="/dist/js/form.js" charset="utf-8"></script>
+<script src="/dist/laydate/laydate.js"></script>

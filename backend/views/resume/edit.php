@@ -58,7 +58,7 @@
               </tr>
               <tr>
                 <td>出生年月：</td>
-                <td><input class="form-control"  name="chuShengRiQi" value="<?=$info['chuShengRiQi']?>" placeholder="出生年月" /></td>
+                <td><input class="form-control demo-input"  name="chuShengRiQi" id="chuShengRiQi" value="<?=$info['chuShengRiQi']?>" placeholder="出生年月" /></td>
                 <td align="center">身份证号码：</td>
                 <td><input name="shenFenZheng" value="<?=$info['shenFenZheng']?>" class="form-control"  placeholder="身份证号码" style="width:200px;" maxlength="18" /></td>
                 <td>期望薪资：</td>
@@ -122,6 +122,10 @@
                 <td>紧急电话：</td>
                 <td><input class="form-control"  name="lianXiRenPhone" value="<?=$info['lianXiRenPhone']?>" placeholder="联系人电话" /></td>
               </tr>
+			   <tr>
+                <td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</td>
+                <td colspan="5"><input class="form-control" style="width:400px;" value="<?=$info['beizhu']?>" name="beizhu" placeholder="备注" /></td>
+              </tr>
               <tr>
                 <td colspan="6"><div class="biaoqian">银行信息</div></td>
               </tr>
@@ -181,7 +185,7 @@
               </tr>
               <tr>
                 <td >起止时间：</td>
-                <td><input class="form-control"  name="shijian1" id="shijian1" placeholder="起止时间" />                </td>
+                <td><input class="form-control demo-input"  name="shijian1" id="shijian1" placeholder="起止时间" />                </td>
                 <td align="center" >企业名称：</td>
                 <td><input class="form-control"  name="qiye1" id="qiye1" placeholder="企业名称" /></td>
                 <td>工作岗位：</td>
@@ -189,7 +193,7 @@
               </tr>
               <tr>
                 <td >起止时间：</td>
-                <td><input class="form-control"  name="shijian2" id='shijian2' placeholder="起止时间" /></td>
+                <td><input class="form-control demo-input"  name="shijian2" id='shijian2' placeholder="起止时间" /></td>
                 <td align="center" >企业名称：</td>
                 <td><input class="form-control"  name="qiye2" id='qiye2' placeholder="企业名称" /></td>
                 <td>工作岗位：</td>
@@ -197,7 +201,7 @@
               </tr>
               <tr>
                 <td >起止时间：</td>
-                <td><input class="form-control"  name="shijian3" id='shijian3' placeholder="起止时间" />                </td>
+                <td><input class="form-control demo-input"  name="shijian3" id='shijian3' placeholder="起止时间" />                </td>
                 <td align="center" >企业名称：</td>
                 <td><input class="form-control"  name="qiye3" id='qiye3' placeholder="企业名称" /></td>
                 <td>工作岗位：</td>
@@ -294,6 +298,28 @@
             var strHtml = "<option value='0'>------请选择------</option>";
             $('#rcName2').html(strHtml);
         }
-
     }
+	
+	
+	 //常规用法
+    laydate.render({
+      elem: '#chuShengRiQi' //指定元素
+    });
+	
+	 //年月范围
+    laydate.render({
+      elem: '#shijian1'
+      ,type: 'month'
+      ,range: true
+    });
+	 laydate.render({
+      elem: '#shijian2'
+      ,type: 'month'
+      ,range: true
+    });
+	 laydate.render({
+      elem: '#shijian3'
+      ,type: 'month'
+      ,range: true
+    });
 </script>
