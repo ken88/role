@@ -50,7 +50,7 @@ class ResumeController extends BaseController
         if (!empty($qiWangXinZi)) {
             $keyWord .= " and qiWangXinZi = '{$qiWangXinZi}'";
         }
-        if (!empty($isMiHao)) {
+        if ($isMiHao != '') {
             $keyWord .= " and isMiHao = $isMiHao";
         }
         if (!empty($rcId1)) {
@@ -59,6 +59,7 @@ class ResumeController extends BaseController
         if (!empty($rcId2)) {
             $keyWord .= " and rcId2 = $rcId2";
         }
+        
         $data = ResumeLogic::getInfo(0,$keyWord);
         $moduleId = Yii::$app->request->get('moduleId',0);
         //获取权限按钮信息
@@ -200,7 +201,7 @@ class ResumeController extends BaseController
         }
     }
 
-    //倒入
+    //导入
     public function actionPourExcel()
     {
         if (empty($_FILES)) {
@@ -244,7 +245,10 @@ class ResumeController extends BaseController
         // 数据库过滤后没有数据
         if (empty($itemArr)) {
             returnJsonInfo('没有导入的数据！', 300);
+        }else if(count($itemArr) > 300) {
+            returnJsonInfo('导入条数超限，最多300条数据！', 300);
         }
+
         if (ResumeLogic::add($itemArr)) {
             returnJsonInfo('导入成功！');
         }else {

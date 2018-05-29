@@ -104,6 +104,7 @@ include '../views/viewtop.php';
                                 </span>
                                 <a href="#" id="subFile" val="<?=$v['url']?>" class="btn btn-info btn-sm">确定</a>
                                 <a href="/模板/简历标准版.xlsx" class="btn btn-info btn-sm">模板下载</a>
+								<span style="color:red;">说明：每次导入不可大于300条数据，已经录入过的号码或号码为空将被过滤</span>
                                 <?php }?>
                         <?php }} ?>
                     </div>

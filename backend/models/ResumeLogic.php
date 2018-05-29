@@ -11,6 +11,7 @@ namespace backend\models;
 use yii\data\Pagination;
 use common\models\Resume;
 use Yii;
+use common\models\Resumecategory;
 
 class ResumeLogic extends BaseLogic
 {
@@ -54,12 +55,52 @@ class ResumeLogic extends BaseLogic
     {
         $session = \Yii::$app->session['userinfo'];
         $db = Yii::$app->db;
-        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi) VALUES ';
+        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2) VALUES ';
         $queryInsert = null;
+        $category = Resumecategory::find()->asArray()->all();
+
         foreach ($res as $val) {
+            $rcId1 = 0;
+            $rcName1 = '';
+            $rcId2 = 0;
+            $rcName2 = '';
+
             $sex = $val['D'] == '男' ? 1 : 2;
             $age = $val['C'] == '' ? 0 : $val['C'];
-            $queryInsert .= "({$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$val['B']}', {$age}, {$sex},'{$val['E']}'),";
+            $isMiHao = $val['G'] == '是' ? 1 : 0;
+            //获取1级分类信息
+            foreach ($category as $c) {
+                if ($c['cName'] == $val['I']) {
+                    $rcId1 = $c['id'];
+                    $rcName1 = $c['cName'];
+                    break;
+                }
+            }
+            //获取2级分类信息
+            foreach ($category as $c) {
+                if ($c['cName'] == $val['J']) {
+                    $rcId2 = $c['id'];
+                    $rcName2 = $c['cName'];
+                    break;
+                }
+            }
+            $queryInsert .= "(
+            {$session['id']},
+            {$session['departmentId']},
+            {$session['level']},
+            '{$val['A']}',
+            '{$val['B']}', 
+            {$age}, 
+            {$sex},
+            '{$val['E']}',
+            '{$val['F']}',
+            {$isMiHao},
+            '{$val['H']}',
+            {$rcId1},
+            '{$rcName1}',
+            {$rcId2},
+            '{$rcName2}'
+            ),";
         }
         $sql = $query.rtrim($queryInsert,','). ' ON DUPLICATE KEY UPDATE 
         `phone` = VALUES(`phone`)';

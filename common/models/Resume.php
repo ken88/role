@@ -42,6 +42,7 @@ use Yii;
  * @property int $level 级别
  * @property string $createTime 创建时间
  * @property int $isGongHai 是否公海简历 1是0不是
+ * @property string $beizhu 备注
  */
 class Resume extends \yii\db\ActiveRecord
 {
@@ -68,7 +69,7 @@ class Resume extends \yii\db\ActiveRecord
             [['juZhuDiZhi', 'huJiDiZhi'], 'string', 'max' => 100],
             [['minZu'], 'string', 'max' => 10],
             [['shenFenZheng'], 'string', 'max' => 18],
-            [['email', 'yinHang', 'kaiHuWangDian'], 'string', 'max' => 50],
+            [['email', 'yinHang', 'kaiHuWangDian', 'beizhu'], 'string', 'max' => 50],
             [['gongZuoJingLi'], 'string', 'max' => 8000],
         ];
     }
@@ -114,6 +115,7 @@ class Resume extends \yii\db\ActiveRecord
             'level' => 'Level',
             'createTime' => 'Create Time',
             'isGongHai' => 'Is Gong Hai',
+            'beizhu' => 'Beizhu',
         ];
     }
 }
