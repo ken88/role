@@ -52,7 +52,7 @@
 <nav class="navbar navbar-default top-navbar" role="navigation">
     <div class="navbar-header">
 
-        <a class="navbar-brand" href="/index/index">CRM管理系统</a>
+        <a class="navbar-brand" href="/index/index">仁联管理系统</a>
     </div>
     <ul class="nav navbar-top-links navbar-right">
        <li style="color: red; font-size: 16px; margin-right: 15px;">欢迎您：<?php if (!empty($_SESSION['userinfo']))echo $_SESSION['userinfo']['username'];?></li>

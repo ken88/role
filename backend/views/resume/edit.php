@@ -208,7 +208,7 @@
                 <td><input class="form-control"  name="gangwei3" id='gangwei3' placeholder="工作岗位" /></td>
               </tr>
             </table>
-            <button type="button" id="submit"  class="btn btn-danger btn-lg">确定</button>
+            <button type="button" id="submit"   class="btn btn-danger btn-sm">确定</button>
           </form>
           <!-- /.row (nested) -->
         </div>

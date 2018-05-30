@@ -59,7 +59,7 @@ class ResumeController extends BaseController
         if (!empty($rcId2)) {
             $keyWord .= " and rcId2 = $rcId2";
         }
-        
+
         $data = ResumeLogic::getInfo(0,$keyWord);
         $moduleId = Yii::$app->request->get('moduleId',0);
         //获取权限按钮信息
@@ -123,10 +123,11 @@ class ResumeController extends BaseController
             $resume->departmentId = $session['departmentId'];
             $resume->gongZuoJingLi = json_encode($gongZuoJingLi,320);
             $resume->createTime = date('Y-m-d H:i:s');
+            $resume->path = $session['path'];
             if ($resume->save()){
                 returnJsonInfo('录入成功！');
             }
-            dd($resume->getFirstErrors());
+            //dd($resume->getFirstErrors());
             returnJsonInfo('录入失败！',300);
         }
         //获取岗位分类
@@ -248,7 +249,6 @@ class ResumeController extends BaseController
         }else if(count($itemArr) > 300) {
             returnJsonInfo('导入条数超限，最多300条数据！', 300);
         }
-
         if (ResumeLogic::add($itemArr)) {
             returnJsonInfo('导入成功！');
         }else {

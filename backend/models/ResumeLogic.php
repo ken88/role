@@ -15,6 +15,11 @@ use common\models\Resumecategory;
 
 class ResumeLogic extends BaseLogic
 {
+    /**
+     * @param int $isGongHai 1公海 0私有
+     * @param string $keyWord 搜索条件
+     * @return array
+     */
     public static function getInfo($isGongHai = 0,$keyWord = '')
     {
         $session = self::getSession();
@@ -23,14 +28,10 @@ class ResumeLogic extends BaseLogic
 
         $query = Resume::find()->select($clum)->where($keyWord)->andWhere(['isGongHai'=>$isGongHai]);
 
-        if ($level < 9) {
-            if ($isGongHai == 0) {
-                $query = $query->andWhere(['departmentId' => $session['departmentId']]);
-            }
-            $query = $query->andWhere(['<=', 'level', $level]);
-        } else if ($level == 9) {
-            $query = $query->andWhere(['<=', 'level', $level]);
+        if ($isGongHai == 0) {
+            $query = $query->andWhere("path like '{$session['path']}%'");
         }
+
 //        echo $query->createCommand()->getRawSql();exit;
         // 总数
         $count = $query->count();
@@ -55,7 +56,7 @@ class ResumeLogic extends BaseLogic
     {
         $session = \Yii::$app->session['userinfo'];
         $db = Yii::$app->db;
-        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2) VALUES ';
+        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2,path) VALUES ';
         $queryInsert = null;
         $category = Resumecategory::find()->asArray()->all();
 
@@ -84,27 +85,12 @@ class ResumeLogic extends BaseLogic
                     break;
                 }
             }
+            $phone = iconv("utf-8","GBK//IGNORE",$val['B']);
             $queryInsert .= "(
-            {$session['id']},
-            {$session['departmentId']},
-            {$session['level']},
-            '{$val['A']}',
-            '{$val['B']}', 
-            {$age}, 
-            {$sex},
-            '{$val['E']}',
-            '{$val['F']}',
-            {$isMiHao},
-            '{$val['H']}',
-            {$rcId1},
-            '{$rcName1}',
-            {$rcId2},
-            '{$rcName2}'
-            ),";
+            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}'),";
         }
-        $sql = $query.rtrim($queryInsert,','). ' ON DUPLICATE KEY UPDATE 
-        `phone` = VALUES(`phone`)';
-
+        $sql = $query.rtrim($queryInsert,',');
+        //' ON DUPLICATE KEY UPDATE `phone` = VALUES(`phone`)';
         return $db->createCommand($sql)->execute();
 
     }

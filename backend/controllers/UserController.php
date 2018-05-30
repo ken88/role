@@ -141,4 +141,30 @@ class UserController extends BaseController
         }
         returnJsonInfo('删除失败！',300);
     }
+
+    /**
+     * 密码修改
+     */
+    public function actionPass()
+    {
+        if (Yii::$app->request->post()) {
+            $session = $this->getSession();
+            $info = Yii::$app->request->post();
+            if ($info['newPass'] != $info['newPass1']) {
+                returnJsonInfo('两次密码不一致！',300);
+            }
+            $user = User::find()->where(['username'=>$session['username']])->one();
+           if (md5($info['password']) != $user->password) {
+               returnJsonInfo('原始密码不正确！',300);
+           }else {
+                $user->password = md5($info['newPass']);
+                if ($user->save()) {
+                    returnJsonInfo('修改成功！');
+                }else {
+                    returnJsonInfo('修改失败！',300);
+                }
+           }
+        }
+        return $this->renderPartial('pass');
+    }
 }

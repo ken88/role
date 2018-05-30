@@ -13,6 +13,7 @@ use Yii;
  * @property int $departmentId 部门id
  * @property string $acl 角色权限
  * @property int $level 级别
+ * @property string $path 层级
  */
 class Role extends \yii\db\ActiveRecord
 {
@@ -34,6 +35,7 @@ class Role extends \yii\db\ActiveRecord
             [['uid', 'departmentId', 'level'], 'integer'],
             [['acl'], 'string'],
             [['roleName'], 'string', 'max' => 50],
+            [['path'], 'string', 'max' => 100],
         ];
     }
 
@@ -49,6 +51,7 @@ class Role extends \yii\db\ActiveRecord
             'departmentId' => 'Department ID',
             'acl' => 'Acl',
             'level' => 'Level',
+            'path' => 'Path',
         ];
     }
 }

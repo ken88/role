@@ -43,6 +43,7 @@ use Yii;
  * @property string $createTime 创建时间
  * @property int $isGongHai 是否公海简历 1是0不是
  * @property string $beizhu 备注
+ * @property string $path 层级
  */
 class Resume extends \yii\db\ActiveRecord
 {
@@ -66,7 +67,7 @@ class Resume extends \yii\db\ActiveRecord
             [['userName', 'qiWangDiDian', 'weiXin', 'lianXiRen', 'yinHangNum'], 'string', 'max' => 30],
             [['phone', 'qq', 'lianXiRenPhone'], 'string', 'max' => 11],
             [['xueLi', 'rcName1', 'rcName2', 'qiWangXinZi', 'mianMao', 'chuShengRiQi', 'zhuanYe'], 'string', 'max' => 20],
-            [['juZhuDiZhi', 'huJiDiZhi'], 'string', 'max' => 100],
+            [['juZhuDiZhi', 'huJiDiZhi', 'path'], 'string', 'max' => 100],
             [['minZu'], 'string', 'max' => 10],
             [['shenFenZheng'], 'string', 'max' => 18],
             [['email', 'yinHang', 'kaiHuWangDian', 'beizhu'], 'string', 'max' => 50],
@@ -99,9 +100,9 @@ class Resume extends \yii\db\ActiveRecord
             'qq' => 'Qq',
             'weiXin' => 'Wei Xin',
             'lianXiRen' => 'Lian Xi Ren',
-            'lianXiRenPhone' => 'Lian Xi Ren Phone',
+            'lianXiRenPhone' => '联系人电话',
             'hunYin' => 'Hun Yin',
-            'minZu' => 'Min Zu',
+            'minZu' => '民族',
             'chuShengRiQi' => 'Chu Sheng Ri Qi',
             'shenFenZheng' => 'Shen Fen Zheng',
             'zhuanYe' => 'Zhuan Ye',
@@ -116,6 +117,7 @@ class Resume extends \yii\db\ActiveRecord
             'createTime' => 'Create Time',
             'isGongHai' => 'Is Gong Hai',
             'beizhu' => 'Beizhu',
+            'path' => 'Path',
         ];
     }
 }

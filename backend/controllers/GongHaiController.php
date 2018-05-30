@@ -106,31 +106,33 @@ class GongHaiController extends BaseController
         $count = count($info['ids']);
 
         //查找分配人级别
-        $user = User::find()->select('level')->where(['id'=>$info['radios']])->asArray()->one();
+        $user = User::find()->select('level,path,departmentId')->where(['id'=>$info['radios']])->asArray()->one();
 
         //贡献值大于分配值
         if ($num->number < $count) {
             returnJsonInfo('贡献值大于分配数！',300);
         }
+
         $tr = Yii::$app->db->beginTransaction();
         try {
+
             //更改分配信息
-            if (Resume::updateAll(['isGongHai' => 0,'uid'=>$info['radios'],'level'=>$user['level']],['in','id',$info['ids']])) {
+            if (Resume::updateAll(['isGongHai' => 0,'uid' => $info['radios'],'level'=>$user['level'],'departmentId'=>$user['departmentId'],'path'=>$user['path']],['in','id',$info['ids']])) {
                 $num->number -=  $count;
                 if ($num->save()) {
                     $tr->commit();
                     returnJsonInfo('分配成功！');
                 }else {
                     $tr->rollBack();
-                    returnJsonInfo('分配失败！',300);
+                    returnJsonInfo('分配失败1！',300);
                 }
             }else {
                 $tr->rollBack();
-                returnJsonInfo('分配失败！',300);
+                returnJsonInfo('分配失败2！',300);
             }
         }catch (\Exception $e) {
             $tr->rollBack();
-            returnJsonInfo('分配失败！',300);
+            returnJsonInfo('分配失败3！',300);
         }
     }
 }

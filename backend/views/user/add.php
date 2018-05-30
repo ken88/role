@@ -46,7 +46,7 @@
                                         </select>
                                     </div>
                                 <?php }?>
-                                <button type="button" id="submit"  class="btn btn-danger btn-lg">确定</button>
+                                <button type="button" id="submit"   class="btn btn-danger btn-sm">确定</button>
                             </form>
                         </div>
                     </div>

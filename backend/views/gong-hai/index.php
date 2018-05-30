@@ -26,19 +26,17 @@ include '../views/viewtop.php';
                 <div class="panel-heading">
                  <table width="100%" border="0" id="seach">
 				  <tr>
-					<td width="5%">姓名：</td>
-					<td width="12%"><input class="form-control"  name="userName" value="<?=$userInfo['userName'];?>" placeholder="姓名" /></td>
-					<td width="6%">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+					<td width="8%">姓名：</td>
+					<td width="13%"><input class="form-control"  name="userName" value="<?=$userInfo['userName'];?>" placeholder="姓名" /></td>
+					<td width="5%">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
 					<td width="13%"><select class="form-control" name="sex" id="sex">
 					  <option value="">请选择</option>
                       <option value="1">男</option>
                       <option value="2">女</option>
                     </select></td>
-					<td width="5%">手机号：</td>
-					<td width="13%"><input class="form-control" name="phone" value="<?=$userInfo['phone'];?>" maxlength="11" placeholder="手机号" /></td>
-					<td width="4%">学历：</td>
-					<td colspan="2"><select name="xueLi" id="xueLi" class="form-control">
-					  <option value="">请选择</option>
+					<td width="5%">学历：</td>
+					<td width="12%"><select name="xueLi" id="xueLi" class="form-control">
+                      <option value="">请选择</option>
                       <option value="初中">初中</option>
                       <option value="技校">技校</option>
                       <option value="高中">高中</option>
@@ -49,49 +47,44 @@ include '../views/viewtop.php';
                       <option value="硕士">硕士</option>
                       <option value="博士">博士</option>
                     </select></td>
+					<td width="5%">年龄：</td>
+					<td width="39%" colspan="2"><input class="form-control"  name="age" id="age" value="<?=$userInfo['age'];?>" maxlength="3" placeholder="年龄" /></td>
 				  </tr>
 				  <tr>
-					<td>年龄：</td>
-					<td><input class="form-control"  name="age" id="age" value="<?=$userInfo['age'];?>" maxlength="3" placeholder="年龄" /></td>
 					<td>期望薪资：</td>
 					<td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
-					  <option value="">请选择</option>
+                      <option value="">请选择</option>
                       <option value="1000~3000">1000~3000</option>
-						<option value="3000~5000">3000~5000</option>
-						<option value="5000~7000">5000~7000</option>
-						<option value="7000以上">7000以上</option>
+                      <option value="3000~5000">3000~5000</option>
+                      <option value="5000~7000">5000~7000</option>
+                      <option value="7000以上">7000以上</option>
                     </select></td>
 					<td>密&nbsp;&nbsp;&nbsp;号：</td>
-					<td>
-						<select class="form-control" name="isMiHao" id="isMiHao">
-							<option value="">请选择</option>
-						  <option value="1">是</option>
-						  <option value="0">否</option>
-						</select>
-					</td>
+					<td><select class="form-control" name="isMiHao" id="isMiHao">
+                      <option value="">请选择</option>
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select></td>
 					<td>岗位：</td>
-					<td width="24%"><select class="form-control" name="rcId1" id="rcId1"  style="float:left; margin-right:10px;">
+					<td><select class="form-control" name="rcId1" id="rcId1"  style="float:left; margin-right:10px;">
                       <option value="">请选择</option>
                       <?php  if (!empty($gangwei)){foreach ($gangwei as $v){?>
                       <option value="<?=$v['id'];?>">
-                        <?=$v['cName'];?>
+                      <?=$v['cName'];?>
                       </option>
                       <?php }} ?>
-                    </select>
-					 <select class="form-control" name="rcId2" id="rcId2"  style="margin-left:30px;">
-						<option value="">请选择</option>
-					</select>
-					 
-				    </td>
-					<td width="18%" align="center"> <input name="submit" type="submit" class="btn btn-danger" value="搜索" /></td>
-				  </tr>
+                    </select></td>
+					<td colspan="3"><select class="form-control" name="rcId2" id="rcId2"  style="margin-left:30px; float:left">
+                      <option value="">请选择</option>
+                    </select> <input name="submit" type="submit" class="btn btn-danger"  value="搜索" style="margin-left:30px;" /></td>
+				   </tr>
 				</table>
 
                 </div>
                 </form>
                 <div style="border: solid gainsboro 1px;"></div>
             <!-- Advanced Tables -->
-			<form action="/gong-hai/fen-pei" method="post" enctype="multipart/form-data" name="form"  >
+			<form action="/gong-hai/fen-pei" method="post" enctype="multipart/form-data" id="form1" name="form"  >
 			<input type="hidden" id="num" value="<?=$num;?>" />
             <div class="panel panel-default">
                 <div style="border: solid gainsboro 1px;"></div>
@@ -119,7 +112,6 @@ include '../views/viewtop.php';
                                 <th>性别</th>
                                 <th>年龄</th>
                                 <th>学历</th>
-                                <th>联系方式</th>
                                 <th>密号</th>
                                 <th>岗位分类</th>
                                 <th>期望岗位</th>
@@ -137,7 +129,6 @@ include '../views/viewtop.php';
                                 <td><?=$v['sex'] == 1 ? '男' : '女';?></td>
                                 <td><?=$v['age'];?></td>
                                 <td><?=$v['xueLi'];?></td>
-                                <td><?=$v['phone'];?></td>
                                 <td><?=$v['isMiHao'] == 1 ? '是' : '否';?></td>
                                 <td><?=$v['rcName1'];?></td>
                                 <td><?=$v['rcName2'];?></td>
@@ -195,8 +186,8 @@ $('#fenpei').click(function(){
 		return false;
 	}
 	
-	var post = $('form').serialize();
-    var url = $('form').attr('action');
+	var post = $('#form1').serialize();
+    var url = $('#form1').attr('action');
 	$.post(url , post , function(data){
 		eval('myjson=' + data + ';');
 		if (myjson.statusCode == 200) {

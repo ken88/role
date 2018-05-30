@@ -8,29 +8,17 @@
 
 namespace backend\models;
 
+
 use common\models\User;
 use yii\data\Pagination;
 
-class UserLogic
+class UserLogic extends  BaseLogic
 {
     public static function getUserInfo($session)
     {
-        /**
-         * 超级管理员 level 10
-         * 管理员 9
-         * 下面的按照部门不同级别进行不同数据展示 例如 总监查看本部门所有信息  个人查看个人信息
-         */
-        $userSql = User::find();
 
-        $level = $session['level'];
-        //级别小于9 的 按照部门级别查看数据
-        if ($level < 9) {
-            $userSql = $userSql
-                ->where(['departmentId' => $session['departmentId']])
-                ->andWhere(['<=', 'level', $level]);
-        } else if ($level == 9) {
-            $userSql = $userSql->andWhere(['<=', 'level', $level]);
-        }
+        $userSql = User::find()->where("path like '{$session['path']}%'");
+
         // 总数
         $count = $userSql->count();
 
@@ -54,6 +42,7 @@ class UserLogic
      */
     public static function add($info,$level)
     {
+        $session = self::getSession();
         $arrRole = explode(',',$info['role']);
         $user = new User();
         $user->username = $info['username'];
@@ -65,7 +54,11 @@ class UserLogic
         $user->level = $level - 1;
         $user->roleId = $arrRole[0];
         $user->roleName = $arrRole[1];
+        $user->path = $session['path'];
         if ($user->save()) {
+            $id = $user->id;
+            $user->path = $user->path.'-'.$id;
+            $user->save();
             return true;
         }else {
             return false;

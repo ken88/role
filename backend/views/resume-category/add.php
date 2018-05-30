@@ -23,7 +23,7 @@
                                     <label>分类名</label>
                                     <input class="form-control" ck="required" name="cName" placeholder="分类名" >
                                 </div>
-                                <button type="button" id="submit"  class="btn btn-danger btn-lg">确定</button>
+                                <button type="button" id="submit"   class="btn btn-danger btn-sm">确定</button>
                             </form>
                         </div>
                     </div>

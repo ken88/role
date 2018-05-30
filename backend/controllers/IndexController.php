@@ -21,7 +21,6 @@ class IndexController extends BaseController
     {
         $session =  $this->getSession();
         $redis = Yii::$app->redis;
-
         //获取缓存是否存在角色授权的信息
         if (!$redis->get('roleid'.$session['roleId'])) {
             $role = Role::find()->where(['id' => $session['roleId']])->one();

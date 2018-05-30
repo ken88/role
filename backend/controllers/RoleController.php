@@ -20,15 +20,9 @@ class RoleController extends BaseController
     public function actionIndex()
     {
         $session = $this->getSession();
-        $level = $session['level'];
-        $roleSql = Role::find();
-        if ($level < 9) {
-            $roleSql = $roleSql
-                ->where(['departmentId' => $session['departmentId']])
-                ->andWhere(['<=' , 'level', $level]);
-        } elseif ($level == 9) {
-            $roleSql =  $roleSql->andWhere(['<=' , 'level', $level]);
-        }
+
+        $roleSql = Role::find()->where("path like '{$session['rolePath']}%'");
+
         // 总数
         $count = $roleSql->count();
 
@@ -70,17 +64,20 @@ class RoleController extends BaseController
             $role->departmentId = $session['departmentId'];
             $role->roleName = $info['roleName'];
             $role->level = $session['level'] - 1;
-
+            $role->path = $session['rolePath'];
             if ($role->save()) {
+                $id = $role->id;
+                $role->path = $role->path.'-'.$id;
+                $role->save();
                 returnJsonInfo('录入成功！');
             } else {
                 dd($role->getFirstErrors());
                 returnJsonInfo('录入失败！',300);
             }
         }
-
         return $this->renderPartial('add');
     }
+
 
     /**
      * 编辑

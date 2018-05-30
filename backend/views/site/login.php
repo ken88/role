@@ -9,7 +9,7 @@
 <body class="login" mycollectionplug="bind">
     <div class="login_m">
         <div class="login_logo">
-            <img src="/dist/login/logo.png" width="196" height="46">
+            <img src="/dist/login/logo2.png" width="240" height="60">
         </div>
         <form action="/site/login" method="post">
             <div class="login_boder">

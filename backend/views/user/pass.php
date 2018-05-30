@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
-               编辑部门
+              密码修改
             </h1>
         </div>
     </div>
@@ -11,20 +11,23 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#" onclick="javascript:history.go(-1)" class="btn btn-info btn-sm">返回</a>
-                </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form action="/department/edit">
-                                <input type="hidden" value="<?php echo $info['id'];?>" name="id" />
+                            <form action="/user/pass">
                                 <div class="form-group">
-                                    <label>部门名</label>
-                                    <input class="form-control" ck="required" value="<?=$info['departmentName']?>" name="departmentName" placeholder="部门名" >
+                                    <label>原始密码</label>
+                                    <input class="form-control" ck="required" type="password" name="password" placeholder="原始密码" >
                                 </div>
-
-                                <button type="button" id="submit"   class="btn btn-danger btn-sm">确定</button>
+                                <div class="form-group">
+                                    <label>新密码</label>
+                                    <input class="form-control" ck="required" type="password" name="newPass" placeholder="新密码" >
+                                </div>
+                                <div class="form-group">
+                                    <label>确认新密码</label>
+                                    <input class="form-control" ck="required" type="password" name="newPass1" placeholder="确认新密码" >
+                                </div>
+                                <button type="button" id="submit"  class="btn btn-danger btn-sm">确定</button>
                             </form>
                         </div>
                     </div>

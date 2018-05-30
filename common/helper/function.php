@@ -46,7 +46,7 @@ function is_check_file_data($file)
     $fileName = $_FILES["file"]["name"];
     $type     = strstr($fileName, '.');  // 文件后缀
 
-    if ($type != ".xls" && $type != ".xlsx") {
+    if ($type != ".xls" && $type != ".xlsx" ) {
         return 'no';
     }
 

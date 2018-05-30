@@ -48,6 +48,8 @@ class LoginForm extends Model
         if (!empty($user)) {
             if ($user['password'] == md5($post['password'])) {
                 $session = Yii::$app->session;
+                $role = Role::find()->select('path')->where(['id'=>$user['roleId']])->one();
+                $user['rolePath'] = $role->path;
                 $session->set('userinfo',$user);
                 return true;
             }

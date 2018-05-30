@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-backend',
     'defaultRoute' => 'site/login',//默认访问控制器
+    'language' => 'zh-CN',       //全局设置为中文--推荐
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
