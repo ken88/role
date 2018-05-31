@@ -237,9 +237,8 @@ $("#rcId1 option[value='"+rcId1+"']").attr("selected",true);
                 strHtml += "<option value='"+val+"'>"+data[i]['cName']+"</option>";
             }
             $('#rcId2').html(strHtml);
-            if(falg) {
-                $("#rcId2 option[value='"+rcId2+"']").attr("selected",true);
-            }
+            $("#rcId2 option[value='"+rcId2+"']").attr("selected",true);
+
         },'json')
 	}
 </script>

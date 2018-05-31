@@ -250,9 +250,9 @@ if (rcId1 != '') {
             strHtml += "<option value='"+val+"'>"+data[i]['cName']+"</option>";
         }
         $('#rcId2').html(strHtml);
-        if(falg) {
-            $("#rcId2 option[value='"+rcId2+"']").attr("selected",true);
-        }
+
+        $("#rcId2 option[value='"+rcId2+"']").attr("selected",true);
+
     },'json')
 }
 </script>
