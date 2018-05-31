@@ -27,7 +27,7 @@
               <tr>
                 <td width="10%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
                 <td width="10%" ><input class="form-control" ck="required"  name="userName" placeholder="姓名" maxlength="30" /></td>
-                <td width="10%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                <td width="10%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
                 <td width="14%"><input type="radio" name="sex"  value="1" checked="" />
                   男
                   <input type="radio" name="sex"  value="2" />
