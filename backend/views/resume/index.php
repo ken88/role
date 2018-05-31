@@ -208,32 +208,38 @@ $("#rcId1 option[value='"+rcId1+"']").attr("selected",true);
   $('#rcId1').change(function () {
         var id = $(this).val();
         if (id != '') {
-            rc2(id);
+            $.post('/resume-category/ajax-category',{'id':id},function (data) {
+                $('#rcId2').html('');
+                var strHtml = "<option value=''>请选择</option>";
+                var count = data.length;
+                var val = null;
+                for(var i = 0 ; i < count ; i++) {
+                    val = data[i]['id'];
+                    strHtml += "<option value='"+val+"'>"+data[i]['cName']+"</option>";
+                }
+                $('#rcId2').html(strHtml);
+
+            },'json')
         } else  {
             var strHtml = "<option value=''>请选择</option>";
             $('#rcId2').html(strHtml);
         }
     })
-	
-	function rc2(id,falg = false)
-	{
 
-		$.post('/resume-category/ajax-category',{'id':id},function (data) {
-                $('#rcId2').html('');
-                var strHtml = "<option value=''>请选择</option>";
-                var count = data.length;
-				var val = null;
-                for(var i = 0 ; i < count ; i++) {
-					val = data[i]['id'];
-                    strHtml += "<option value='"+val+"'>"+data[i]['cName']+"</option>";
-                }
-                $('#rcId2').html(strHtml);
-				if(falg) {
-					$("#rcId2 option[value='"+rcId2+"']").attr("selected",true);
-				}
-            },'json')
-	}
 	if (rcId1 != '') {
-		rc2(rcId1,true);
+        $.post('/resume-category/ajax-category',{'id':rcId1},function (data) {
+            $('#rcId2').html('');
+            var strHtml = "<option value=''>请选择</option>";
+            var count = data.length;
+            var val = null;
+            for(var i = 0 ; i < count ; i++) {
+                val = data[i]['id'];
+                strHtml += "<option value='"+val+"'>"+data[i]['cName']+"</option>";
+            }
+            $('#rcId2').html(strHtml);
+            if(falg) {
+                $("#rcId2 option[value='"+rcId2+"']").attr("selected",true);
+            }
+        },'json')
 	}
 </script>
