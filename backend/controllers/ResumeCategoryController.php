@@ -109,8 +109,7 @@ class ResumeCategoryController extends BaseController
     public function actionAjaxCategory()
     {
         $id = Yii::$app->request->post('id',0);
-
         $info = ResumeCategoryLogic::getAll($id);
-        echo  json_encode($info);
+        return  json_encode($info);
     }
 }
