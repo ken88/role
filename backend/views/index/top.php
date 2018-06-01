@@ -2,72 +2,114 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dream</title>
-    <!-- Bootstrap Styles-->
-    <link href="/template/assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FontAwesome Styles-->
-    <link href="/template/assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- Morris Chart Styles-->
-    <link href="/template/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
-    <!-- Custom Styles-->
-    <link href="/template/assets/css/custom-styles.css" rel="stylesheet" />
-    <!-- Google Fonts-->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
+	<meta charset="utf-8" />
 
+	<title>仁联管理系统</title>
 
-    <script src="/template/assets/js/jquery-1.10.2.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="/template/assets/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Js -->
-    <script src="/template/assets/js/jquery.metisMenu.js"></script>
+	<meta content="width=device-width, height=device-height, initial-scale=1.0" name="viewport" />
 
-    <!-- Custom Js -->
-    <script src="/template/assets/js/custom-scripts.js"></script>
-    <script type="text/javascript">
-        function SetWinHeight(obj)
-        {
-            var win=obj;
-            if (document.getElementById)
-            {
-                if (win && !window.opera)
-                {
-                    if (win.contentDocument && win.contentDocument.body.offsetHeight)
-                        win.height = win.contentDocument.body.offsetHeight;
-                    else if(win.Document && win.Document.body.scrollHeight)
-                        win.height = win.Document.body.scrollHeight;
-                }
-            }
-			window.scrollTo(0,0); // how far to scroll on each step
+	<meta content="" name="description" />
 
-        }
-        function right_(url){
-            $('#rightcontent').attr('src',url);
-        };
-    </script>
+	<meta content="" name="author" />
+
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+	<link href="/media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="/media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="/media/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+
+	<link href="/media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+
+	<link href="/media/css/style.css" rel="stylesheet" type="text/css"/>
+
+	<link href="/media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+
+	<link href="/media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+
+	<link href="/media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+
+	<!-- END GLOBAL MANDATORY STYLES -->
+
+	<!-- BEGIN PAGE LEVEL STYLES -->
+
+	<link rel="stylesheet" href="/media/css/DT_bootstrap.css" />
+
+	<!-- END PAGE LEVEL STYLES -->
+
+	<link rel="shortcut icon" href="/media/image/favicon.ico" />
+
 </head>
-<body>
-<div id="wrapper">
-<nav class="navbar navbar-default top-navbar" role="navigation">
-    <div class="navbar-header">
+<!-- BEGIN BODY -->
 
-        <a class="navbar-brand" href="/index/index">仁联管理系统</a>
-    </div>
-    <ul class="nav navbar-top-links navbar-right">
-       <li style="color: red; font-size: 16px; margin-right: 15px;">欢迎您：<?php if (!empty($_SESSION['userinfo']))echo $_SESSION['userinfo']['username'];?></li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li>
-                    <a href="/site/logout">
-                        <i class="fa fa-sign-out fa-fw"></i> 退出
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+<body class="page-header-fixed">
+
+<div class="header navbar navbar-inverse navbar-fixed-top">
+
+		<!-- BEGIN TOP NAVIGATION BAR -->
+
+		<div class="navbar-inner">
+
+			<div class="container-fluid">
+
+				<!-- BEGIN LOGO -->
+
+				<a class="brand" href="index.html">
+
+				<img src="/dist/login/logo1.png" alt="logo" width="140px" />
+
+				</a>
+
+				<!-- END LOGO -->
+
+				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+
+				<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+
+				<img src="/media/image/menu-toggler.png" alt="" />
+
+				</a>          
+
+				<!-- END RESPONSIVE MENU TOGGLER -->            
+
+				<!-- BEGIN TOP NAVIGATION MENU -->              
+
+				<ul class="nav pull-right">
+
+					<li class="dropdown user">
+
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+						<img alt="" src="/media/image/avatar1_small.jpg" />
+
+						<span class="username"><?php if (!empty($_SESSION['userinfo']))echo $_SESSION['userinfo']['username'];?></span>
+
+						<i class="icon-angle-down"></i>
+
+						</a>
+
+						<ul class="dropdown-menu">
+							<li><a href="/site/logout"><i class="icon-key"></i> Log Out</a></li>
+						</ul>
+
+					</li>
+
+					<!-- END USER LOGIN DROPDOWN -->
+
+				</ul>
+
+				<!-- END TOP NAVIGATION MENU --> 
+
+			</div>
+
+		</div>
+
+		<!-- END TOP NAVIGATION BAR -->
+
+	</div>
+
+	<!-- END HEADER -->
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container row-fluid">

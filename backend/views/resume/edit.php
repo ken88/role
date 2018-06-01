@@ -25,20 +25,20 @@
                 <td colspan="6"><div class="biaoqian">基本信息</div></td>
               </tr>
               <tr>
-                <td width="7%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-                <td width="16%" ><input class="form-control" ck="required"  name="userName" value="<?=$info['userName']?>" placeholder="姓名" /></td>
-                <td width="19%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                <td width="5%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                <td width="18%" ><input class="form-control" ck="required"  name="userName" value="<?=$info['userName']?>" placeholder="姓名" /></td>
+                <td width="19%" align="right"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
                 <td width="19%"><input type="radio" name="sex" id="sex1"  value="1" checked="" />
                   男
                     <input type="radio" name="sex" id="sex2"  value="2" />
                   女 </td>
-                <td width="10%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-                <td width="29%"><input class="form-control"  name="age" value="<?=$info['age']?>" placeholder="年龄"  /></td>
+                <td width="6%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+                <td width="33%"><input class="form-control"  name="age" value="<?=$info['age']?>" placeholder="年龄"  /></td>
               </tr>
               <tr>
                 <td><span class="requ">*</span>手&nbsp;机&nbsp;号：</td>
                 <td><?=$info['phone']?></td>
-                <td align="center">是&nbsp;否&nbsp;密&nbsp;号：</td>
+                <td align="right">是&nbsp;否&nbsp;密&nbsp;号：</td>
                 <td><input type="radio" name="isMiHao" id="isMiHao1"  value="1" />
                   是
                   <input type="radio" name="isMiHao" id="isMiHao0"  value="0" />
@@ -59,7 +59,7 @@
               <tr>
                 <td>出生年月：</td>
                 <td><input class="form-control demo-input"  name="chuShengRiQi" id="chuShengRiQi" value="<?=$info['chuShengRiQi']?>" placeholder="出生年月" /></td>
-                <td align="center">身份证号码：</td>
+                <td align="right">身份证号码：</td>
                 <td><input name="shenFenZheng" value="<?=$info['shenFenZheng']?>" class="form-control"  placeholder="身份证号码"  maxlength="18" /></td>
                 <td>期望薪资：</td>
                 <td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
@@ -71,17 +71,16 @@
               </tr>
               <tr>
                 <td>岗位类别：</td>
-                <td><select class="form-control" name="rcName1" id="rcName1">
+                <td colspan="5"><select class="form-control" name="rcName1" id="rcName1" style="float:left;">
                     <option value="0">------请选择------</option>
                     <?php  if (!empty($cate)){foreach ($cate as $v){?>
                     <option value="<?=$v['id'];?>,<?=$v['cName'];?>">
                     <?=$v['cName'];?>
                     </option>
                     <?php }} ?>
-                  </select>                </td>
-                <td colspan="4"><select class="form-control" name="rcName2" id="rcName2"  style="margin-left:30px;">
+                  </select>                <select class="form-control" name="rcName2" id="rcName2"  style="margin-left:180px;">
                     <option value="0">------请选择------</option>
-                </select></td>
+                  </select></td>
               </tr>
               <tr>
                 <td>户籍地址：</td>
@@ -97,9 +96,9 @@
               <tr>
                 <td>政治面貌：</td>
                 <td><input class="form-control"  name="mianMao" value="<?=$info['mianMao']?>" placeholder="政治面貌" /></td>
-                <td align="center">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
+                <td align="right">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</td>
                 <td><input class="form-control"  name="minZu" value="<?=$info['minZu']?>" placeholder="民族" /></td>
-                <td>婚姻状况&nbsp;：</td>
+                <td>婚姻状况：</td>
                 <td><select class="form-control" name="hunYin" id="hunYin">
                     <option value="0">未婚</option>
                     <option value="1">已婚</option>
@@ -109,15 +108,15 @@
               <tr>
                 <td>微&nbsp;信&nbsp;&nbsp;ID：</td>
                 <td><input class="form-control"  name="weiXin" value="<?=$info['weiXin']?>" placeholder="微信" /></td>
-                <td align="center">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</td>
+                <td align="right">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</td>
                 <td><input class="form-control"  name="emails" value="<?=$info['email']?>" placeholder="邮箱" /></td>
-                <td>QQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</td>
+                <td>QQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</td>
                 <td><input class="form-control"  name="qq" maxlength="11" value="<?=$info['qq']?>" placeholder="qq" />                </td>
               </tr>
               <tr>
                 <td>专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</td>
                 <td><input class="form-control"  name="zhuanYe" value="<?=$info['zhuanYe']?>" placeholder="专业" /></td>
-                <td align="center">紧急联系人：</td>
+                <td align="right">紧急联系人：</td>
                 <td><input class="form-control"  name="lianXiRen" value="<?=$info['lianXiRen']?>"  placeholder="紧急联系人" /></td>
                 <td>紧急电话：</td>
                 <td><input class="form-control"  name="lianXiRenPhone" value="<?=$info['lianXiRenPhone']?>" placeholder="联系人电话" /></td>
@@ -175,7 +174,7 @@
                     <option value="东莞农村商业银行">东莞农村商业银行</option>
                     <option value="郑州银行">郑州银行</option>
                 </select></td>
-                <td align="center">银&nbsp;行&nbsp;卡&nbsp;号：</td>
+                <td align="right">银行卡号：</td>
                 <td><input class="form-control"  name="yinHangNum" value="<?=$info['yinHangNum']?>" placeholder="银行卡号" /></td>
                 <td>开户网点： </td>
                 <td><input class="form-control"  name="kaiHuWangDian" value="<?=$info['kaiHuWangDian']?>" placeholder="开户网点" /></td>
@@ -186,7 +185,7 @@
               <tr>
                 <td >起止时间：</td>
                 <td><input class="form-control demo-input"  name="shijian1" id="shijian1" placeholder="起止时间" />                </td>
-                <td align="center" >企业名称：</td>
+                <td align="right" >企业名称：</td>
                 <td><input class="form-control"  name="qiye1" id="qiye1" placeholder="企业名称" /></td>
                 <td>工作岗位：</td>
                 <td><input class="form-control"  name="gangwei1" id="gangwei1" placeholder="工作岗位" /></td>
@@ -194,7 +193,7 @@
               <tr>
                 <td >起止时间：</td>
                 <td><input class="form-control demo-input"  name="shijian2" id='shijian2' placeholder="起止时间" /></td>
-                <td align="center" >企业名称：</td>
+                <td align="right" >企业名称：</td>
                 <td><input class="form-control"  name="qiye2" id='qiye2' placeholder="企业名称" /></td>
                 <td>工作岗位：</td>
                 <td><input class="form-control"  name="gangwei2" id='gangwei2' placeholder="工作岗位" /></td>
@@ -202,7 +201,7 @@
               <tr>
                 <td >起止时间：</td>
                 <td><input class="form-control demo-input"  name="shijian3" id='shijian3' placeholder="起止时间" />                </td>
-                <td align="center" >企业名称：</td>
+                <td align="right" >企业名称：</td>
                 <td><input class="form-control"  name="qiye3" id='qiye3' placeholder="企业名称" /></td>
                 <td>工作岗位：</td>
                 <td><input class="form-control"  name="gangwei3" id='gangwei3' placeholder="工作岗位" /></td>
