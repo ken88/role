@@ -2,14 +2,109 @@
 use yii\widgets\LinkPager;
 include '../views/viewtop.php';
 ?>
-<style type="text/css">
-<!--
-.form-control {width: 150px; }
-#seach td{ height:40px;}
--->
-</style>
+<div class="page-content">
+  <!-- BEGIN PAGE CONTAINER-->
+  <div class="container-fluid">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row-fluid">
+      <div class="span12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">简历列表</h3>
+        <ul class="breadcrumb">
+          <li> <i class="icon-home"></i>首页 <i class="icon-angle-right"></i> </li>
+          <li> 简历管理<i class="icon-angle-right"></i> </li>
+          <li>简历列表</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+      </div>
+    </div>
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="alert alert-success">
+          <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){ ?>
+          <?php  if ($v['moduleName'] == '新增') {?>
+          <a href="<?=$v['url']?>">新增</a><i class="icon-plus"></i>
+          <?php }?>
+          <?php }} ?>
+        </div>
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+          <div class="portlet-title">
+            <div class="caption"><i class="icon-cogs"></i>数据列表</div>
+          </div>
+          <div class="portlet-body no-more-tables">
+            <table class="table-bordered table-striped table-condensed cf">
+              <thead class="cf">
+                <tr>
+                   <th>姓名</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>学历</th>
+                                <th>联系方式</th>
+                                <th>密号</th>
+                                <th>岗位分类</th>
+                                <th>期望岗位</th>
+                                <th>期望薪资</th>
+                                <th>期望地点</th>
+                                <th>居住地</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if (!empty($info)) {foreach ($info as $v) { ?>
+                            <tr class="odd gradeX">
+                                <td><?=$v['userName'];?></td>
+                                <td><?=$v['sex'] == 1 ? '男' : '女';?></td>
+                                <td><?=$v['age'];?></td>
+                                <td><?=$v['xueLi'];?></td>
+                                <td><?=$v['phone'];?></td>
+                                <td><?=$v['isMiHao'] == 1 ? '是' : '否';?></td>
+                                <td><?=$v['rcName1'];?></td>
+                                <td><?=$v['rcName2'];?></td>
+                                <td><?=$v['qiWangXinZi'];?></td>
+                                <td><?=$v['qiWangDiDian'];?></td>
+                                <td><?=$v['juZhuDiZhi'];?></td>
+                                <td><?=$v['createTime'];?></td>
+                                <td>
+                                    <?php foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
+                                        <?php  if ($val['moduleName'] == '编辑') {?>
+                                            <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
+                                        <?php } elseif ($val['moduleName'] == '删除') {?>
+                                            <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
+                                        <?php } elseif ($val['moduleName'] == '角色授权') {?>
+                                            <a href="<?=$val['url']?>?roleId=<?=$v['id']?>">角色授权</a>
+                                        <?php } elseif ($val['moduleName'] == '投放公海') {?>
+											<a class="qita" href="#" url="<?=$val['url']?>?id=<?=$v['id']?>">投放公海</a>
+										<?php }?>
+                                    <?php }} ?>
+                                </td>
+                            </tr>
+                            <?php }}?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="dataTables_paginate paging_bootstrap pagination"> <?php echo LinkPager::widget([
+								'pagination' => $pages,
+								'nextPageLabel' => '下一页',
+								'prevPageLabel' => '上一页',
+								'firstPageLabel' => '首页',
+								'lastPageLabel' => '尾页',
+							]);?> </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+      </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+  </div>
+  <!-- END PAGE CONTAINER-->
+</div>
 
-<div id="page-inner">
+
+
+<?php /*?><div id="page-inner">
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-header">
@@ -177,7 +272,7 @@ include '../views/viewtop.php';
             <!--End Advanced Tables -->
         </div>
     </div>
-</div>
+</div><?php */?>
 <!-- 模态框（Modal） -->
 <div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
