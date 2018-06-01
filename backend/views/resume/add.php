@@ -18,7 +18,7 @@
     <div class="col-lg-12">
       <div class="panel panel-default">
         <div class="panel-heading"> <a href="#" onclick="javascript:history.go(-1)" class="btn btn-info btn-sm">返回</a> </div>
-        <div class="panel-body"  >
+        <div class="panel-body" >
           <form action="/resume/add">
             <table width="100%" border="0" >
               <tr>
@@ -32,8 +32,8 @@
                   男
                   <input type="radio" name="sex"  value="2" />
                 女 </td>
-                <td width="10%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-                <td width="29%"><input class="form-control"  name="age" placeholder="年龄" maxlength="3" /></td>
+                <td width="7%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+                <td width="32%"><input class="form-control"  name="age" placeholder="年龄" maxlength="3" /></td>
               </tr>
               <tr>
                 <td><span class="requ">*</span>手&nbsp;机&nbsp;号：</td>

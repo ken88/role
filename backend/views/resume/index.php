@@ -85,7 +85,7 @@ include '../views/viewtop.php';
                           <select class="form-control" name="rcId2" id="rcId2"  style="margin-left:30px;">
                             <option value="">请选择</option>
                         </select></td>
-                      <td align="center"><input name="submit" type="submit" class="btn btn-danger" value="搜索" /></td>
+                      <td><input name="submit" type="submit" class="btn btn-danger" value="搜索" /></td>
                      
                     </tr>
                   </table>
