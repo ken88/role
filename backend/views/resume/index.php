@@ -19,76 +19,76 @@ include '../views/viewtop.php';
     </div>
     <!-- /. ROW  -->
 
-    <div class="row">
+    <div class="row" >
         <div class="col-md-12">
             <!-- Advanced Tables -->
             <div class="panel panel-default">
                 <form action="/resume/index" method="get">
 				<input type="hidden" name="moduleId" value="<?=$userInfo['moduleId']?>" />
                 <div class="panel-heading">
-                 <table width="100%" border="0" id="seach">
-				  <tr>
-					<td width="5%">姓名：</td>
-					<td width="12%"><input class="form-control"  name="userName" value="<?=$userInfo['userName'];?>" placeholder="姓名" /></td>
-					<td width="6%">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-					<td width="13%"><select class="form-control" name="sex" id="sex">
-					  <option value="">请选择</option>
-                      <option value="1">男</option>
-                      <option value="2">女</option>
-                    </select></td>
-					<td width="5%">手机号：</td>
-					<td width="13%"><input class="form-control" name="phone" value="<?=$userInfo['phone'];?>" maxlength="11" placeholder="手机号" /></td>
-					<td width="4%">学历：</td>
-					<td colspan="2"><select name="xueLi" id="xueLi" class="form-control">
-					  <option value="">请选择</option>
-                      <option value="初中">初中</option>
-                      <option value="技校">技校</option>
-                      <option value="高中">高中</option>
-                      <option value="中专">中专</option>
-                      <option value="大专">大专</option>
-                      <option value="本科">本科</option>
-                      <option value="研究生">研究生</option>
-                      <option value="硕士">硕士</option>
-                      <option value="博士">博士</option>
-                    </select></td>
-				  </tr>
-				  <tr>
-					<td>年龄：</td>
-					<td><input class="form-control"  name="age" id="age" value="<?=$userInfo['age'];?>" maxlength="3" placeholder="年龄" /></td>
-					<td>期望薪资：</td>
-					<td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
-					  <option value="">请选择</option>
-                      <option value="1000~3000">1000~3000</option>
-						<option value="3000~5000">3000~5000</option>
-						<option value="5000~7000">5000~7000</option>
-						<option value="7000以上">7000以上</option>
-                    </select></td>
-					<td>密&nbsp;&nbsp;&nbsp;号：</td>
-					<td>
-						<select class="form-control" name="isMiHao" id="isMiHao">
-							<option value="">请选择</option>
-						  <option value="1">是</option>
-						  <option value="0">否</option>
-						</select>
-					</td>
-					<td>岗位：</td>
-					<td width="24%"><select class="form-control" name="rcId1" id="rcId1"  style="float:left; margin-right:10px;">
-                      <option value="">请选择</option>
-                      <?php  if (!empty($gangwei)){foreach ($gangwei as $v){?>
-                      <option value="<?=$v['id'];?>">
-                        <?=$v['cName'];?>
-                      </option>
-                      <?php }} ?>
-                    </select>
-					 <select class="form-control" name="rcId2" id="rcId2"  style="margin-left:30px;">
-						<option value="">请选择</option>
-					</select>
-					 
-				    </td>
-					<td width="18%" align="center"> <input name="submit" type="submit" class="btn btn-danger" value="搜索" /></td>
-				  </tr>
-				</table>
-
+                  <table width="100%" border="0" id="seach">
+                    <tr>
+                      <td width="5%">姓名：</td>
+                      <td width="12%"><input class="form-control"  name="userName" value="<?=$userInfo['userName'];?>" placeholder="姓名" /></td>
+                      <td width="6%">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                      <td width="13%"><select class="form-control" name="sex" id="sex">
+                          <option value="">请选择</option>
+                          <option value="1">男</option>
+                          <option value="2">女</option>
+                      </select></td>
+                      <td width="5%">手机号：</td>
+                      <td width="13%"><input class="form-control" name="phone" value="<?=$userInfo['phone'];?>" maxlength="11" placeholder="手机号" /></td>
+                    </tr>
+                    <tr>
+                      <td>年龄：</td>
+                      <td><input class="form-control"  name="age" id="age" value="<?=$userInfo['age'];?>" maxlength="3" placeholder="年龄" /></td>
+                      <td>期望薪资：</td>
+                      <td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
+                          <option value="">请选择</option>
+                          <option value="1000~3000">1000~3000</option>
+                          <option value="3000~5000">3000~5000</option>
+                          <option value="5000~7000">5000~7000</option>
+                          <option value="7000以上">7000以上</option>
+                      </select></td>
+                      <td>密&nbsp;&nbsp;&nbsp;号：</td>
+                      <td><select class="form-control" name="isMiHao" id="isMiHao">
+                          <option value="">请选择</option>
+                          <option value="1">是</option>
+                          <option value="0">否</option>
+                        </select>
+                      </td>
+                    
+                    </tr>
+                    <tr>
+                      <td>学历：</td>
+                      <td><select name="xueLi" id="xueLi" class="form-control">
+                          <option value="">请选择</option>
+                          <option value="初中">初中</option>
+                          <option value="技校">技校</option>
+                          <option value="高中">高中</option>
+                          <option value="中专">中专</option>
+                          <option value="大专">大专</option>
+                          <option value="本科">本科</option>
+                          <option value="研究生">研究生</option>
+                          <option value="硕士">硕士</option>
+                          <option value="博士">博士</option>
+                      </select></td>
+                      <td>岗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+                      <td colspan="2"><select class="form-control" name="rcId1" id="rcId1"  style="float:left; margin-right:10px;">
+                          <option value="">请选择</option>
+                          <?php  if (!empty($gangwei)){foreach ($gangwei as $v){?>
+                          <option value="<?=$v['id'];?>">
+                          <?=$v['cName'];?>
+                          </option>
+                          <?php }} ?>
+                        </select>
+                          <select class="form-control" name="rcId2" id="rcId2"  style="margin-left:30px;">
+                            <option value="">请选择</option>
+                        </select></td>
+                      <td align="center"><input name="submit" type="submit" class="btn btn-danger" value="搜索" /></td>
+                     
+                    </tr>
+                  </table>
                 </div>
                 </form>
                 <div style="border: solid gainsboro 1px;"></div>
@@ -110,7 +110,7 @@ include '../views/viewtop.php';
                     </div>
                 </form>
 
-                <div class="panel-body">
+                <div class="panel-body" >
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
@@ -125,7 +125,7 @@ include '../views/viewtop.php';
                                 <th>期望岗位</th>
                                 <th>期望薪资</th>
                                 <th>期望地点</th>
-                                <th>目前居住地</th>
+                                <th>居住地</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>

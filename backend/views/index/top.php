@@ -40,6 +40,7 @@
                         win.height = win.Document.body.scrollHeight;
                 }
             }
+			window.scrollTo(0,0); // how far to scroll on each step
 
         }
         function right_(url){

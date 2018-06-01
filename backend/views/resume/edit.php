@@ -25,15 +25,15 @@
                 <td colspan="6"><div class="biaoqian">基本信息</div></td>
               </tr>
               <tr>
-                <td width="10%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-                <td width="10%" ><input class="form-control" ck="required"  name="userName" value="<?=$info['userName']?>" placeholder="姓名" /></td>
-                <td width="10%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-                <td width="14%"><input type="radio" name="sex" id="sex1"  value="1" checked="" />
+                <td width="7%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                <td width="16%" ><input class="form-control" ck="required"  name="userName" value="<?=$info['userName']?>" placeholder="姓名" /></td>
+                <td width="19%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                <td width="19%"><input type="radio" name="sex" id="sex1"  value="1" checked="" />
                   男
                     <input type="radio" name="sex" id="sex2"  value="2" />
                   女 </td>
-                <td width="7%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-                <td width="53%"><input class="form-control"  name="age" value="<?=$info['age']?>" placeholder="年龄"  /></td>
+                <td width="10%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+                <td width="29%"><input class="form-control"  name="age" value="<?=$info['age']?>" placeholder="年龄"  /></td>
               </tr>
               <tr>
                 <td><span class="requ">*</span>手&nbsp;机&nbsp;号：</td>
@@ -60,7 +60,7 @@
                 <td>出生年月：</td>
                 <td><input class="form-control demo-input"  name="chuShengRiQi" id="chuShengRiQi" value="<?=$info['chuShengRiQi']?>" placeholder="出生年月" /></td>
                 <td align="center">身份证号码：</td>
-                <td><input name="shenFenZheng" value="<?=$info['shenFenZheng']?>" class="form-control"  placeholder="身份证号码" style="width:200px;" maxlength="18" /></td>
+                <td><input name="shenFenZheng" value="<?=$info['shenFenZheng']?>" class="form-control"  placeholder="身份证号码"  maxlength="18" /></td>
                 <td>期望薪资：</td>
                 <td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
                    <option value="1000~3000">1000~3000</option>

@@ -18,22 +18,22 @@
     <div class="col-lg-12">
       <div class="panel panel-default">
         <div class="panel-heading"> <a href="#" onclick="javascript:history.go(-1)" class="btn btn-info btn-sm">返回</a> </div>
-        <div class="panel-body" >
+        <div class="panel-body"  >
           <form action="/resume/add">
-            <table width="100%" border="0">
+            <table width="100%" border="0" >
               <tr>
                 <td colspan="6"><div class="biaoqian">基本信息</div></td>
               </tr>
               <tr>
-                <td width="10%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-                <td width="10%" ><input class="form-control" ck="required"  name="userName" placeholder="姓名" maxlength="30" /></td>
-                <td width="10%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-                <td width="14%"><input type="radio" name="sex"  value="1" checked="" />
+                <td width="7%"><span class="requ">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                <td width="16%" ><input class="form-control" ck="required"  name="userName" placeholder="姓名" maxlength="30" /></td>
+                <td width="19%" align="center"><span class="requ">*</span>性&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                <td width="19%"><input type="radio" name="sex"  value="1" checked="" />
                   男
                   <input type="radio" name="sex"  value="2" />
-                  女 </td>
-                <td width="7%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-                <td width="53%"><input class="form-control"  name="age" placeholder="年龄" maxlength="3" /></td>
+                女 </td>
+                <td width="10%">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+                <td width="29%"><input class="form-control"  name="age" placeholder="年龄" maxlength="3" /></td>
               </tr>
               <tr>
                 <td><span class="requ">*</span>手&nbsp;机&nbsp;号：</td>
@@ -54,13 +54,13 @@
                     <option value="研究生">研究生</option>
                     <option value="硕士">硕士</option>
                     <option value="博士">博士</option>
-                  </select>                </td>
+                </select>                </td>
               </tr>
               <tr>
                 <td>出生年月：</td>
                 <td><input class="form-control demo-input"  name="chuShengRiQi" id="chuShengRiQi" placeholder="出生年月" /></td>
                 <td align="center">身份证号码：</td>
-                <td><input name="shenFenZheng" class="form-control"  placeholder="身份证号码" style="width:200px;" maxlength="18" /></td>
+                <td><input name="shenFenZheng" class="form-control"  placeholder="身份证号码"  maxlength="18" /></td>
                 <td>期望薪资：</td>
                 <td><select class="form-control" name="qiWangXinZi">
                     <option value="1000~3000">1000~3000</option>
