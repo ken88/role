@@ -1,4 +1,4 @@
-<?php include '..//views/viewtop.php';?>
+<?php include '../views/viewtop.php';?>
 <div id="page-inner">
     <div class="row">
         <div class="col-md-12">
@@ -19,9 +19,12 @@
                 <form action="/acl/authorization">
                     <input type="hidden" value="<?=$roleId;?>" name="roleId" />
                     <div class="panel-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" id="checkBoxList">
                             <table class="table table-bordered table-hover" id="dataTables-example">
                                 <tbody>
+								<tr>
+									<Td>全选：<input type="checkbox" id="selectAll" /></Td>
+								</tr>
                                     <?php if (!empty($info)) {
                                         foreach ($info as $v) {
                                             $arr=explode('-', $v['bpath']);
@@ -67,7 +70,7 @@
     </div>
 </div>
 <!-- 模态框（Modal） -->
-<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" style="top:30%" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
