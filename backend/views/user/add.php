@@ -57,13 +57,15 @@
               <?php if (!empty($role)) {?>
               <div class="control-group">
 				 <label class="control-label">角色</label>
-                <select class="chosen-with-diselect span6" name="role" id="role">
-                  <?php foreach ($role as $v) { ?>
-                  <option value="<?=$v['id']; ?>,<?=$v['roleName'];?>">
-                  <?=$v['roleName'];?>
-                  </option>
-                  <?php }?>
-                </select>
+                  <div class="controls">
+                    <select class="chosen-with-diselect span6" name="role" id="role">
+                      <?php foreach ($role as $v) { ?>
+                      <option value="<?=$v['id']; ?>,<?=$v['roleName'];?>">
+                      <?=$v['roleName'];?>
+                      </option>
+                      <?php }?>
+                    </select>
+                  </div>
               </div>
               <?php }?>
               <div class="form-actions">

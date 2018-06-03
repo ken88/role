@@ -1,5 +1,4 @@
 <?php include '../views/viewtop.php';?>
-
 <div class="page-content">
   <!-- BEGIN PAGE CONTAINER-->
   <div class="container-fluid">

@@ -1,72 +1,84 @@
 <?php include '../views/viewtop.php';?>
-<div id="page-inner">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="page-header">
-               角色授权
-            </h1>
+<div class="page-content">
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">角色授权</h3>
+                <ul class="breadcrumb">
+                    <li> <i class="icon-home"></i>首页 <i class="icon-angle-right"></i> </li>
+                    <li> 系统设置<i class="icon-angle-right"></i> </li>
+                    <li>角色管理<i class="icon-angle-right"></i></li>
+                    <li>角色授权</li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
         </div>
-    </div>
-    <!-- /. ROW  -->
-
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Advanced Tables -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#" onclick="javascript:history.go(-1)" class="btn btn-info btn-sm">返回</a>
-                </div>
-                <form action="/acl/authorization">
-                    <input type="hidden" value="<?=$roleId;?>" name="roleId" />
-                    <div class="panel-body">
-                        <div class="table-responsive" id="checkBoxList">
-                            <table class="table table-bordered table-hover" id="dataTables-example">
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-success"> <a href="#" onclick="javascript:history.go(-1)" >返回</a> </div>
+                <!-- BEGIN SAMPLE TABLE PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>角色授权</div>
+                    </div>
+                    <div class="form">
+                        <form action="/acl/authorization" class="form-horizontal">
+                            <input type="hidden" value="<?=$roleId;?>" name="roleId" />
+                            <table id="checkBoxList" style="background-color:#ffffff; width: 100%" cellpadding="6">
                                 <tbody>
-								<tr>
-									<Td>全选：<input type="checkbox" id="selectAll" /></Td>
-								</tr>
-                                    <?php if (!empty($info)) {
-                                        foreach ($info as $v) {
-                                            $arr=explode('-', $v['bpath']);
-                                            $num = count($arr);
-                                            if ($num <= 2 ){
-                                                $count = 0;
+                                <tr>
+                                    <Td>全选：<input type="checkbox" id="selectAll" /></Td>
+                                </tr>
+                                <?php if (!empty($info)) {
+                                    foreach ($info as $v) {
+                                        $arr=explode('-', $v['bpath']);
+                                        $num = count($arr);
+                                        if ($num <= 2 ){
+                                            $count = 0;
                                             ?>
                                             <tr>
                                                 <td>
                                                  <span style='margin-left:<?php echo $num?>em; <?php if($num == 1 ){echo 'font-weight:bold;';}?>'>
                                                     <?=$v['moduleName'];?>
-                                                     <input style="cursor: pointer" type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
+                                                     <input  type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
                                                     <span class="lbl"></span>
                                                 </span>
                                                 </td>
                                             </tr>
-                                                <?php }else{ if ($count == 0 ){ $count++;?>
+                                        <?php }else{ if ($count == 0 ){ $count++;?>
                                             <tr>
-                                                <td>
-                                                <?php }?>
+                                            <td>
+                                        <?php }?>
 
-                                                     <span style='margin-left:<?php echo $num?>em;'>
+                                            <span style='margin-left:<?php echo $num?>em;'>
                                                         <?=$v['moduleName'];?>
-                                                         <input style="cursor: pointer" type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
+                                                <input style="cursor: pointer" type="checkbox" name="che[]" id='<?=$v["id"]; ?>' value="<?=$v["id"]; ?>" >
                                                         <span class="lbl"></span>
                                                      </span>
 
-                                                    <?php if ($count == 0) {?>
-                                                    </td>
-                                            </tr>
-                                                    <?php }?>
-                                                <?php }?>
+                                            <?php if ($count == 0) {?>
+                                                </td>
+                                                </tr>
+                                            <?php }?>
+                                        <?php }?>
                                     <?php }}?>
                                 </tbody>
                             </table>
-                        </div>
-                        <button type="button" id="submit"  class="btn btn-danger btn-sm">确定</button>
+                            <div class="form-actions">
+                                <button type="button" id="submit" class="btn blue">确定</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-            <!--End Advanced Tables -->
+            <!-- END PAGE CONTENT-->
         </div>
+        <!-- END PAGE CONTAINER-->
     </div>
 </div>
 <!-- 模态框（Modal） -->

@@ -2,6 +2,8 @@
 use yii\widgets\LinkPager;
 include '../views/viewtop.php';
 ?>
+<link href="/media/css/jquery.fileupload-ui.css" rel="stylesheet" />
+
 <div class="page-content">
   <!-- BEGIN PAGE CONTAINER-->
   <div class="container-fluid">
@@ -22,13 +24,115 @@ include '../views/viewtop.php';
     <!-- BEGIN PAGE CONTENT-->
     <div class="row-fluid">
       <div class="span12">
-        <div class="alert alert-success">
-          <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){ ?>
-          <?php  if ($v['moduleName'] == '新增') {?>
-          <a href="<?=$v['url']?>">新增</a><i class="icon-plus"></i>
-          <?php }?>
-          <?php }} ?>
-        </div>
+          <form action="/resume/index" method="get">
+              <input type="hidden" name="moduleId" value="<?=$userInfo['moduleId']?>" />
+              <div class="panel-heading">
+                  <table width="100%" border="0" id="seach">
+                      <tr>
+                          <td width="5%">姓名：</td>
+                          <td width="12%"><input class="form-control"  name="userName" value="<?=$userInfo['userName'];?>" placeholder="姓名" /></td>
+                          <td width="6%">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                          <td width="13%"><select class="chosen-with-diselect span4" name="sex" id="sex">
+                                  <option value="">请选择</option>
+                                  <option value="1">男</option>
+                                  <option value="2">女</option>
+                              </select></td>
+                          <td width="5%">手机号：</td>
+                          <td width="13%"><input class="form-control" name="phone" value="<?=$userInfo['phone'] == 0 ? '' : $userInfo['phone'];?>" maxlength="11" placeholder="手机号" /></td>
+                      </tr>
+                      <tr>
+                          <td>年龄：</td>
+                          <td><input class="form-control"  name="age" id="age" value="<?=$userInfo['age'] == 0 ? '' : $userInfo['age'];?>" maxlength="3" placeholder="年龄" /></td>
+                          <td>期望薪资：</td>
+                          <td><select class="chosen-with-diselect span4" name="qiWangXinZi" id="qiWangXinZi">
+                                  <option value="">请选择</option>
+                                  <option value="1000~3000">1000~3000</option>
+                                  <option value="3000~5000">3000~5000</option>
+                                  <option value="5000~7000">5000~7000</option>
+                                  <option value="7000以上">7000以上</option>
+                              </select></td>
+                          <td>密&nbsp;&nbsp;&nbsp;号：</td>
+                          <td><select class="chosen-with-diselect span4" name="isMiHao" id="isMiHao">
+                                  <option value="">请选择</option>
+                                  <option value="1">是</option>
+                                  <option value="0">否</option>
+                              </select>
+                          </td>
+
+                      </tr>
+                      <tr>
+                          <td>学历：</td>
+                          <td><select name="xueLi" id="xueLi" class="chosen-with-diselect span4">
+                                  <option value="">请选择</option>
+                                  <option value="初中">初中</option>
+                                  <option value="技校">技校</option>
+                                  <option value="高中">高中</option>
+                                  <option value="中专">中专</option>
+                                  <option value="大专">大专</option>
+                                  <option value="本科">本科</option>
+                                  <option value="研究生">研究生</option>
+                                  <option value="硕士">硕士</option>
+                                  <option value="博士">博士</option>
+                              </select></td>
+                          <td>岗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+                          <td colspan="2"><select class="chosen-with-diselect span4" name="rcId1" id="rcId1"  >
+                                  <option value="">请选择</option>
+                                  <?php  if (!empty($gangwei)){foreach ($gangwei as $v){?>
+                                      <option value="<?=$v['id'];?>">
+                                          <?=$v['cName'];?>
+                                      </option>
+                                  <?php }} ?>
+                              </select>
+                              <select class="chosen-with-diselect span4" name="rcId2" id="rcId2" >
+                                  <option value="">请选择</option>
+                              </select></td>
+                          <td><input name="submit" type="submit" class="btn blue" value="搜索" /></td>
+
+                      </tr>
+                  </table>
+              </div>
+          </form>
+
+
+          <div class="row-fluid fileupload-buttonbar">
+              <div class="span7" style="height: 60px">
+                  <form action="/resume/pour-excel" method="post" enctype="multipart/form-data" name="form"  id="J_myUploadForm">
+                      <div class="panel-heading" style="height: 60px;">
+                          <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){?>
+                              <?php  if ($v['moduleName'] == '新增') {?>
+                                  <a href="<?=$v['url']?>">
+                                      <span class="btn green fileinput-button">
+                                          <i class="icon-plus"></i>
+                                          <span>新增简历</span>
+                                      </span>
+                                  </a>
+                              <?php } if ($v['moduleName'] == '导入') {?>
+                                  <span class="btn green fileinput-button">
+									<i class="icon-plus icon-white"></i>
+									<span>导入简历</span>
+                                      <input type="file" name="file" id="file" >
+                                  </span>
+                                  <span id="fileVal"></span>
+                                  <a href="#" id="subFile" val="<?=$v['url']?>">
+                                      <button type="button" class="btn red delete">
+                                          <span>确定导入</span>
+                                      </button>
+                                  </a>
+                                  <a href="/模板/简历标准版.xlsx" >
+                                      <button type="button" class="btn yellow">
+                                          <span>模板下载</span>
+                                      </button>
+                                  </a>
+                                  <br>
+                                  <span style="color: red;">说明：每次导入不可大于300条数据，已经录入过的号码或号码为空将被过滤</span>
+                              <?php }?>
+                          <?php }} ?>
+                      </div>
+                  </form>
+
+              </div>
+          </div>
+
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet box blue">
           <div class="portlet-title">
@@ -101,178 +205,6 @@ include '../views/viewtop.php';
   </div>
   <!-- END PAGE CONTAINER-->
 </div>
-
-
-
-<?php /*?><div id="page-inner">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="page-header">
-                简历列表
-            </h1>
-        </div>
-    </div>
-    <!-- /. ROW  -->
-
-    <div class="row" >
-        <div class="col-md-12">
-            <!-- Advanced Tables -->
-            <div class="panel panel-default">
-                <form action="/resume/index" method="get">
-				<input type="hidden" name="moduleId" value="<?=$userInfo['moduleId']?>" />
-                <div class="panel-heading">
-                  <table width="100%" border="0" id="seach">
-                    <tr>
-                      <td width="5%">姓名：</td>
-                      <td width="12%"><input class="form-control"  name="userName" value="<?=$userInfo['userName'];?>" placeholder="姓名" /></td>
-                      <td width="6%">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-                      <td width="13%"><select class="form-control" name="sex" id="sex">
-                          <option value="">请选择</option>
-                          <option value="1">男</option>
-                          <option value="2">女</option>
-                      </select></td>
-                      <td width="5%">手机号：</td>
-                      <td width="13%"><input class="form-control" name="phone" value="<?=$userInfo['phone'];?>" maxlength="11" placeholder="手机号" /></td>
-                    </tr>
-                    <tr>
-                      <td>年龄：</td>
-                      <td><input class="form-control"  name="age" id="age" value="<?=$userInfo['age'];?>" maxlength="3" placeholder="年龄" /></td>
-                      <td>期望薪资：</td>
-                      <td><select class="form-control" name="qiWangXinZi" id="qiWangXinZi">
-                          <option value="">请选择</option>
-                          <option value="1000~3000">1000~3000</option>
-                          <option value="3000~5000">3000~5000</option>
-                          <option value="5000~7000">5000~7000</option>
-                          <option value="7000以上">7000以上</option>
-                      </select></td>
-                      <td>密&nbsp;&nbsp;&nbsp;号：</td>
-                      <td><select class="form-control" name="isMiHao" id="isMiHao">
-                          <option value="">请选择</option>
-                          <option value="1">是</option>
-                          <option value="0">否</option>
-                        </select>
-                      </td>
-                    
-                    </tr>
-                    <tr>
-                      <td>学历：</td>
-                      <td><select name="xueLi" id="xueLi" class="form-control">
-                          <option value="">请选择</option>
-                          <option value="初中">初中</option>
-                          <option value="技校">技校</option>
-                          <option value="高中">高中</option>
-                          <option value="中专">中专</option>
-                          <option value="大专">大专</option>
-                          <option value="本科">本科</option>
-                          <option value="研究生">研究生</option>
-                          <option value="硕士">硕士</option>
-                          <option value="博士">博士</option>
-                      </select></td>
-                      <td>岗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
-                      <td colspan="2"><select class="form-control" name="rcId1" id="rcId1"  style="float:left; margin-right:10px;">
-                          <option value="">请选择</option>
-                          <?php  if (!empty($gangwei)){foreach ($gangwei as $v){?>
-                          <option value="<?=$v['id'];?>">
-                          <?=$v['cName'];?>
-                          </option>
-                          <?php }} ?>
-                        </select>
-                          <select class="form-control" name="rcId2" id="rcId2"  style="margin-left:30px;">
-                            <option value="">请选择</option>
-                        </select></td>
-                      <td><input name="submit" type="submit" class="btn btn-danger" value="搜索" /></td>
-                     
-                    </tr>
-                  </table>
-                </div>
-                </form>
-                <div style="border: solid gainsboro 1px;"></div>
-                <form action="/resume/pour-excel" method="post" enctype="multipart/form-data" name="form"  id="J_myUploadForm">
-                    <div class="panel-heading" style="height: 60px;">
-                        <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){?>
-                            <?php  if ($v['moduleName'] == '新增') {?>
-                                <a href="<?=$v['url']?>" class="btn btn-info btn-sm" style="float: left;">新增</a>
-                                <?php } if ($v['moduleName'] == '导入') {?>
-                                <span style="float: left; margin-left: 20px;">
-                                    <span style="float:left;">导入文件：</span>
-                                    <input type="file" name="file" id="file" style="width: 180px;">
-                                </span>
-                                <a href="#" id="subFile" val="<?=$v['url']?>" class="btn btn-info btn-sm">确定</a>
-                                <a href="/模板/简历标准版.xlsx" class="btn btn-info btn-sm">模板下载</a>
-								<span style="color:red;">说明：每次导入不可大于300条数据，已经录入过的号码或号码为空将被过滤</span>
-                                <?php }?>
-                        <?php }} ?>
-                    </div>
-                </form>
-
-                <div class="panel-body" >
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                            <tr style="font-size:12px;">
-                                <th>姓名</th>
-                                <th>性别</th>
-                                <th>年龄</th>
-                                <th>学历</th>
-                                <th>联系方式</th>
-                                <th>密号</th>
-                                <th>岗位分类</th>
-                                <th>期望岗位</th>
-                                <th>期望薪资</th>
-                                <th>期望地点</th>
-                                <th>居住地</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php if (!empty($info)) {foreach ($info as $v) { ?>
-                            <tr class="odd gradeX">
-                                <td><?=$v['userName'];?></td>
-                                <td><?=$v['sex'] == 1 ? '男' : '女';?></td>
-                                <td><?=$v['age'];?></td>
-                                <td><?=$v['xueLi'];?></td>
-                                <td><?=$v['phone'];?></td>
-                                <td><?=$v['isMiHao'] == 1 ? '是' : '否';?></td>
-                                <td><?=$v['rcName1'];?></td>
-                                <td><?=$v['rcName2'];?></td>
-                                <td><?=$v['qiWangXinZi'];?></td>
-                                <td><?=$v['qiWangDiDian'];?></td>
-                                <td><?=$v['juZhuDiZhi'];?></td>
-                                <td><?=$v['createTime'];?></td>
-                                <td>
-                                    <?php foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
-                                        <?php  if ($val['moduleName'] == '编辑') {?>
-                                            <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
-                                        <?php } elseif ($val['moduleName'] == '删除') {?>
-                                            <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
-                                        <?php } elseif ($val['moduleName'] == '角色授权') {?>
-                                            <a href="<?=$val['url']?>?roleId=<?=$v['id']?>">角色授权</a>
-                                        <?php } elseif ($val['moduleName'] == '投放公海') {?>
-											<a class="qita" href="#" url="<?=$val['url']?>?id=<?=$v['id']?>">投放公海</a>
-										<?php }?>
-                                    <?php }} ?>
-                                </td>
-                            </tr>
-                            <?php }}?>
-                            </tbody>
-                        </table>
-                        <div style="float: right">
-                            <?php echo LinkPager::widget([
-                                'pagination' => $pages,
-                                'nextPageLabel' => '下一页',
-                                'prevPageLabel' => '上一页',
-                                'firstPageLabel' => '首页',
-                                'lastPageLabel' => '尾页',
-                            ]);?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End Advanced Tables -->
-        </div>
-    </div>
-</div><?php */?>
 <!-- 模态框（Modal） -->
 <div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -336,4 +268,8 @@ $("#rcId1 option[value='"+rcId1+"']").attr("selected",true);
 
         },'json')
 	}
+
+	$('#file').change(function () {
+        $('#fileVal').text($(this).val());
+    })
 </script>

@@ -2,33 +2,41 @@
     use yii\widgets\LinkPager;
     include '../views/viewtop.php';
 ?>
-<div id="page-inner">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="page-header">
-                岗位分类列表
-            </h1>
+<div class="page-content">
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">岗位分类列表</h3>
+                <ul class="breadcrumb">
+                    <li> <i class="icon-home"></i>首页 <i class="icon-angle-right"></i> </li>
+                    <li> 分类管理<i class="icon-angle-right"></i> </li>
+                    <li>岗位分类</li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
         </div>
-    </div>
-    <!-- /. ROW  -->
-
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Advanced Tables -->
-            <div class="panel panel-default">
-
-                <div class="panel-heading">
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-success">
                     <?php foreach ($aclList['moduleBut'] as $v){if (in_array($v['id'],$aclList['acl'])){ ?>
                         <?php  if ($v['moduleName'] == '新增') {?>
-                            <a href="<?=$v['url']?>?pid=<?=$pid;?>" class="btn btn-info btn-sm">新增</a>
+                            <a href="<?=$v['url']?>?pid=<?=$pid;?>">新增</a><i class="icon-plus"></i>
                         <?php }?>
                     <?php }} ?>
                 </div>
-
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
+                <!-- BEGIN SAMPLE TABLE PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>数据列表</div>
+                    </div>
+                    <div class="portlet-body no-more-tables">
+                        <table class="table-bordered table-striped table-condensed cf">
+                            <thead class="cf">
                             <tr>
                                 <th>岗位名</th>
                                 <th>操作</th>
@@ -36,45 +44,43 @@
                             </thead>
                             <tbody>
                             <?php if (!empty($info)) {foreach ($info as $v) { ?>
-                            <tr class="odd gradeX">
-                                <td>
-                                    <?php if ($pid == 0 ) {?>
-                                        <a href="/resume-category/index?moduleId=<?=$moduleId;?>&pid=<?=$v['id'];?>"><?=$v['cName'];?></a>
-                                    <?php }else {?>
-                                        <?=$v['cName'];?>
-                                    <?php }?>
-                                </td>
-                                <td>
-                                <?php foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
-                                    <?php  if ($val['moduleName'] == '编辑') {?>
-                                        <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
-                                    <?php } elseif ($val['moduleName'] == '删除') {?>
-                                        <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
-                                     <?php }?>
-                                <?php }} ?>
-                                </td>
-                            </tr>
+                                <tr class="odd gradeX">
+                                    <td>
+                                        <?php if ($pid == 0 ) {?>
+                                            <a href="/resume-category/index?moduleId=<?=$moduleId;?>&pid=<?=$v['id'];?>"><?=$v['cName'];?></a>
+                                        <?php }else {?>
+                                            <?=$v['cName'];?>
+                                        <?php }?>
+                                    </td>
+                                    <td>
+                                        <?php foreach ($aclList['moduleBut'] as $val){if (in_array($val['id'], $aclList['acl'])) {?>
+                                            <?php  if ($val['moduleName'] == '编辑') {?>
+                                                <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
+                                            <?php } elseif ($val['moduleName'] == '删除') {?>
+                                                <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
+                                            <?php }?>
+                                        <?php }} ?>
+                                    </td>
+                                </tr>
                             <?php }}?>
                             </tbody>
                         </table>
-                        <div style="float: right">
-                            <?php echo LinkPager::widget([
-                                'pagination' => $pages,
-                                'nextPageLabel' => '下一页',
-                                'prevPageLabel' => '上一页',
-                                'firstPageLabel' => '首页',
-                                'lastPageLabel' => '尾页',
-                            ]);?>
-                        </div>
                     </div>
                 </div>
+                <div class="dataTables_paginate paging_bootstrap pagination"> <?php echo LinkPager::widget([
+                        'pagination' => $pages,
+                        'nextPageLabel' => '下一页',
+                        'prevPageLabel' => '上一页',
+                        'firstPageLabel' => '首页',
+                        'lastPageLabel' => '尾页',
+                    ]);?> </div>
+                <!-- END SAMPLE TABLE PORTLET-->
             </div>
-
-            <!--End Advanced Tables -->
         </div>
+        <!-- END PAGE CONTENT-->
     </div>
+    <!-- END PAGE CONTAINER-->
 </div>
-
 <!-- 模态框（Modal） -->
 <div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

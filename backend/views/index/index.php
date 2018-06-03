@@ -47,8 +47,16 @@
 <script type="text/javascript">
 	function SetWinHeight(obj)
 	{
-		var ifm = document.getElementById("rightcontent"); 
-		ifm.height = document.documentElement.clientHeight;
+		var frm = document.getElementById("rightcontent"); //将iframe1替换为你的ID名
+          var subWeb = document.frames ? document.frames["iframe1"].document : frm.contentDocument;
+          if(frm != null && subWeb !=null)
+          {
+           frm.style.height="0px";//初始化一下,否则会保留大页面高度
+           frm.style.height = subWeb.documentElement.scrollHeight+"px";
+           frm.style.width = subWeb.documentElement.scrollWidth+"px";
+           subWeb.body.style.overflowX="auto";
+           subWeb.body.style.overflowY="auto";
+          }
 		window.scrollTo(0,0); // how far to scroll on each step
 		
 	}
