@@ -3,7 +3,11 @@ $(function(){
 	//全选
 	 $("#selectAll").click(function(){
          var isChecked = $(this).prop('checked');
-		$("#checkBoxList :checkbox").prop("checked",isChecked);;
+		$("#checkBoxList :checkbox").prop("checked",isChecked);
+         if (isChecked)
+		    $("#checkBoxList span").addClass("checked");
+         else
+             $("#checkBoxList span").removeClass("checked");
 	});  
 
 	//表单提交

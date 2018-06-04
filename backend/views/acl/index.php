@@ -29,8 +29,8 @@
                     <div class="form">
                         <form action="/acl/authorization" class="form-horizontal">
                             <input type="hidden" value="<?=$roleId;?>" name="roleId" />
-                            <table id="checkBoxList" style="background-color:#ffffff; width: 100%" cellpadding="6">
-                                <tbody>
+                            <table style="background-color:#ffffff; width: 100%" cellpadding="6">
+                                <tbody id="checkBoxList">
                                 <tr>
                                     <Td>全选：<input type="checkbox" id="selectAll" /></Td>
                                 </tr>
