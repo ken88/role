@@ -291,6 +291,17 @@ class ResumeController extends BaseController
             $tr->rollBack();
             returnJsonInfo('投放失败！',300);
         }
+    }
 
+    public function actionEditBeizhu() {
+       $id = Yii::$app->request->post('id');
+       $beiZhu = Yii::$app->request->post('beiZhu');
+       $resume = Resume::findOne($id);
+       $resume->beizhu = $beiZhu;
+       if($resume->save()) {
+           returnJsonInfo('更改成功！');
+       }else {
+           returnJsonInfo('更改失败！',300);
+       }
     }
 }

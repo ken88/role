@@ -29,7 +29,7 @@
           <div class="portlet-body form">
             <form action="/user/add" class="form-horizontal">
               <div class="control-group">
-                <label class="control-label">部门名</label>
+                <label class="control-label">账号</label>
                 <div class="controls">
                   <input type="text" ck="required" name="username" placeholder="账号"  class="span6 m-wrap" />
                 </div>

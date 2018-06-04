@@ -30,7 +30,7 @@
             <form action="/user/edit" class="form-horizontal">
               <input type="hidden" value="<?php echo $info['id'];?>" name="id" />
               <div class="control-group">
-                <label class="control-label">部门名</label>
+                <label class="control-label">账号</label>
                 <div class="controls">
                   <input type="text" ck="required" name="username" readonly value="<?=$info['username']?>"  class="span6 m-wrap" />
                 </div>

@@ -24,7 +24,7 @@ class ResumeLogic extends BaseLogic
     {
         $session = self::getSession();
         $level = $session['level'];
-        $clum = 'id,userName,sex,age,xueLi,phone,isMiHao,rcName1,rcName2,qiWangXinZi,qiWangDiDian,juZhuDiZhi,createTime';
+        $clum = 'id,userName,sex,age,xueLi,phone,isMiHao,rcName1,rcName2,qiWangXinZi,qiWangDiDian,juZhuDiZhi,beiZhu,createTime';
 
         $query = Resume::find()->select($clum)->where($keyWord)->andWhere(['isGongHai'=>$isGongHai]);
 
