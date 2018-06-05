@@ -14,13 +14,10 @@ use backend\models\ProvincesLogic;
 
 class ProvincesController extends BaseController
 {
-
     public function actionAjaxCiti()
     {
         $id = \Yii::$app->request->post('id',0);
         $info = ProvincesLogic::getCites($id);
         return json_encode($info);
     }
-
-
 }

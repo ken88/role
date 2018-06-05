@@ -175,7 +175,43 @@
                                     </div>
                                 </div>
                             </div>
-
+<div class="row-fluid">
+                                <div class="span4">
+                                    <div class="control-group">
+                                        <label class="control-label">期 望 地 址</label>
+                                        <div class="controls">
+                                            <select class="m-wrap span12" name="select1" id="select1">
+                                                <option value="">请选择</option>
+                                                <?php foreach($prov as $v) { ?>
+                                                    <option value="<?= $v['Name'];?>" val='<?= $v['Id'];?>'>
+                                                        <?= $v['Name'];?>
+                                                    </option>
+                                                <?php }?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span4">
+                                    <div class="control-group">
+                                        <label class="control-label">市</label>
+                                        <div class="controls">
+                                            <select class="m-wrap span12" name="select2" id="select2">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+								 <div class="span4">
+                                    <div class="control-group">
+                                        <label class="control-label">县 / 区</label>
+                                        <div class="controls">
+                                            <select class="m-wrap span12" name="select3" id="select3">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row-fluid">
                                 <div class="span6">
                                     <div class="control-group">
@@ -505,6 +541,7 @@
     $("#rcName1 option[value='"+rcName1+"']").attr("selected",true);
     rcChange(rcName1,true);
 
+	var qiWangDiDian = '<?=$info['qiWangDiDian']?>';
 
     $('#rcName1').change(function () {
         var id = $(this).val();
@@ -530,11 +567,88 @@
                 }
             },'json')
         } else  {
-            var strHtml = "<option value='0'>------请选择------</option>";
+            var strHtml = "<option value='0'>请选择</option>";
             $('#rcName2').html(strHtml);
         }
     }
 	
+	$('#select1').change(function(){
+		var id = $(this).find("option:selected").attr('val');
+		if (id > 0) {
+			$.post('/provinces/ajax-citi/',{'id':id},function(data){
+				$('#select2').html('');
+				var strHtml = "<option value=''>请选择</option>";
+                var count = data.length;
+				 for(var i = 0 ; i < count ; i++) {
+					val = data[i]['Name'];
+                    strHtml += "<option value='"+val+"' val='"+data[i]['Id']+"'>"+data[i]['Name']+"</option>";
+                }
+                $('#select2').html(strHtml);
+			},'json');
+		}
+		else  {
+            var strHtml = "<option value=''>请选择</option>";
+            $('#select2').html(strHtml);
+			$('#select3').html(strHtml);
+        }
+	})
+
+	$('#select2').change(function(){
+		var id = $(this).find("option:selected").attr('val');
+		if (id > 0) {
+			$.post('/provinces/ajax-citi/',{'id':id},function(data){
+				$('#select3').html('');
+				var strHtml = "<option value=''>请选择</option>";
+                var count = data.length;
+				 for(var i = 0 ; i < count ; i++) {
+					val = data[i]['Name'];
+                    strHtml += "<option value='"+val+"' val='"+data[i]['Id']+"'>"+data[i]['Name']+"</option>";
+                }
+                $('#select3').html(strHtml);
+			},'json');
+		}
+		else  {
+            var strHtml = "<option value=''>请选择</option>";
+			$('#select3').html(strHtml);
+        }
+	})
+	
+	if(qiWangDiDian != '') {
+	 	arr = qiWangDiDian.split('-');
+		if(arr[0] != '') {
+			$('#select1').val(arr[0]);
+			if (arr[1] != '') {
+				var id = $('#select1').find("option:selected").attr('val');
+					$.post('/provinces/ajax-citi/',{'id':id},function(data){
+					$('#select2').html('');
+					var strHtml = "<option value=''>请选择</option>";
+					var count = data.length;
+					 for(var i = 0 ; i < count ; i++) {
+						val = data[i]['Name'];
+						strHtml += "<option value='"+val+"' val='"+data[i]['Id']+"'>"+data[i]['Name']+"</option>";
+					}
+					$('#select2').html(strHtml);
+					$('#select2').val(arr[1]);
+					
+					if(arr[2] != '') {
+						id = $('#select2').find("option:selected").attr('val');
+						$.post('/provinces/ajax-citi/',{'id':id},function(data){
+							$('#select3').html('');
+							var strHtml = "<option value=''>请选择</option>";
+							var count = data.length;
+							 for(var i = 0 ; i < count ; i++) {
+								val = data[i]['Name'];
+								strHtml += "<option value='"+val+"' val='"+data[i]['Id']+"'>"+data[i]['Name']+"</option>";
+							}
+							$('#select3').html(strHtml);
+							$('#select3').val(arr[2]);
+						},'json');
+					
+					}
+				},'json');
+			}
+		}
+	}
 	
 	 //常规用法
     laydate.render({

@@ -177,7 +177,7 @@
                             </div>
 
                             <div class="row-fluid">
-                                <div class="span6">
+                                <div class="span4">
                                     <div class="control-group">
                                         <label class="control-label">期 望 地 址</label>
                                         <div class="controls">
@@ -192,7 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="span6">
+                                <div class="span4">
                                     <div class="control-group">
                                         <label class="control-label">市</label>
                                         <div class="controls">
@@ -202,11 +202,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span6">
+								 <div class="span4">
                                     <div class="control-group">
-                                        <label class="control-label">县/区</label>
+                                        <label class="control-label">县 / 区</label>
                                         <div class="controls">
                                             <select class="m-wrap span12" name="select3" id="select3">
                                                 <option value="">请选择</option>
@@ -214,6 +212,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row-fluid">
+                               
                                 <div class="span6">
                                     <div class="control-group">
                                         <label class="control-label" for="firstName">居 住 地 址</label>

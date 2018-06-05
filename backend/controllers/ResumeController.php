@@ -31,6 +31,7 @@ class ResumeController extends BaseController
         $isMiHao = Yii::$app->request->get('isMiHao','');
         $rcId1 = Yii::$app->request->get('rcId1','');
         $rcId2 = Yii::$app->request->get('rcId2','');
+        $uName = Yii::$app->request->get('uName','');
         $keyWord = '1=1';
         if (!empty($userName)) {
             $keyWord .= " and userName like '$userName%'";
@@ -59,6 +60,9 @@ class ResumeController extends BaseController
         if (!empty($rcId2)) {
             $keyWord .= " and rcId2 = $rcId2";
         }
+        if (!empty($uName)) {
+            $keyWord .= " and uName = '{$uName}'";
+        }
 
         $data = ResumeLogic::getInfo(0,$keyWord);
         $moduleId = Yii::$app->request->get('moduleId',0);
@@ -80,6 +84,7 @@ class ResumeController extends BaseController
             'isMiHao' => $isMiHao,
             'rcId1' => $rcId1,
             'rcId2' => $rcId2,
+            'uName' => $uName
         ];
 
         return $this->renderPartial('index',$data);
@@ -117,13 +122,14 @@ class ResumeController extends BaseController
             $resume = new Resume();
             $resume->setAttributes($info);
             $resume->uid = $session['id'];
-            $resume->qiWangDiDian = $info['select1'].$info['select2'].$info['select3'];
+            $resume->qiWangDiDian = $info['select1'].'-'.$info['select2'].'-'.$info['select3'];
             $resume->level = $session['level'];
             $resume->email = $info['emails'];
             $resume->departmentId = $session['departmentId'];
             $resume->gongZuoJingLi = json_encode($gongZuoJingLi,320);
             $resume->createTime = date('Y-m-d H:i:s');
             $resume->path = $session['path'];
+            $resume->uName = $session['realName'];
             if ($resume->save()){
                 returnJsonInfo('录入成功！');
             }
@@ -169,6 +175,7 @@ class ResumeController extends BaseController
             $resume->setAttributes($info);
             $resume->email = $info['emails'];
             $resume->gongZuoJingLi = json_encode($gongZuoJingLi,320);
+            $resume->qiWangDiDian = $info['select1'].'-'.$info['select2'].'-'.$info['select3'];
             if ($resume->save()) {
                 returnJsonInfo('操作成功！');
             }else {

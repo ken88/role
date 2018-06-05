@@ -91,7 +91,7 @@
 						</a>
 
 						<ul class="dropdown-menu">
-							<li><a href="/site/logout"><i class="icon-key"></i> Log Out</a></li>
+							<li><a href="/site/logout"><i class="icon-key"></i> 退出</a></li>
 						</ul>
 
 					</li>

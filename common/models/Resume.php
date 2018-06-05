@@ -37,6 +37,7 @@ use Yii;
  * @property string $kaiHuWangDian 开户网点
  * @property string $yinHangNum 银行卡号
  * @property int $uid 操作人id
+ * @property string $uName 操作人
  * @property int $departmentId 部门id
  * @property string $gongZuoJingLi 工作经历
  * @property int $level 级别
@@ -64,7 +65,7 @@ class Resume extends \yii\db\ActiveRecord
             [['userName', 'uid', 'departmentId', 'level'], 'required'],
             [['sex', 'isMiHao', 'age', 'rcId1', 'rcId2', 'hunYin', 'uid', 'departmentId', 'level', 'isGongHai'], 'integer'],
             [['createTime'], 'safe'],
-            [['userName', 'qiWangDiDian', 'weiXin', 'lianXiRen', 'yinHangNum'], 'string', 'max' => 30],
+            [['userName', 'qiWangDiDian', 'weiXin', 'lianXiRen', 'yinHangNum', 'uName'], 'string', 'max' => 30],
             [['phone', 'qq', 'lianXiRenPhone'], 'string', 'max' => 11],
             [['xueLi', 'rcName1', 'rcName2', 'qiWangXinZi', 'mianMao', 'chuShengRiQi', 'zhuanYe'], 'string', 'max' => 20],
             [['juZhuDiZhi', 'huJiDiZhi', 'path'], 'string', 'max' => 100],
@@ -72,6 +73,7 @@ class Resume extends \yii\db\ActiveRecord
             [['shenFenZheng'], 'string', 'max' => 18],
             [['email', 'yinHang', 'kaiHuWangDian', 'beizhu'], 'string', 'max' => 50],
             [['gongZuoJingLi'], 'string', 'max' => 8000],
+            [['phone'], 'unique'],
         ];
     }
 
@@ -100,9 +102,9 @@ class Resume extends \yii\db\ActiveRecord
             'qq' => 'Qq',
             'weiXin' => 'Wei Xin',
             'lianXiRen' => 'Lian Xi Ren',
-            'lianXiRenPhone' => '联系人电话',
+            'lianXiRenPhone' => 'Lian Xi Ren Phone',
             'hunYin' => 'Hun Yin',
-            'minZu' => '民族',
+            'minZu' => 'Min Zu',
             'chuShengRiQi' => 'Chu Sheng Ri Qi',
             'shenFenZheng' => 'Shen Fen Zheng',
             'zhuanYe' => 'Zhuan Ye',
@@ -111,6 +113,7 @@ class Resume extends \yii\db\ActiveRecord
             'kaiHuWangDian' => 'Kai Hu Wang Dian',
             'yinHangNum' => 'Yin Hang Num',
             'uid' => 'Uid',
+            'uName' => 'U Name',
             'departmentId' => 'Department ID',
             'gongZuoJingLi' => 'Gong Zuo Jing Li',
             'level' => 'Level',

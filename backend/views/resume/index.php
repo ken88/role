@@ -97,10 +97,16 @@ include '../views/viewtop.php';
                                     </select>
                                     <select class="chosen-with-diselect span4" name="rcId2" id="rcId2">
                                         <option value="">请选择</option>
-                                    </select></td>
-                                <td><input name="submit" type="submit" class="btn blue" value="搜索"/></td>
-
+                                    </select>
+                                   </td>
+                                <td></td>
                             </tr>
+							<tr>
+								<td> 操作人：</td>
+								<td><input class="form-control" name="uName"
+                                                       value="<?= $userInfo['uName']; ?>" placeholder="操作人"/></td>
+								<td><input name="submit" type="submit" class="btn blue" value="搜索"/></td>
+							</tr>
                         </table>
                     </div>
                 </form>
@@ -170,6 +176,7 @@ include '../views/viewtop.php';
                                 <th>期望地点</th>
                                 <th>居住地</th>
                                 <th>备注</th>
+                                <th>操作人</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -190,6 +197,7 @@ include '../views/viewtop.php';
                                         <td><?= $v['qiWangDiDian']; ?></td>
                                         <td><?= $v['juZhuDiZhi']; ?></td>
                                         <td><a class="ver" href="#" id="<?=$v['id']?>"><?= !empty($v['beiZhu']) ? mb_substr($v['beiZhu'],0,5,'UTF-8') : '无'; ?></a><div class="ceng"><?=$v['beiZhu'];?></div></td>
+                                        <td><?= $v['uName']; ?></td>
                                         <td><?= $v['createTime']; ?></td>
                                         <td>
                                             <?php foreach ($aclList['moduleBut'] as $val) {

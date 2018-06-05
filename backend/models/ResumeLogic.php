@@ -24,7 +24,7 @@ class ResumeLogic extends BaseLogic
     {
         $session = self::getSession();
         $level = $session['level'];
-        $clum = 'id,userName,sex,age,xueLi,phone,isMiHao,rcName1,rcName2,qiWangXinZi,qiWangDiDian,juZhuDiZhi,beiZhu,createTime';
+        $clum = 'id,userName,sex,age,xueLi,phone,isMiHao,rcName1,rcName2,qiWangXinZi,qiWangDiDian,juZhuDiZhi,beiZhu,createTime,uName';
 
         $query = Resume::find()->select($clum)->where($keyWord)->andWhere(['isGongHai'=>$isGongHai]);
 
@@ -56,16 +56,42 @@ class ResumeLogic extends BaseLogic
     {
         $session = \Yii::$app->session['userinfo'];
         $db = Yii::$app->db;
-        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2,path) VALUES ';
+        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2,path,qiWangDiDian) VALUES ';
         $queryInsert = null;
         $category = Resumecategory::find()->asArray()->all();
+        //地区省
+        $sheng = ProvincesLogic::getProvinces();
 
         foreach ($res as $val) {
             $rcId1 = 0;
             $rcName1 = '';
             $rcId2 = 0;
             $rcName2 = '';
-
+            $qiWangDiZhi = '';
+            //城市
+            if (!empty($val['K'])) {
+                $city = explode('-',$val['K']);
+                $pid = 0;
+                foreach ($sheng as $s) {
+                   if ($s['Name'] == $city[0]) {
+                       $qiWangDiZhi = $city[0];
+                       $pid = $s['Id'];
+                       break;
+                   }
+                }
+                if ($qiWangDiZhi != '' && !empty($city[1])) {
+                    $shi = ProvincesLogic::getCites($pid);
+                    foreach ($shi as $s) {
+                        if ($s['Name'] == $city[1]) {
+                            $qiWangDiZhi .= '-'.$city[1];
+                            if (!empty($city[2])) {
+                                $qiWangDiZhi .= '-'.$city[2];
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
             $sex = $val['D'] == '男' ? 1 : 2;
             $age = $val['C'] == '' ? 0 : $val['C'];
             $isMiHao = $val['G'] == '是' ? 1 : 0;
@@ -87,7 +113,7 @@ class ResumeLogic extends BaseLogic
             }
             $phone = iconv("utf-8","GBK//IGNORE",$val['B']);
             $queryInsert .= "(
-            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}'),";
+            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}','{$qiWangDiZhi}'),";
         }
         $sql = $query.rtrim($queryInsert,',');
         //' ON DUPLICATE KEY UPDATE `phone` = VALUES(`phone`)';
