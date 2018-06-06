@@ -106,7 +106,7 @@ class GongHaiController extends BaseController
         $count = count($info['ids']);
 
         //查找分配人级别
-        $user = User::find()->select('level,path,departmentId')->where(['id'=>$info['radios']])->asArray()->one();
+        $user = User::find()->select('level,path,departmentId')->where(['id'=>$info['uid']])->asArray()->one();
 
         //贡献值大于分配值
         if ($num->number < $count) {
@@ -117,7 +117,7 @@ class GongHaiController extends BaseController
         try {
 
             //更改分配信息
-            if (Resume::updateAll(['isGongHai' => 0,'uid' => $info['radios'],'level'=>$user['level'],'departmentId'=>$user['departmentId'],'path'=>$user['path']],['in','id',$info['ids']])) {
+            if (Resume::updateAll(['isGongHai' => 0,'uid' => $info['uid'],'level'=>$user['level'],'departmentId'=>$user['departmentId'],'path'=>$user['path']],['in','id',$info['ids']])) {
                 $num->number -=  $count;
                 if ($num->save()) {
                     $tr->commit();
