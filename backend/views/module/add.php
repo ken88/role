@@ -1,4 +1,5 @@
 <?php include '../views/viewtop.php';?>
+
 <div class="page-content">
   <!-- BEGIN PAGE CONTAINER-->
   <div class="container-fluid">
@@ -44,10 +45,19 @@
               <div class="control-group">
                 <label class="control-label">是否按钮</label>
                 <div class="controls">
-                  <input type="radio" name="isBut"  value="0" checked="">
+                  <label class="radio">
+                  <div class="radio"><span class="">
+                    <input type="radio" name="isBut" value="0">
+                    </span></div>
                   是
-                  <input type="radio" name="isBut"  value="1" checked="">
-                  否 </div>
+                  </label>
+                  <label class="radio">
+                  <div class="radio"><span class="">
+                    <input type="radio" name="isBut" value="1" checked="">
+                    </span></div>
+                  否
+                  </label>
+                </div>
               </div>
               <div class="form-actions">
                 <button type="button" id="submit" class="btn blue">确定</button>
