@@ -128,6 +128,7 @@ class ResumeController extends BaseController
             $resume->departmentId = $session['departmentId'];
             $resume->gongZuoJingLi = json_encode($gongZuoJingLi,320);
             $resume->createTime = date('Y-m-d H:i:s');
+            $resume->createDate = date('Y-m-d');
             $resume->path = $session['path'];
             $resume->uName = $session['realName'];
             if ($resume->save()){
@@ -259,9 +260,45 @@ class ResumeController extends BaseController
         if (ResumeLogic::add($itemArr)) {
             returnJsonInfo('导入成功！');
         }else {
-            returnJsonInfo('导入失败！');
+            returnJsonInfo('导入失败！',300);
         }
     }
+
+    /**
+     * 导出
+     */
+    public function actionOutExcel()
+    {
+        $session = $this->getSession();
+        $list = Resume::find()->select('userName,sex,phone,isMiHao,age,xueLi,rcName1,rcName2,juZhuDiZhi,uName,beiZhu')
+            ->where(['uid'=>$session['id']])
+            ->andWhere(['createDate'=>date('Y-m-d')])
+            ->asArray()->all();
+        if (!empty($list)) {
+            foreach ($list as &$v) {
+                $v['sex'] = $v['sex'] == 1 ? '男' : '女';
+                $v['isMiHao'] = $v['isMiHao'] == 1 ? '是' : '不是';
+            }
+            unset($v);
+        }
+        arrayExcel($session['realName'].date('Y-m-d'),
+            [
+                'userName' => '姓名',
+                'sex' => '性别',
+                'phone' => '手机号',
+                'isMiHao' => '是否密号',
+                'age' => '年龄',
+                'xueLi' => '学历',
+                'rcName1' => '岗位分类',
+                'rcName2' => '期望岗位',
+                'juZhuDiZhi' => '居住地址',
+                'uName' => '操作人',
+                'beiZhu' => '备注',
+            ],
+            $list
+        );
+    }
+
 
     /**
      * 投放公海
@@ -300,6 +337,9 @@ class ResumeController extends BaseController
         }
     }
 
+    /**
+     * 备注修改
+     */
     public function actionEditBeizhu() {
        $id = Yii::$app->request->post('id');
        $beiZhu = Yii::$app->request->post('beiZhu');

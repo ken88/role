@@ -41,7 +41,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-            ],
+                    'POST resume/add' => 'resume/add'
+                ],
         ],
 
     ],

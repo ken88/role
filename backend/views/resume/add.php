@@ -1,5 +1,7 @@
 <?php include '../views/viewtop.php';?>
-
+<style type="text/css">
+	.form-section{ cursor:pointer;}
+</style>
 <div class="page-content">
     <!-- BEGIN PAGE CONTAINER-->
     <div class="container-fluid">
@@ -29,6 +31,9 @@
                     </div>
                     <div class="portlet-body form">
                         <form action="/resume/add" class="horizontal-form">
+						 <div class="form-actions">
+                                <button type="button" id="submit" class="btn blue">确定</button>
+                            </div>
                             <h1 class="form-section">基本信息</h1>
                             <div class="row-fluid">
                                 <div class="span6">
@@ -224,168 +229,170 @@
                                     </div>
                                 </div>
                             </div>
-                            <h1 class="form-section">附加信息</h1>
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">政 治 面 貌</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12"  name="mianMao" placeholder="政治面貌" maxlength="20" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">民 族</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12"  name="minZu" placeholder="民族" maxlength="10" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label">婚 姻 状 况</label>
-                                        <div class="controls">
-                                            <select class="m-wrap span12" name="hunYin">
-                                                <option value="0">未婚</option>
-                                                <option value="1">已婚</option>
-                                                <option value="2">丧偶</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">微 信 ID</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12"  name="weiXin" placeholder="微信" maxlength="30"  />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">邮 箱</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12"  name="emails" placeholder="邮箱"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">QQ</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="qq" placeholder="qq"  maxlength="11" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">紧 急 联 系 人</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="lianXiRen" placeholder="紧急联系人" maxlength="30" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">紧 急 电 话</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="lianXiRenPhone" placeholder="联系人电话"  maxlength="11" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">专 业</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="zhuanYe" placeholder="专业" maxlength="20" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">备 注</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="beizhu" placeholder="备注" maxlength="50"  />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h1 class="form-section">银行信息</h1>
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label">银 行</label>
-                                        <div class="controls">
-                                            <select class="m-wrap span12" name="yinHang">
-                                                <option value="">请选择</option>
-                                                <option value="中国银行">中国银行</option>
-                                                <option value="交通银行">交通银行</option>
-                                                <option value="中国农业银行">中国农业银行</option>
-                                                <option value="招商银行">招商银行</option>
-                                                <option value="邮政储蓄银行">邮政储蓄银行</option>
-                                                <option value="光大银行">光大银行</option>
-                                                <option value="民生银行">民生银行</option>
-                                                <option value="平安银行">平安银行</option>
-                                                <option value="浦发银行">浦发银行</option>
-                                                <option value="中信银行">中信银行</option>
-                                                <option value="兴业银行">兴业银行</option>
-                                                <option value="华夏银行">华夏银行</option>
-                                                <option value="北京银行">北京银行</option>
-                                                <option value="徽商银行">徽商银行</option>
-                                                <option value="天津银行">天津银行</option>
-                                                <option value="深圳农村商业银行">深圳农村商业银行</option>
-                                                <option value="上海银行">上海银行</option>
-                                                <option value="汉口银行">汉口银行</option>
-                                                <option value="南京银行">南京银行</option>
-                                                <option value="宁波银行">宁波银行</option>
-                                                <option value="龙江银行">龙江银行</option>
-                                                <option value="北京农商银行">北京农商银行</option>
-                                                <option value="江苏银行">江苏银行</option>
-                                                <option value="广州银行">广州银行</option>
-                                                <option value="重庆银行">重庆银行</option>
-                                                <option value="浙商银行">浙商银行</option>
-                                                <option value="杭州银行">杭州银行</option>
-                                                <option value="上海农商银行">上海农商银行</option>
-                                                <option value="渤海银行">渤海银行</option>
-                                                <option value="重庆农村商业银行">重庆农村商业银行</option>
-                                                <option value="广州农村商业银行">广州农村商业银行</option>
-                                                <option value="青岛银行">青岛银行</option>
-                                                <option value="成都银行">成都银行</option>
-                                                <option value="哈尔滨银行">哈尔滨银行</option>
-                                                <option value="吉林银行">吉林银行</option>
-                                                <option value="大连银行">大连银行</option>
-                                                <option value="齐鲁银行">齐鲁银行</option>
-                                                <option value="东莞银行">东莞银行</option>
-                                                <option value="长沙银行">长沙银行</option>
-                                                <option value="河北银行">河北银行</option>
-                                                <option value="东莞农村商业银行">东莞农村商业银行</option>
-                                                <option value="郑州银行">郑州银行</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">银 行 卡 号</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="yinHangNum" placeholder="银行卡号" maxlength="20" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h1 class="form-section" val="div1">附加信息</h1>
+							<div id="div1">
+								<div class="row-fluid">
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">政 治 面 貌</label>
+											<div class="controls">
+												<input class="m-wrap span12"  name="mianMao" placeholder="政治面貌" maxlength="20" />
+											</div>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">民 族</label>
+											<div class="controls">
+												<input class="m-wrap span12"  name="minZu" placeholder="民族" maxlength="10" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row-fluid">
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label">婚 姻 状 况</label>
+											<div class="controls">
+												<select class="m-wrap span12" name="hunYin">
+													<option value="0">未婚</option>
+													<option value="1">已婚</option>
+													<option value="2">丧偶</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">微 信 ID</label>
+											<div class="controls">
+												<input class="m-wrap span12"  name="weiXin" placeholder="微信" maxlength="30"  />
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<div class="row-fluid">
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">邮 箱</label>
+											<div class="controls">
+												<input class="m-wrap span12"  name="emails" placeholder="邮箱"  />
+											</div>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">QQ</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="qq" placeholder="qq"  maxlength="11" />
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<div class="row-fluid">
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">紧 急 联 系 人</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="lianXiRen" placeholder="紧急联系人" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">紧 急 电 话</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="lianXiRenPhone" placeholder="联系人电话"  maxlength="11" />
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<div class="row-fluid">
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">专 业</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="zhuanYe" placeholder="专业" maxlength="20" />
+											</div>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group">
+											<label class="control-label" for="firstName">备 注</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="beizhu" placeholder="备注" maxlength="50"  />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+                            <h1 class="form-section" val="div2">银行信息</h1>
+							<div id="div2">
+								<div class="row-fluid">
+									<div class="span6">
+									<div class="control-group">
+										<label class="control-label">银 行</label>
+										<div class="controls">
+											<select class="m-wrap span12" name="yinHang">
+												<option value="">请选择</option>
+												<option value="中国银行">中国银行</option>
+												<option value="交通银行">交通银行</option>
+												<option value="中国农业银行">中国农业银行</option>
+												<option value="招商银行">招商银行</option>
+												<option value="邮政储蓄银行">邮政储蓄银行</option>
+												<option value="光大银行">光大银行</option>
+												<option value="民生银行">民生银行</option>
+												<option value="平安银行">平安银行</option>
+												<option value="浦发银行">浦发银行</option>
+												<option value="中信银行">中信银行</option>
+												<option value="兴业银行">兴业银行</option>
+												<option value="华夏银行">华夏银行</option>
+												<option value="北京银行">北京银行</option>
+												<option value="徽商银行">徽商银行</option>
+												<option value="天津银行">天津银行</option>
+												<option value="深圳农村商业银行">深圳农村商业银行</option>
+												<option value="上海银行">上海银行</option>
+												<option value="汉口银行">汉口银行</option>
+												<option value="南京银行">南京银行</option>
+												<option value="宁波银行">宁波银行</option>
+												<option value="龙江银行">龙江银行</option>
+												<option value="北京农商银行">北京农商银行</option>
+												<option value="江苏银行">江苏银行</option>
+												<option value="广州银行">广州银行</option>
+												<option value="重庆银行">重庆银行</option>
+												<option value="浙商银行">浙商银行</option>
+												<option value="杭州银行">杭州银行</option>
+												<option value="上海农商银行">上海农商银行</option>
+												<option value="渤海银行">渤海银行</option>
+												<option value="重庆农村商业银行">重庆农村商业银行</option>
+												<option value="广州农村商业银行">广州农村商业银行</option>
+												<option value="青岛银行">青岛银行</option>
+												<option value="成都银行">成都银行</option>
+												<option value="哈尔滨银行">哈尔滨银行</option>
+												<option value="吉林银行">吉林银行</option>
+												<option value="大连银行">大连银行</option>
+												<option value="齐鲁银行">齐鲁银行</option>
+												<option value="东莞银行">东莞银行</option>
+												<option value="长沙银行">长沙银行</option>
+												<option value="河北银行">河北银行</option>
+												<option value="东莞农村商业银行">东莞农村商业银行</option>
+												<option value="郑州银行">郑州银行</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label" for="firstName">银 行 卡 号</label>
+										<div class="controls">
+											<input class="m-wrap span12" name="yinHangNum" placeholder="银行卡号" maxlength="20" />
+										</div>
+									</div>
+								</div>
+							</div>
 
                             <div class="row-fluid">
                                 <div class="span6">
@@ -397,90 +404,92 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <h1 class="form-section">工作经历</h1>
-                            <div class="row-fluid">
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">起 止 时 间</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" id="shijian1"   name="shijian1" placeholder="起止时间"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">企 业 名 称</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="qiye1" placeholder="企业名称"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">工 作 岗 位</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="gangwei1" placeholder="工作岗位" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row-fluid">
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">起 止 时 间</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" id="shijian2"   name="shijian2" placeholder="起止时间"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">企 业 名 称</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="qiye2" placeholder="企业名称"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">工 作 岗 位</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="gangwei2" placeholder="工作岗位" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row-fluid">
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">起 止 时 间</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" id="shijian3"   name="shijian3" placeholder="起止时间"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">企 业 名 称</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="qiye3" placeholder="企业名称"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4">
-                                    <div class="control-group">
-                                        <label class="control-label" for="firstName">工 作 岗 位</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span12" name="gangwei3" placeholder="工作岗位" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+							</div>
+							<h1 class="form-section" val="div3">工作经历</h1>
+							<div id="div3">
+								<div class="row-fluid">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">起 止 时 间</label>
+											<div class="controls">
+												<input class="m-wrap span12" id="shijian1"   name="shijian1" placeholder="起止时间"  />
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">企 业 名 称</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="qiye1" placeholder="企业名称"  />
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">工 作 岗 位</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="gangwei1" placeholder="工作岗位" />
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<div class="row-fluid">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">起 止 时 间</label>
+											<div class="controls">
+												<input class="m-wrap span12" id="shijian2"   name="shijian2" placeholder="起止时间"  />
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">企 业 名 称</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="qiye2" placeholder="企业名称"  />
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">工 作 岗 位</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="gangwei2" placeholder="工作岗位" />
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<div class="row-fluid">
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">起 止 时 间</label>
+											<div class="controls">
+												<input class="m-wrap span12" id="shijian3"   name="shijian3" placeholder="起止时间"  />
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">企 业 名 称</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="qiye3" placeholder="企业名称"  />
+											</div>
+										</div>
+									</div>
+									<div class="span4">
+										<div class="control-group">
+											<label class="control-label" for="firstName">工 作 岗 位</label>
+											<div class="controls">
+												<input class="m-wrap span12" name="gangwei3" placeholder="工作岗位" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
                             <div class="form-actions">
-                                <button type="button" id="submit" class="btn blue">确定</button>
+                                <!--<button type="button" id="submit" class="btn blue">确定</button>-->
                             </div>
                         </form>
                     </div>
@@ -493,7 +502,7 @@
 </div>
 
 <!-- 模态框（Modal） -->
-<div class="modal fade"  id="myModal" tabindex="-1" style="top:50%" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade"  id="myModal" tabindex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body"> </div>
@@ -609,4 +618,13 @@
       ,type: 'month'
       ,range: true
     });
+
+	
+	$('.form-section').click(function(){
+		var divid = $(this).attr('val');
+		$('#'+divid).toggle();
+		 var H = $(window).height();
+         $(".portlet-body").height(H+500);
+	})
+	
 </script>

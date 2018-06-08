@@ -56,11 +56,12 @@ class ResumeLogic extends BaseLogic
     {
         $session = \Yii::$app->session['userinfo'];
         $db = Yii::$app->db;
-        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2,path,qiWangDiDian,uName) VALUES ';
+        $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2,path,qiWangDiDian,uName,createDate) VALUES ';
         $queryInsert = null;
         $category = Resumecategory::find()->asArray()->all();
         //地区省
         $sheng = ProvincesLogic::getProvinces();
+        $createData = date('Y-m-d');
 
         foreach ($res as $val) {
             $rcId1 = 0;
@@ -113,7 +114,7 @@ class ResumeLogic extends BaseLogic
             }
             $phone = iconv("utf-8","GBK//IGNORE",$val['B']);
             $queryInsert .= "(
-            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}','{$qiWangDiZhi}','{$session['realName']}'),";
+            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}','{$qiWangDiZhi}','{$session['realName']}','{$createData}'),";
         }
         $sql = $query.rtrim($queryInsert,',');
         //' ON DUPLICATE KEY UPDATE `phone` = VALUES(`phone`)';

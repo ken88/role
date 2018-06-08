@@ -61,8 +61,6 @@ class ExcelController extends BaseController
            [
             'username' => '用户名',
             'password' => '密码',
-            'auth_key' => 'auth_key',
-            'password_hash' => 'hash'
            ],
            $list);
     }

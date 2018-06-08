@@ -28,7 +28,7 @@ $(function(){
                     $('#myModal').modal({backdrop:false,show:true});
                 }
             });
-		}
+		} 
 	});
 
 	//删除
@@ -53,6 +53,7 @@ $(function(){
 	//其他首页操作
 	$('.qita').click(function () {
         var url = $(this).attr('url');
+	
         $.get(url, null, function (myjson) {
             if (myjson.statusCode == 200) {
                 $('.modal-body').text(myjson.message);
@@ -97,7 +98,7 @@ $(function(){
                         }
                     }else if(inputname == 'phone'){
                         //验证电话号码手机号码，包含至今所有号段
-                        var ab=/^(13[0-9]|15[0-9]|18[2|6|7|8|9])\d{8}$/;
+                        var ab=/^(13[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/;
 
                         if(ab.test(inputtext) == false){
                             $(this).parent().append("<span  style='color: red;' id='error'>"+name+"格式错误</span>");

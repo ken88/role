@@ -5,10 +5,18 @@ use yii\widgets\LinkPager;
 include '../views/viewtop.php';
 ?>
 <style type="text/css">
-    .ceng{z-index: 9999;width:200px;height:200px;margin-bottom: 2px;position: absolute;background: #FFF;border: solid 1px #6e8bde; display:none;}
+    .ceng {
+        z-index: 9999;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 2px;
+        position: absolute;
+        background: #FFF;
+        border: solid 1px #6e8bde;
+        display: none;
+    }
 </style>
 <link href="/media/css/jquery.fileupload-ui.css" rel="stylesheet"/>
-
 <div class="page-content">
     <!-- BEGIN PAGE CONTAINER-->
     <div class="container-fluid">
@@ -68,7 +76,6 @@ include '../views/viewtop.php';
                                         <option value="0">否</option>
                                     </select>
                                 </td>
-
                             </tr>
                             <tr>
                                 <td>学历：</td>
@@ -98,63 +105,43 @@ include '../views/viewtop.php';
                                     <select class="chosen-with-diselect span4" name="rcId2" id="rcId2">
                                         <option value="">请选择</option>
                                     </select>
-                                   </td>
+                                </td>
                                 <td></td>
                             </tr>
-							<tr>
-								<td> 操作人：</td>
-								<td><input class="form-control" name="uName"
-                                                       value="<?= $userInfo['uName']; ?>" placeholder="操作人"/></td>
-								<td><input name="submit" type="submit" class="btn blue" value="搜索"/></td>
-							</tr>
+                            <tr>
+                                <td> 操作人：</td>
+                                <td><input class="form-control" name="uName"
+                                           value="<?= $userInfo['uName']; ?>" placeholder="操作人"/></td>
+                                <td><input name="submit" type="submit" class="btn blue" value="搜索"/></td>
+                            </tr>
                         </table>
                     </div>
                 </form>
-
-
                 <div class="row-fluid fileupload-buttonbar">
                     <div class="span7" style="height: 60px">
                         <form action="/resume/pour-excel" method="post" enctype="multipart/form-data" name="form"
                               id="J_myUploadForm">
                             <div class="panel-heading" style="height: 60px;">
-                                <?php foreach ($aclList['moduleBut'] as $v) {
-                                    if (in_array($v['id'], $aclList['acl'])) { ?>
+                                <?php foreach ($aclList['moduleBut'] as $v) {if (in_array($v['id'], $aclList['acl'])) { ?>
                                         <?php if ($v['moduleName'] == '新增') { ?>
-                                            <a href="<?= $v['url'] ?>">
-                                      <span class="btn green fileinput-button">
-                                          <i class="icon-plus"></i>
-                                          <span>新增简历</span>
-                                      </span>
-                                            </a>
-                                        <?php }
-                                        if ($v['moduleName'] == '导入') { ?>
-                                            <span class="btn green fileinput-button">
-									<i class="icon-plus icon-white"></i>
-									<span>导入简历</span>
-                                      <input type="file" name="file" id="file">
-                                  </span>
-                                            <span id="fileVal"></span>
-                                            <a href="#" id="subFile" val="<?= $v['url'] ?>">
-                                                <button type="button" class="btn red delete">
-                                                    <span>确定导入</span>
-                                                </button>
-                                            </a>
-                                            <a href="/模板/简历标准版.xlsx">
-                                                <button type="button" class="btn yellow">
-                                                    <span>模板下载</span>
-                                                </button>
-                                            </a>
-                                            <br>
+                                            <a href="<?= $v['url'] ?>"> <span class="btn green fileinput-button"> <i class="icon-plus"></i> <span>新增简历</span> </span> </a>
+                                        <?php }else if ($v['moduleName'] == '导入') { ?>
+                                            <span class="btn green fileinput-button"> <i class="icon-plus icon-white"></i> <span>导入简历</span>
+               									<input type="file" name="file" id="file">
+                								</span> <span id="fileVal"></span> <a href="#" id="subFile" val="<?= $v['url'] ?>">
+                                                <button type="button" class="btn red delete"><span>确定导入</span></button>
+                                            </a> <a href="/模板/简历标准版.xlsx">
+                                                <button type="button" class="btn yellow"><span>模板下载</span></button>
+                                            </a> <br>
                                             <span style="color: red;">说明：每次导入不可大于300条数据，已经录入过的号码或号码为空将被过滤</span>
-                                        <?php } ?>
-                                    <?php }
-                                } ?>
+                                        <?php } else if($v['moduleName'] == '导出今日数据') {?>
+											 <div style="margin-left:150px; margin-top:2px;"><a href="<?= $v['url'] ?>" class="qita btn yellow">导出今日数据</a></div>
+										<?php }?>
+                                    <?php }} ?>
                             </div>
                         </form>
-
                     </div>
                 </div>
-
                 <!-- BEGIN SAMPLE TABLE PORTLET-->
                 <div class="portlet box blue">
                     <div class="portlet-title">
@@ -196,11 +183,17 @@ include '../views/viewtop.php';
                                         <td><?= $v['qiWangXinZi']; ?></td>
                                         <td><?= $v['qiWangDiDian']; ?></td>
                                         <td><?= $v['juZhuDiZhi']; ?></td>
-                                        <td><a class="ver" href="#" id="<?=$v['id']?>"><?= !empty($v['beiZhu']) ? mb_substr($v['beiZhu'],0,5,'UTF-8') : '无'; ?></a><div class="ceng"><?=$v['beiZhu'];?></div></td>
+                                        <td><a class="ver" href="#"
+                                               id="<?= $v['id'] ?>">
+                                                <?= !empty($v['beiZhu']) ? mb_substr($v['beiZhu'], 0, 5, 'UTF-8') : '无'; ?>
+                                            </a>
+                                            <div class="ceng">
+                                                <?= $v['beiZhu']; ?>
+                                            </div>
+                                        </td>
                                         <td><?= $v['uName']; ?></td>
                                         <td><?= $v['createTime']; ?></td>
-                                        <td>
-                                            <?php foreach ($aclList['moduleBut'] as $val) {
+                                        <td><?php foreach ($aclList['moduleBut'] as $val) {
                                                 if (in_array($val['id'], $aclList['acl'])) { ?>
                                                     <?php if ($val['moduleName'] == '编辑') { ?>
                                                         <a href="<?= $val['url'] ?>?id=<?= $v['id'] ?>">编辑</a>
@@ -241,32 +234,34 @@ include '../views/viewtop.php';
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body">
-            </div>
+            <div class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定
-                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
 </div>
-
 <!-- 模态框备注编辑（Modal） -->
-<div class="modal fade" id="myModal1" style="top: 50%" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal1" style="top: 50%" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/resume/edit-beizhu" id="upBeizhu">
                 <input type="hidden" name="bid" id="bid">
-                <div class="modal-body">
-                    备注：<input type="text" id="beiZhu" name="beiZhu" style="width: 80%;" maxlength="100">
+                <div class="modal-body"> 备注：
+                    <input type="text" id="beiZhu" name="beiZhu" style="width: 80%;" maxlength="100">
                 </div>
                 <div class="modal-footer">
                     <input type="button" id="submitup" value="确定">
                     <input type="button" id="cen" value="取消">
                 </div>
             </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
 </div>
 <script type="text/javascript">
     var xueLi = '<?=$userInfo['xueLi'];?>';
@@ -324,17 +319,17 @@ include '../views/viewtop.php';
     })
 
     $('.ver').mousemove(function () {
-		$(this).siblings().show();
+        $(this).siblings().show();
     });
-	$('.ver').mouseout(function () {
+    $('.ver').mouseout(function () {
         $('.ceng').hide();
     })
     $('.ver').click(function () {
-		var val = $(this).siblings().text();
-		$('#beiZhu').val(val);
-		$('#bid').val($(this).attr('id'));
+        var val = $(this).siblings().text();
+        $('#beiZhu').val(val);
+        $('#bid').val($(this).attr('id'));
         $('#myModal1').addClass('in');
-		$('#myModal1').modal({backdrop:false,show:true});
+        $('#myModal1').modal({backdrop: false, show: true});
     })
     $('#cen').click(function () {
         $('#myModal1').removeClass('in');
@@ -343,15 +338,15 @@ include '../views/viewtop.php';
         var url = $('#upBeizhu').attr('action');
         var id = $('#bid').val();
         var beiZhu = $('#beiZhu').val();
-        $.post(url,{'id':id,'beiZhu':beiZhu},function (myjson) {
+        $.post(url, {'id': id, 'beiZhu': beiZhu}, function (myjson) {
             if (myjson.statusCode == 200) {
                 $('#myModal1').removeClass('in');
-                $('#'+id).siblings().text(beiZhu);
-                $('#'+id).text(beiZhu.substring(0,5));
+                $('#' + id).siblings().text(beiZhu);
+                $('#' + id).text(beiZhu.substring(0, 5));
                 alert(myjson.message)
-            }else {
+            } else {
                 alert(myjson.message)
             }
-        },'json')
+        }, 'json')
     })
 </script>
