@@ -11,6 +11,7 @@ namespace backend\models;
 
 use common\models\User;
 use yii\data\Pagination;
+use Yii;
 
 class UserLogic extends  BaseLogic
 {
@@ -55,13 +56,33 @@ class UserLogic extends  BaseLogic
         $user->roleId = $arrRole[0];
         $user->roleName = $arrRole[1];
         $user->path = $session['path'];
-        if ($user->save()) {
-            $id = $user->id;
-            $user->path = $user->path.'-'.$id;
-            $user->save();
-            return true;
-        }else {
+        $tr  = Yii::$app->db->beginTransaction();
+        $redis = Yii::$app->redis;
+        try {
+            if ($user->save()) {
+                $id = $user->id;
+                $user->path = $user->path.'-'.$id;
+                if ($user->save()) {
+                    $user = User::find()->where(['id'=>$id])->asArray()->one();
+                    if($redis->set($user['realName'],json_encode($user))) {
+                        $tr->commit();
+                        return true;
+                    }else {
+                        $tr->rollBack();
+                        return false;
+                    }
+                } else {
+                    $tr->rollBack();
+                    return false;
+                }
+            }else {
+                $tr->rollBack();
+                return false;
+            }
+        } catch (\Exception $e) {
+            $tr->rollBack();
             return false;
         }
+
     }
 }

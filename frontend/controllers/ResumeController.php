@@ -10,44 +10,87 @@ namespace frontend\controllers;
 
 use yii\rest\Controller;
 use Yii;
+use frontend\models\ResumeLogic;
+use common\models\Resume;
 
 class ResumeController extends Controller
 {
-    //加密规则  token + 'renlian' + 数据 base64加密
-    private $token = '81c54b436b67739aa0ebc82e31e54fb9';
+    //加密规则  token + 'renlian' + 数组0数据 base64加密
+    private $token;
     public function actionAdd()
     {
-       $data = [
-           0=>[
-               'userName' => '张三',
-               'sex' => '1',
-               'phone' => '13055302031',
-               'isMiHao' => '1',
-               'age' => '12',
-               'xueLi' => '大专',
-               'rcName1' => '服务',
-               'rcName2' => '服务员',
-               'qiWangDiDian' => '',
-               'qiWangXinZi' => '',
-               'juZhuDiZhi' => '',
-               'huJiDiZhi' => '',
-               'mianMao' => '',
-               'qq' => '',
-               'weiXin' => '',
-               'lianXiRen' => '',
-               'lianXiRenPhone' => '',
-               'hunYin' => '',
-               'minZu' => '',
-               'chuShengRiQi' => '',
-               'shenFenZheng' => '',
-               'zhuanYe' => '',
-               'email' => '',
-               'yinHang' => '',
-               'kaiHuWangDian' => '',
-               'yinHangNum' => '',
-               'gongZuoJingLi' => '',
-               'beizhu' => '',
-           ],
-       ];
+        $api = new ApiConntroller();
+        $this->token = $api->getToken();
+        if (Yii::$app->request->post()) {
+            $info = Yii::$app->request->post();
+            if ($info['token'] != $this->token) { //1.token验证
+                returnJsonInfo('无效token!',300);
+            }else if (empty($info['data'])) { //2.数据验证
+                returnJsonInfo('无效数据!',300);
+            }
+
+            $data = json_decode($info['data'],true);
+            //3签名验证
+            if ($this->signCheck($data[0],$info['sign'])) {
+                $itemArr = [];
+                foreach ($data as $k => $v) {
+                    //姓名或者手机号 为空不录入
+                    if (empty($v['userName']) || empty($v['phone'])) {
+                        continue;
+                    }
+                    //重复的手机号 保存最后一个信息
+                    $itemArr[trim($v['phone'])] = $v;
+                }
+                // 没有数据
+                if (empty($itemArr)) {
+                    returnJsonInfo('没有可录入的数据！', 300);
+                }
+                //查找数据库中是否存在手机号
+                $phones = array_keys($itemArr);
+                $resume = Resume::find()->select('phone')->where(['in','phone',$phones])->asArray()->all();
+                //返回有数据清除重复的手机号
+                if (!empty($resume)) {
+                    foreach ($resume as $v) {
+                        unset($itemArr[$v['phone']]);
+                    }
+                }
+                dd($itemArr);
+                ResumeLogic::addResume($itemArr);
+            } else {
+                returnJsonInfo('签名验证失败!',300);
+            }
+        }
+    }
+
+    /**
+     * 签名验证
+     * @param $data 数据
+     * @param $sign 签名
+     */
+    public function signCheck($data,$sign)
+    {
+        //获取本地签名
+        $signLocal = $this->sign($data);
+        return $signLocal == $sign ? true : false;
+    }
+
+    /**
+     * 生成签名
+     * @param $data 数据
+     * @return string 签名
+     */
+    public function sign($data)
+    {
+        foreach ($data as $key => $value){
+            $arr[$key] = $key;
+        }
+        sort($arr);
+        $str = "";
+
+        foreach ($arr as $k => $v) {
+            $str .= $v.$data[$v];
+        }
+
+        return base64_encode($this->token.'renlian'.$str);
     }
 }

@@ -45,6 +45,10 @@ class UserController extends BaseController
             if ($count > 0) {
                 returnJsonInfo('账号已存在！',300);
             }
+            $count = User::find()->where(['realName' => $info['realName']])->count();
+            if ($count > 0) {
+                returnJsonInfo('员工姓名已存在！',300);
+            }
 
             //如果当前用户级别是超级管理员 获取部门信息  否则默认为自己部门
             if ($session['level'] >= 9){
@@ -105,8 +109,10 @@ class UserController extends BaseController
             $user->realName = $info['realName'];
             $user->roleId = $arrRole[0];
             $user->roleName = $arrRole[1];
-
+            $redis = Yii::$app->redis;
             if ($user->save()) {
+                $user = User::find()->where(['id' => $userId])->asArray()->one();
+                $redis->set($user['realName'],json_encode($user));
                 returnJsonInfo('操作成功！');
             }else {
                 returnJsonInfo('操作失败！',300);
@@ -136,7 +142,10 @@ class UserController extends BaseController
     public function actionDelete()
     {
         $userId = Yii::$app->request->get('id',0);
+        $realName = Yii::$app->request->get('realName');
         if(User::findOne($userId)->delete()) {
+            $redis = Yii::$app->redis;
+            $redis->del($realName);
             returnJsonInfo('删除成功！');
         }
         returnJsonInfo('删除失败！',300);

@@ -46,6 +46,7 @@ use Yii;
  * @property string $beizhu 备注
  * @property string $path 层级
  * @property string $createDate 录入日期
+ * @property int $status 在职情况 1未在职2在职
  */
 class Resume extends \yii\db\ActiveRecord
 {
@@ -64,7 +65,7 @@ class Resume extends \yii\db\ActiveRecord
     {
         return [
             [['userName', 'uid', 'departmentId', 'level'], 'required'],
-            [['sex', 'isMiHao', 'age', 'rcId1', 'rcId2', 'hunYin', 'uid', 'departmentId', 'level', 'isGongHai'], 'integer'],
+            [['sex', 'isMiHao', 'age', 'rcId1', 'rcId2', 'hunYin', 'uid', 'departmentId', 'level', 'isGongHai', 'status'], 'integer'],
             [['createTime', 'createDate'], 'safe'],
             [['userName', 'qiWangDiDian', 'weiXin', 'lianXiRen', 'yinHangNum', 'uName'], 'string', 'max' => 30],
             [['phone', 'qq', 'lianXiRenPhone'], 'string', 'max' => 11],
@@ -123,6 +124,7 @@ class Resume extends \yii\db\ActiveRecord
             'beizhu' => 'Beizhu',
             'path' => 'Path',
             'createDate' => 'Create Date',
+            'status' => 'Status',
         ];
     }
 }

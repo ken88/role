@@ -58,7 +58,7 @@ include '../views/viewtop.php';
                     <?php  if ($val['moduleName'] == '编辑') {?>
                     <a href="<?=$val['url']?>?id=<?=$v['id']?>">编辑</a>
                     <?php } elseif ($val['moduleName'] == '删除') {?>
-                    <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>">删除</a>
+                    <a class="del" href="#" url="<?=$val['url']?>?id=<?= $v['id']?>&realName=<?=$v['realName'];?>">删除</a>
                     <?php }?>
                     <?php }} ?>
                   </td>
