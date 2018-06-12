@@ -258,6 +258,7 @@
 													<option value="0">未婚</option>
 													<option value="1">已婚</option>
 													<option value="2">丧偶</option>
+													<option value="3">离异</option>
 												</select>
 											</div>
 										</div>

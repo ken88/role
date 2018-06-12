@@ -54,8 +54,11 @@ class ResumeController extends Controller
                         unset($itemArr[$v['phone']]);
                     }
                 }
-                dd($itemArr);
-                ResumeLogic::addResume($itemArr);
+                if (ResumeLogic::addResume($itemArr)) {
+                    returnJsonInfo('录入成功!');
+                }else {
+                    returnJsonInfo('录入失败!',300);
+                }
             } else {
                 returnJsonInfo('签名验证失败!',300);
             }
@@ -71,6 +74,7 @@ class ResumeController extends Controller
     {
         //获取本地签名
         $signLocal = $this->sign($data);
+//        echo $signLocal;
         return $signLocal == $sign ? true : false;
     }
 
