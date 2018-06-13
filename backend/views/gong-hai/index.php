@@ -114,7 +114,7 @@ include '../views/viewtop.php';
 									<select class="m-wrap span4" id="uid" name="uid">
 										<option value="">请选择</option>
 										<?php if(!empty($user)){foreach($user as $v){?>
-										<option value="<?=$v['id'];?>"><?=$v['realName'];?></option>
+										<option value="<?=$v['realName'];?>"><?=$v['realName'];?></option>
 										<?php }}?>
 									 </select>
                                     </div>

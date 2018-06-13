@@ -36,11 +36,12 @@ class ResumeLogic
             $uid = 0;//所属人id
             $uName = '';//所属人名
             $departmentId = 0;//部门id
-            $gongZuoJingLi = '';
             $level = 7;//级别默认员工
             $path = '0';
             $isGongHai = 1;
+            $gongZuoJingLi = !empty($val['gongZuoJingLi']) ? json_encode($val['gongZuoJingLi']) : '';
 
+            //人员信息不存在 放入公海
             if ($redis->exists($val['uName'])) {
                 $user = json_decode($redis->get($val['uName']),true);
                 $uName = $user['realName'];
@@ -92,7 +93,7 @@ class ResumeLogic
                 }
             }
 
-            $queryInsert .= "('{$val['userName']}',{$val['sex']},{$val['phone']},{$val['isMiHao']},{$val['age']},'{$val['xueLi']}','{$rcName1}',$rcId1,'{$rcName2}',$rcId2,'{$val['qiWangDiDian']}','{$qiWangDiZhi}','{$val['juZhuDiZhi']}','{$val['huJiDiZhi']}','{$val['mianMao']}',{$val['qq']},'{$val['weiXin']}','{$val['lianXiRen']}','{$val['lianXiRenPhone']}',{$val['hunYin']},'{$val['minZu']}','{$val['chuShengRiQi']}','{$val['shenFenZheng']}','{$val['zhuanYe']}','{$val['email']}','{$val['yinHang']}','{$val['kaiHuWangDian']}','{$val['yinHangNum']}',{$uid},'{$uName}',{$departmentId},'{$gongZuoJingLi}',{$level},{$isGongHai},'{$val['beizhu']}','{$path}','{$createData}',{$val['status']}),";
+            $queryInsert .= "('{$val['userName']}',{$val['sex']},{$val['phone']},{$val['isMiHao']},{$val['age']},'{$val['xueLi']}','{$rcName1}',$rcId1,'{$rcName2}',$rcId2,'{$qiWangDiZhi}','{$val['qiWangXinZi']}','{$val['juZhuDiZhi']}','{$val['huJiDiZhi']}','{$val['mianMao']}',{$val['qq']},'{$val['weiXin']}','{$val['lianXiRen']}','{$val['lianXiRenPhone']}',{$val['hunYin']},'{$val['minZu']}','{$val['chuShengRiQi']}','{$val['shenFenZheng']}','{$val['zhuanYe']}','{$val['email']}','{$val['yinHang']}','{$val['kaiHuWangDian']}','{$val['yinHangNum']}',{$uid},'{$uName}',{$departmentId},'{$gongZuoJingLi}',{$level},{$isGongHai},'{$val['beizhu']}','{$path}','{$createData}',{$val['status']}),";
 
         }
 

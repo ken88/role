@@ -115,9 +115,19 @@ class GongHaiController extends BaseController
 
         $tr = Yii::$app->db->beginTransaction();
         try {
-
+            $redis = Yii::$app->redis;
+            $user = json_decode($redis->get($info['uid']),true);
             //更改分配信息
-            if (Resume::updateAll(['isGongHai' => 0,'uid' => $info['uid'],'level'=>$user['level'],'departmentId'=>$user['departmentId'],'path'=>$user['path']],['in','id',$info['ids']])) {
+            if (Resume::updateAll(
+                ['isGongHai' => 0,
+                    'uid' => $user['id'],
+                    'uName' => $user['realName'],
+                    'level' => $user['level'],
+                    'departmentId' => $user['departmentId'],
+                    'path' => $user['path']
+                ],
+                ['in','id',$info['ids']])) {
+
                 $num->number -=  $count;
                 if ($num->save()) {
                     $tr->commit();

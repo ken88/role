@@ -26,9 +26,8 @@ class ResumeController extends Controller
             if ($info['token'] != $this->token) { //1.token验证
                 returnJsonInfo('无效token!',300);
             }else if (empty($info['data'])) { //2.数据验证
-                returnJsonInfo('无效数据!',300);
+                returnJsonInfo('没有可录入的数据!',300);
             }
-
             $data = json_decode($info['data'],true);
             //3签名验证
             if ($this->signCheck($data[0],$info['sign'])) {
@@ -43,7 +42,7 @@ class ResumeController extends Controller
                 }
                 // 没有数据
                 if (empty($itemArr)) {
-                    returnJsonInfo('没有可录入的数据！', 300);
+                    returnJsonInfo('录入成功！');
                 }
                 //查找数据库中是否存在手机号
                 $phones = array_keys($itemArr);
@@ -53,6 +52,10 @@ class ResumeController extends Controller
                     foreach ($resume as $v) {
                         unset($itemArr[$v['phone']]);
                     }
+                }
+                // 没有数据
+                if (empty($itemArr)) {
+                    returnJsonInfo('录入成功！');
                 }
                 if (ResumeLogic::addResume($itemArr)) {
                     returnJsonInfo('录入成功!');
@@ -85,6 +88,7 @@ class ResumeController extends Controller
      */
     public function sign($data)
     {
+        unset($data['gongZuoJingLi']);
         foreach ($data as $key => $value){
             $arr[$key] = $key;
         }
