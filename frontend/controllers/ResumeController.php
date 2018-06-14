@@ -77,7 +77,6 @@ class ResumeController extends Controller
     {
         //获取本地签名
         $signLocal = $this->sign($data);
-//        echo $signLocal;
         return $signLocal == $sign ? true : false;
     }
 
