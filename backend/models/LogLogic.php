@@ -14,7 +14,6 @@ class LogLogic
 {
     public static function addLog()
     {
-        $session = \Yii::$app->session;
-        $info = $session[''];
+       
     }
 }
