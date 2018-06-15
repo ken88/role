@@ -65,7 +65,7 @@
 
 <script src="/media/js/table-editable.js"></script>
 
-<!--<script src="/media/js/jquery.uniform.min.js" type="text/javascript" ></script>-->
+<script src="/media/js/jquery.uniform.min.js" type="text/javascript" ></script>
 
 <script src="/dist/js/fancyboxcustom.js"></script>
 <script src="/dist/js/form.js" charset="utf-8"></script>
