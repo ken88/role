@@ -71,14 +71,35 @@
 <script src="/dist/js/form.js" charset="utf-8"></script>
 <script src="/dist/laydate/laydate.js"></script>
 
-<script>
+<script type="text/javascript" charset="uft-8">
 
 	jQuery(document).ready(function() {       
-
 	   App.init();
-
 	   TableEditable.init();
-
 	});
+	
+		
+	$(function(){
+		$('#province').change(function(){
+			var id = $(this).find("option:selected").attr('val');
+			if (id > 0) {
+				$.post('/provinces/ajax-citi/',{'id':id},function(data){
+					$('#city').html('');
+					var strHtml = "<option value=''>请选择</option>";
+					var count = data.length;
+					 for(var i = 0 ; i < count ; i++) {
+						val = data[i]['Name'];
+						strHtml += "<option value='"+val+"' val='"+data[i]['Id']+"'>"+data[i]['Name']+"</option>";
+					}
+					$('#city').html(strHtml);
+				},'json');
+			}
+			else  {
+				var strHtml = "<option value=''>请选择</option>";
+				$('#city').html(strHtml);
+			}
+		})
+		
+	})
 
 </script>

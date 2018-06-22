@@ -14,6 +14,6 @@ class LogLogic
 {
     public static function addLog()
     {
-       
+
     }
 }

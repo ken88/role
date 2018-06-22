@@ -68,7 +68,7 @@ class ResumeController extends BaseController
         $moduleId = Yii::$app->request->get('moduleId',0);
         //获取权限按钮信息
         $aclList = $this->getButAcl($moduleId);
-
+        
         //获取岗位分类
         $data['gangwei'] = ResumeCategoryLogic::getAll(0);
 
@@ -230,9 +230,10 @@ class ResumeController extends BaseController
 
         //去掉EXCEL空行
         foreach ($items_data as $k => $v) {
+            $v['B'] = (int)$v['B'];
 
             //姓名或者手机号 为空不录入
-            if (empty($v['A']) || empty($v['B'])) {
+            if (empty($v['A']) || empty($v['B']) || count($v['B']) > 11) {
                 continue;
             }
             //重复的手机号 保存最后一个信息
@@ -244,7 +245,9 @@ class ResumeController extends BaseController
         }
         //查找数据库中是否存在手机号
         $phones = array_keys($itemArr);
+
         $user = Resume::find()->select('phone')->where(['in','phone',$phones])->asArray()->all();
+
         //返回有数据清除重复的手机号
         if (!empty($user)) {
             foreach ($user as $v) {
@@ -257,6 +260,7 @@ class ResumeController extends BaseController
         }else if(count($itemArr) > 300) {
             returnJsonInfo('导入条数超限，最多300条数据！', 300);
         }
+
         if (ResumeLogic::add($itemArr)) {
             returnJsonInfo('导入成功！');
         }else {

@@ -110,6 +110,29 @@ $(function(){
 			});
 			return falg;
 		}
+		
+	$('#subUpload').click(function(){
+		if (checkform()) {
+			var options = {
+				success: function(data){
+					eval('myjson=' + data + ';');
+	
+					if (myjson.statusCode == 200) {
+						$('.modal-body').text(myjson.message);
+						$('#myModal').modal({backdrop:false,show:true});
+						$('.btn').click(function() {
+							history.go(-1);
+						});
+					} else if (myjson.statusCode == 300) {
+						$('.modal-body').text(myjson.message);
+						$('#myModal').modal({backdrop:false,show:true});
+					}
+				}
+			}
+			$('#J_myUploadForm').ajaxSubmit(options);
+		}
+		
+	})
 
 
 	//导入

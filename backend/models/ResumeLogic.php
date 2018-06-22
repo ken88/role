@@ -57,6 +57,7 @@ class ResumeLogic extends BaseLogic
         $session = \Yii::$app->session['userinfo'];
         $db = Yii::$app->db;
         $query = 'INSERT INTO resume (uid,departmentId,level,userName,phone,age,sex,xueLi,beizhu,isMiHao,juZhuDiZhi,rcId1,rcName1,rcId2,rcName2,path,qiWangDiDian,uName,createDate) VALUES ';
+        //isGongHai
         $queryInsert = null;
         $category = Resumecategory::find()->asArray()->all();
         //地区省
@@ -69,6 +70,7 @@ class ResumeLogic extends BaseLogic
             $rcId2 = 0;
             $rcName2 = '';
             $qiWangDiZhi = '';
+            $isGongHai = $val['F'] == '' ? 1 : 0;
             //城市
             if (!empty($val['K'])) {
                 $city = explode('-',$val['K']);
@@ -94,7 +96,7 @@ class ResumeLogic extends BaseLogic
                 }
             }
             $sex = $val['D'] == '男' ? 1 : 2;
-            $age = $val['C'] == '' ? 0 : $val['C'];
+            $age = (int)$val['C'];
             $isMiHao = $val['G'] == '是' ? 1 : 0;
             //获取1级分类信息
             foreach ($category as $c) {
@@ -114,7 +116,7 @@ class ResumeLogic extends BaseLogic
             }
             $phone = iconv("utf-8","GBK//IGNORE",$val['B']);
             $queryInsert .= "(
-            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}','{$qiWangDiZhi}','{$session['realName']}','{$createData}'),";
+            {$session['id']},{$session['departmentId']},{$session['level']},'{$val['A']}','{$phone}',{$age},{$sex},'{$val['E']}','{$val['F']}',{$isMiHao},'{$val['H']}',{$rcId1},'{$rcName1}',{$rcId2},'{$rcName2}','{$session['path']}','{$qiWangDiZhi}','{$session['realName']}','{$createData}'),";//,{$isGongHai}
         }
         $sql = $query.rtrim($queryInsert,',');
         //' ON DUPLICATE KEY UPDATE `phone` = VALUES(`phone`)';
