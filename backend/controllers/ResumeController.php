@@ -233,7 +233,7 @@ class ResumeController extends BaseController
             $v['B'] = (int)$v['B'];
 
             //姓名或者手机号 为空不录入
-            if (empty($v['A']) || empty($v['B']) || count($v['B']) > 11) {
+            if (empty($v['A']) || empty($v['B']) || strlen($v['B']) > 11) {
                 continue;
             }
             //重复的手机号 保存最后一个信息
