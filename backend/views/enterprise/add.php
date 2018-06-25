@@ -144,7 +144,7 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName">公司环境照片</label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                     <input type="file"  name="UploadForm[imageFiles][]" multiple="" accept="image/*">
                     </div>
                   </div>
                 </div>
@@ -154,7 +154,7 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName"></label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                      <input type="file"  name="UploadForm[imageFiles][]" multiple="" accept="image/*">
                     </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName"></label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                      <input type="file"  name="UploadForm[imageFiles][]" multiple="" accept="image/*">
                     </div>
                   </div>
                 </div>
@@ -174,7 +174,7 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName"></label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                      <input type="file"  name="UploadForm[imageFiles][]" multiple="" accept="image/*">
                     </div>
                   </div>
                 </div>

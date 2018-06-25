@@ -128,3 +128,23 @@ function arrayExcel($title, $columns, $data)
     Yii::$app->end();
 }
 
+/**
+ * 递归：生成目录
+ */
+function createDir($str)
+{
+    $arr = explode('/', $str);
+    if(!empty($arr))
+    {
+        $path = '';
+        foreach($arr as $k=>$v)
+        {
+            $path .= $v.'/';
+            if (!file_exists($path)) {
+                mkdir($path, 0777);
+                chmod($path, 0777);
+            }
+        }
+    }
+}
+

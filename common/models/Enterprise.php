@@ -48,7 +48,7 @@ class Enterprise extends \yii\db\ActiveRecord
             [['name', 'personNames', 'path'], 'string', 'max' => 50],
             [['legalEntity', 'profitModel', 'socialCycle', 'signCity', 'signProvince', 'userName'], 'string', 'max' => 30],
             [['projectGrade'], 'string', 'max' => 20],
-            [['img'], 'string', 'max' => 150],
+            [['img'], 'string', 'max' => 250],
             [['synopsis'], 'string', 'max' => 200],
         ];
     }

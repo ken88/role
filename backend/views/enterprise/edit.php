@@ -32,6 +32,7 @@
           <div class="portlet-body form">
             <form action="/enterprise/edit" class="horizontal-form" enctype="multipart/form-data" id="J_myUploadForm">
 			<input type="hidden" value="<?=$info['id'];?>" name="id" />
+			<input type="hidden" value="" name="imgs" id="img" />
               <div class="row-fluid">
                 <div class="span6">
                   <div class="control-group">
@@ -145,7 +146,10 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName">公司环境照片</label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                      <input type="file" onchange="chagesImg(0)" name="UploadForm[imageFiles][]" multiple="" accept="image/*">
+					  <?php if(!empty($info['img'][0])) {?>
+					  <img src="/<?=$info['img'][0];?>"  width="50" height="50" />
+					   <?php }?>
                     </div>
                   </div>
                 </div>
@@ -155,7 +159,10 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName"></label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                       <input type="file" onchange="chagesImg(1)"  name="UploadForm[imageFiles][]" multiple="" accept="image/*">
+					  <?php if(!empty($info['img'][1])) {?>
+					  <img src="/<?=$info['img'][1];?>" width="50" height="50" />
+					  <?php }?>
                     </div>
                   </div>
                 </div>
@@ -165,7 +172,10 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName"></label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                       <input type="file" onchange="chagesImg(2)"  name="UploadForm[imageFiles][]" multiple="" accept="image/*">
+					  <?php if(!empty($info['img'][2])) {?>
+					  	<img src="/<?=$info['img'][2];?>" width="50" height="50" />
+					  <?php }?>
                     </div>
                   </div>
                 </div>
@@ -175,7 +185,10 @@
                   <div class="control-group">
                     <label class="control-label" for="firstName"></label>
                     <div class="controls">
-                      <input type="file" name="file[]" />
+                      <input type="file" onchange="chagesImg(3)" name="UploadForm[imageFiles][]" multiple="" accept="image/*">
+					   <?php if(!empty($info['img'][3])) {?>
+					  <img src="/<?=$info['img'][3];?>" width="50" height="50" />
+					  <?php }?>
                     </div>
                   </div>
                 </div>
@@ -284,5 +297,10 @@
 			var strHtml = "<option value=''>请选择</option>";
 			$('#city').html(strHtml);
 		}
+	}
+	
+	function chagesImg(val)
+	{
+		$('#img').val(val+','+$('#img').val())
 	}
 </script>

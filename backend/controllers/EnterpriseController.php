@@ -15,6 +15,8 @@ use Yii;
 use backend\models\ProvincesLogic;
 use common\models\User;
 use common\models\Enterandperson;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 
 class EnterpriseController extends BaseController
 {
@@ -101,6 +103,17 @@ class EnterpriseController extends BaseController
         if (Yii::$app->request->post()) {
 
             $info = Yii::$app->request->post();
+            //图片上传
+            $model = new UploadForm();
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            $imgPath = '';
+            if (!empty($model->imageFiles)) {
+                $imgPath = $model->uploads();
+                if (empty($imgPath)) {
+                    returnJsonInfo($model->getFirstErrors()['imageFiles'],300);
+                }
+            }
+
             if (empty($info['personNames'])) {
                 returnJsonInfo('请选择项目负责人！',300);
             }else if (count($info['personNames']) > 5) {
@@ -120,6 +133,7 @@ class EnterpriseController extends BaseController
             $enter->userid = $session['id'];
             $enter->userName = $session['realName'];
             $enter->path = $session['path'];
+            $enter->img = json_encode($imgPath);
             $tr = Yii::$app->db->beginTransaction();
             try {
                 if ($enter->save()) {
@@ -163,7 +177,6 @@ class EnterpriseController extends BaseController
         $id= Yii::$app->request->get('id',Yii::$app->request->post('id'));
         if (Yii::$app->request->post()) {
             $enter = Enterprise::find($id)->where(['id' => $id])->one();
-
             $info = Yii::$app->request->post();
             if (empty($info['personNames'])) {
                 returnJsonInfo('请选择项目负责人！',300);
@@ -179,6 +192,26 @@ class EnterpriseController extends BaseController
             }
             $enter->setAttributes($info);
             $enter->personNames = $personNames;
+
+            //图片上传
+            $model = new UploadForm();
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if (!empty($model->imageFiles)) {
+                $imgPath = $model->uploads();
+                if (empty($imgPath)) {
+                    returnJsonInfo($model->getFirstErrors()['imageFiles'],300);
+                }
+                $img = explode(',', $info['imgs']);
+                $enterImg = json_decode($enter->img,true);
+                if (!empty($enterImg)) {
+                    foreach ($img as $v) {
+                        if ($v != '')
+                            unset($enterImg[$v]);
+                    }
+                }
+                $enter->img = json_encode($enterImg == '' ? $imgPath :array_merge($imgPath,$enterImg));
+            }
+
             $session = $this->getSession();
             $tr = Yii::$app->db->beginTransaction();
             try {
@@ -204,6 +237,7 @@ class EnterpriseController extends BaseController
         }
         $session = $this->getSession();
         $enter = Enterprise::find()->where(['id'=>$id])->asArray()->one();
+        $enter['img'] = json_decode($enter['img'],true);
         //部门人员
         $user = User::find()->select('id,username,realName')->where(['departmentId' => $session['departmentId']])->asArray()->all();
         //获取省
